@@ -1,0 +1,1 @@
+vscode.window.activeTextEditor?.document.languageId
