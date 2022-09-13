@@ -14,7 +14,7 @@
 /**
  * @start
  * @name:未命名函数3
- * @description::暂无描述
+ * @description::暂无描述1
  */console.log(iterator1.next().value);
 // @end
 // @end
