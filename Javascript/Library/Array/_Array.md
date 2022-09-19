@@ -4,7 +4,7 @@
 
 Array.prototype[@@unscopables]  
 Array.prototype.length          =>数组长度  
-Array.prototype[@@iterator]()   
+Array.prototype[@@iterator](.md)   
 get Array[@@species]            
 
 Array.isArray()                 是数组=>true
