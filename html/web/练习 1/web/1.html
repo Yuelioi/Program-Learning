@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+    <body>
+        <div id="app">
+            <h1>Hello,{{name}},{{bool}},{{n}}</h1>
+            <button @click="sortOrder=1">升序</button>
+            <button @click="sortOrder=2">降序</button>
+            <button @click="sortOrder=0">原始</button>
+            <hr />
+
+            <input type="text" v-model="keyword" />
+            <ul>
+                <li v-for="p in fitList" :key="p.id">{{p.name}} -- {{p.age}}</li>
+            </ul>
+        </div>
+
+        <script>
+            const app = Vue.createApp({
+                data() {
+                    return {
+                        name: "vue",
+                        bool: true,
+                        n: 0,
+                        sortOrder: 0, // 0:source 1:asc 2:dec
+                        keyword: "",
+                        // fitList: [],
+                        pList: [
+                            {
+                                id: 001,
+                                name: "apple",
+                                age: 15,
+                            },
+                            {
+                                id: 002,
+                                name: "peach",
+                                age: 25,
+                            },
+                            {
+                                id: 003,
+                                name: "alice",
+                                age: 20,
+                            },
+                        ],
+                    };
+                },
+                methods: {
+                    clickMe() {
+                        this.n++;
+                        this.bool = !this.bool;
+                    },
+                },
+                // 首次调用以及依赖值更改,能用computed就不用watch了
+                computed: {
+                    fitList() {
+                        let sortList = this.pList.filter(p => {
+                            return p.name.indexOf(this.keyword) > -1;
+                        });
+
+                        if (this.sortOrder) {
+                            sortList.sort((a, b) => {
+                                return this.sortOrder === 1 ? a.age - b.age : b.age - a.age;
+                            });
+                        }
+
+                        return sortList;
+                    },
+                },
+
+                // watch: {
+                //     keyword: {
+                //         immediate: true,
+                //         handler(val) {
+                //             this.fitList = this.pList.filter(item => {
+                //                 console.log(item.name.indexOf(val) !== -1);
+                //                 return item.name.indexOf(val) !== -1;
+                //             });
+                //         },
+                //     },
+                // },
+            }).mount("#app");
+        </script>
+    </body>
+</html>
