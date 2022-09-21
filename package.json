@@ -1,0 +1,22 @@
+{
+  "name": "snippet-cat",
+  "version": "1.0.0",
+  "description": "",
+  "module": "commonjs",
+  "scripts": {
+    "test": "node --loader ts-node/esm ./src/1.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yuelioi/snippets.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yuelioi/snippets/issues"
+  },
+  "homepage": "https://github.com/Yuelioi/snippets#readme",
+  "dependencies": {
+    "ts-node": "^10.9.1"
+  }
+}
