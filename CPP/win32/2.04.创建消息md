@@ -1,0 +1,84 @@
+学习思路: 消息产生时间, 消息附带2个信息, 一般用法
+
+## WM_DESTROY
+
+- 产生时间:窗口被销毁时
+- 附带信息:wParam与lParam均为0
+- 一般用法: 销毁前做善后, 资源/内存等
+
+## WM_SYSCOMMAND
+
+产生时间
+
+点击最大化/最小化/关闭时
+
+附带信息
+
+  wParam: 具体点击位置,例如关闭SC_CLOSE等
+
+  lParam: 鼠标光标位置(共4字节的long类型)
+    LOWORD(lParam) // 水平位置(低2字节)
+    HIWORD(lParam) // 垂直位置(高2字节)
+
+一般用法: 用在窗口关闭时, 提示用户处理(是否关闭等)
+
+```cpp
+case WM_SYSCOMMAND:
+  if (wParam == SC_CLOSE)
+  {
+   int nRet = MessageBox(hWnd, "是否关闭窗口", "提示关闭窗口", MB_YESNO);
+   if (nRet == IDYES) {
+    // 什么都不写 自动跳过
+   }
+   else {
+    return 0;
+   }
+  }
+  break;
+```
+
+## WM_CREATE
+
+产生时间: 窗口创建成功但还未显示时
+
+附带信息:
+
+ wParam: 为0
+ lParam: 为CREATESTRUCT类型的指针 (通过该指针可以获取CreateWindowEx中的全部12个参数的信息) 需要强转为`CREATESTRUCT`
+
+一般用法: 初始化窗口参数/资源等, 包括创建子窗口
+
+```cpp
+void OnCreate(HWND hWnd, LPARAM lParam) {
+ CREATESTRUCT* pcs = (CREATESTRUCT*)lParam;
+ char* pszText = (char*)pcs->lpszName; // window, 获取的内容也要强转
+ MessageBox(hWnd, "窗口", pszText, MB_YESNO);
+}
+
+case WM_CREATE:
+  OnCreate(hWnd, lParam);
+  break;
+```
+
+## WM_SIZE
+
+产生时间: 在窗口大小发生变化后(初始化时也会调用一次) 拖拽/最大化/最小化
+
+附带信息:
+
+  wParam: 窗户大小变化的原因
+  lParam: 窗口变化后的大小
+    LOWORD(lParam) // 变化后的宽度
+    HIWORD(lParam) // 变化后的高度
+
+一般用法: 窗口变化后, 调整窗口各个部分的布局
+
+## WM_QUIT
+
+产生时间: 程序员发送
+
+附带信息  
+  wParam: PostQuitMessage函数传递的参数
+  lParam: 0
+
+一般用法: 用于结束消息循环, 当GetMessage接受到这个消息后, 会返回FALSE, 从而结束while,退出循环
