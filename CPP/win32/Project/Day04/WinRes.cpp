@@ -4,27 +4,39 @@
 
 HANDLE g_hOutput;  // 句柄 控制台输出用
 
+void OnCommand(HWND hWnd, WPARAM wParam) {
+    switch (LOWORD(wParam)){
+    case ID_NEW:
+        MessageBox(hWnd, "新建", "信息", MB_OK);
+        break;
+}
+
+}
+
 // 窗口处理函数(自定义 处理消息)
-LRESULT CALLBACK WndProd(HWND hWnd, UINT msgID, WPARAM wParam, LPARAM IParam) {
+LRESULT CALLBACK WndProd(HWND hWnd, UINT msgID, WPARAM wParam, LPARAM lParam) {
     switch (msgID) {
     case WM_SETCURSOR:
     {
         HCURSOR hCUr = LoadCursor(GetModuleHandle(NULL),(char*)IDC_CURSOR2);
-        if (LOWORD(IParam) == HTCLIENT) {
+        if (LOWORD(lParam) == HTCLIENT) {
             SetCursor(hCUr);
         }
-        else if (LOWORD(IParam) == HTCAPTION) {
+        else if (LOWORD(lParam) == HTCAPTION) {
             SetCursor(hCUr);
         }
         return 0; // 记得返回, 不然还会默认处理
     }
     break;
+    case WM_COMMAND:
+        OnCommand(hWnd,wParam);
+        break;
     case WM_DESTROY:
         PostQuitMessage(0);
         break;
     }
 
-    return DefWindowProc(hWnd, msgID, wParam, IParam);
+    return DefWindowProc(hWnd, msgID, wParam, lParam);
 }
 
 // 入口函数
@@ -44,13 +56,18 @@ int CALLBACK WinMain(HINSTANCE hIns, HINSTANCE hPreIns, LPSTR IpCmdLine,
     wc.hInstance = hIns;
     wc.lpfnWndProc = WndProd;  //处理函数名称
     wc.lpszClassName = "Main";
-    wc.lpszMenuName = NULL;              // 不要菜单
+    wc.lpszMenuName = (char*)IDR_MENU1;              // 不要菜单
     wc.style = CS_HREDRAW | CS_VREDRAW;  // 窗口水平/垂直变化时 重绘窗口
-    RegisterClass(&wc);                  // 将以上赋值写入操作系统
+    RegisterClass(&wc); 
+    
+    // 将以上赋值写入操作系统
+
+    char szTitle[256] = { 0 };
+    LoadString(hIns,IDS_WND,szTitle,256);
 
     // 在内存中创建窗口
     HWND hWnd = CreateWindow(  // 返回句柄
-        "Main", "window",
+        "Main", szTitle,
         WS_OVERLAPPEDWINDOW,  // 风格
         100, 100, 500, 500,
         NULL,  // 父窗口
@@ -63,9 +80,12 @@ int CALLBACK WinMain(HINSTANCE hIns, HINSTANCE hPreIns, LPSTR IpCmdLine,
 
     // 消息循环
     MSG nMsg = {};
+    HACCEL hAccel = LoadAccelerators(hIns, (char*)IDR_ACCELERATOR1);
     while (GetMessage(&nMsg, NULL, 0, 0)) {
-        TranslateMessage(&nMsg);  // 翻译消息
-        DispatchMessage(&nMsg);  // 派发消息(谁处理消息 就派发给谁 -> 窗口处理函数)
+        if (!TranslateAccelerator(hWnd, hAccel, &nMsg)) {
+            TranslateMessage(&nMsg);  // 翻译消息
+            DispatchMessage(&nMsg);  // 派发消息(谁处理消息 就派发给谁 -> 窗口处理函数)
+        }
     }
     return 0;
 }

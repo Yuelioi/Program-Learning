@@ -64,6 +64,44 @@ IDC_CURSOR1             CURSOR                  "cursor1.cur"
 
 IDC_CURSOR2             CURSOR                  "cursor2.cur"
 
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU1 MENU
+BEGIN
+    POPUP "文件"
+    BEGIN
+        MENUITEM "新建",                          ID_NEW
+        MENUITEM "保存",                          ID_40002
+    END
+    MENUITEM "编辑",                          0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_ACCELERATOR1 ACCELERATORS
+BEGIN
+    "1",            ID_NEW,                 VIRTKEY, CONTROL, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_WND                 "窗口"
+END
+
 #endif    // 中文(简体，中国) resources
 /////////////////////////////////////////////////////////////////////////////
 
