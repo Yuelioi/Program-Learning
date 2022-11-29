@@ -18,8 +18,8 @@ LRESULT CALLBACK WndProd(HWND hWnd, UINT msgID, WPARAM wParam, LPARAM IParam) {
 int CALLBACK WinMain(HINSTANCE hIns, HINSTANCE hPreIns, LPSTR IpCmdLine,
                      int nCmdShow) {
   // 允许显示控制台
-  AllocConsole();
-  g_hOutput = GetStdHandle(STD_OUTPUT_HANDLE);
+  // AllocConsole();
+  // g_hOutput = GetStdHandle(STD_OUTPUT_HANDLE);
 
   // 注册窗口类
   WNDCLASS wc = {0};
