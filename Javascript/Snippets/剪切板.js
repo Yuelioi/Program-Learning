@@ -17,6 +17,16 @@ const pasteText = document.querySelector('#output');
 pasteText.focus();
 document.execCommand('paste');
 
+function copyWeb(selector) {
+  let copyWrapper = document.querySelector(selector);
+  const selection = window.getSelection();
+  const range = document.createRange();
+  if (selection.rangeCount > 0) selection.removeAllRanges();
+  range.selectNode(copyWrapper);
+  selection.addRange(range);
+  document.execCommand("copy");
+}
+
 
 // *异步的 Clipboard API
 
