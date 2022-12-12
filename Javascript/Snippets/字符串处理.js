@@ -7,6 +7,7 @@ function replaceAll(text, src, toReplace) {
 }
 
 
+// 字符串正则替换 使用函数处理
 function replaceWithFun(str,reg){
   // 前置: replaceAll函数
   function dealSign() {
@@ -17,4 +18,13 @@ function replaceWithFun(str,reg){
     return res;
   }
   return str.replace(reg, dealSign);
+}
+
+// 替换所有非法文件名字符
+function filenameRepair(filename){
+  banList = ['"',"*","|",">","?","\\","/",":"];
+  banList.forEach(element => {
+    filename = filename.replace(element," ")
+  });
+  return filename.trim();
 }

@@ -1,7 +1,7 @@
 import { open, close } from "node:fs";
 
 
-写文件
+// 写文件
 open("myfile", "wx", (err, fd) => {
   if (err) {
     if (err.code === "EEXIST") {
