@@ -11,7 +11,16 @@ LRESULT CMyFrameWnd::WindowProc(UINT msgID, WPARAM wParam, LPARAM IParam) {
 	case WM_CREATE:
 		AfxMessageBox("WM CREATE消息被处理");
 		break;
+	case WM_PAINT:
+	{
+		PAINTSTRUCT ps = { 0 };
+		HDC hdc = ::BeginPaint(this->m_hWnd, &ps);
+		::TextOut(hdc, 100, 100, "hello", 5);
+		::EndPaint(m_hWnd, &ps); // this 可以省略
+		break;
 	}
+	}
+
 	return CFrameWnd::WindowProc(msgID, wParam, IParam);
 }
 
