@@ -1,1 +1,1 @@
-商数 x // y
+CD H:\Snippets\Program-Learning\Python\Scripts

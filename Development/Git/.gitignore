@@ -1,0 +1,13 @@
+https://blog.csdn.net/nyist_zxp/article/details/119887324
+
+# 注释
+
+
+
+*/*/xx : 多级目录中的xx文件/目录
+
+xx: 仅忽略改文件,而不忽略该目录
+xx/: 忽略该目录(递归目录)
+
+
+src/**/file 双星号代表多级

@@ -1,9 +1,8 @@
-import html2text as ht
-import requests
-from bs4 import BeautifulSoup
-
 
 def html2md(URL):
+    import html2text as ht
+    import requests
+    from bs4 import BeautifulSoup
 
     text_maker = ht.HTML2Text()
     text_maker.bypass_tables = False

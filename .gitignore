@@ -1,6 +1,9 @@
-\x64
-\.vs
-\.trash
-\.vscode
-\.obsidian
-\node_modules
+x64
+.vs
+.trash
+.vscode
+.obsidian
+node_modules
+**/Python
+**/Python/Library
+**/Python/idea
