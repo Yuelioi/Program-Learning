@@ -1,0 +1,24 @@
+https://www.bilibili.com/video/av926958867/?p=2
+
+官网: https://ffmpeg.org/
+配置源码: https://www.gyan.dev/ffmpeg/builds/ -> release builds -> ffmpeg-release-full-shared.7z
+
+## 1.了解
+
+ffmpeg 不具备直接使用效果
+
+ffmpeg=>操作音频数据 pcm 视频数据 yuv RGB
+
+设备(显示屏和喇叭)才能看见(图像渲染和音频渲染)
+
+## 2.三种配置方法
+
+https://blog.csdn.net/m0_37872216/article/details/124415521
+
+1. VC++目录 设置包含目录与库目录
+2. 附加包含目录 包含几个 lib 开头文件的文件夹(libavcodec...) 链接器->常规->附加库目录
+3. 固定文件 用环境变量 全局通用
+
+dll 文件 直接丢项目根目录即可
+
+## 3.yuv 原理
