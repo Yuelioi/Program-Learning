@@ -4,6 +4,12 @@ x64
 .vscode
 .obsidian
 node_modules
-**/Python
-**/Python/Library
-**/Python/idea
+
+Python/**/Include
+Python/**/Lib
+Python/**/__pycache__
+Python/**/Scripts
+Python/**/.idea
+pyvenv.cfg
+
+secret.*

@@ -11,10 +11,10 @@ str.count(sub[, start[, end]])
 返回子字符串 sub 在 [start, end] 范围内非重叠出现的次数。 可选参数 start 与 end 会被解读为切片表示法。
 
 str.encode(encoding='utf-8', errors='strict')
-返回原字符串编码为字节串对象的版本。 默认编码为 'utf-8'。 
+返回原字符串编码为字节串对象的版本。 默认编码为 'utf-8'。
 
 str.endswith(suffix[, start[, end]])
-如果字符串以指定的 suffix 结束返回 True，否则返回 False。 
+如果字符串以指定的 suffix 结束返回 True，否则返回 False。
 
 str.expandtabs(tabsize=8)
 返回字符串的副本
@@ -22,29 +22,29 @@ str.expandtabs(tabsize=8)
 str.find(sub[, start[, end]])
 返回子字符串 sub 在 s[start:end] 切片内被找到的最小索引。未被找到则返回 -1。
 
-str.format(*args, **kwargs)
-执行字符串格式化操作。 
+str.format(\*args, \*\*kwargs)
+执行字符串格式化操作。
 
 str.format_map(mapping)
-类似于 str.format(**mapping)，不同之处在于 mapping 会被直接使用而不是复制到一个 dict。 
+类似于 str.format(\*\*mapping)，不同之处在于 mapping 会被直接使用而不是复制到一个 dict。
 
 str.index(sub[, start[, end]])
 类似于 find()，但在找不到子字符串时会引发 ValueError。
 
 str.isalnum()
-如果字符串中的所有字符都是字母或数字且至少有一个字符，则返回 True ， 否则返回 False 。 如果 c.isalpha() ， c.isdecimal() ， c.isdigit() ，或 c.isnumeric() 之中有一个返回 True ，则字符``c``是字母或数字。
+如果字符串中的所有字符都是字母或数字且至少有一个字符，则返回 True ， 否则返回 False 。 如果 c.isalpha() ， c.isdecimal() ， c.isdigit() ，或 c.isnumeric() 之中有一个返回 True ，则字符`c`是字母或数字。
 
 str.isalpha()
 如果字符串中的所有字符都是字母，并且至少有一个字符，返回 True ，否则返回 False 。
 
 str.isascii()
-如果字符串为空或字符串中的所有字符都是 ASCII ，返回 True ，否则返回 False 
+如果字符串为空或字符串中的所有字符都是 ASCII ，返回 True ，否则返回 False
 
 str.isdecimal()
 如果字符串中的所有字符都是十进制字符且该字符串至少有一个字符，则返回 True ， 否则返回 False 。
 
 str.isdigit()
-如果字符串中的所有字符都是数字，并且至少有一个字符，返回 True ，否则返回 False 。 
+如果字符串中的所有字符都是数字，并且至少有一个字符，返回 True ，否则返回 False 。
 
 str.isidentifier()
 如果字符串是有效的标识符，返回 True
@@ -53,10 +53,10 @@ str.islower()
 如果字符串中至少有一个区分大小写的字符 4 且此类字符均为小写则返回 True ，否则返回 False 。
 
 str.isnumeric()
-如果字符串中至少有一个字符且所有字符均为数值字符则返回 True ，否则返回 False 。 
+如果字符串中至少有一个字符且所有字符均为数值字符则返回 True ，否则返回 False 。
 
 str.isprintable()
-如果字符串中所有字符均为可打印字符或字符串为空则返回 True ，否则返回 False 。 
+如果字符串中所有字符均为可打印字符或字符串为空则返回 True ，否则返回 False 。
 
 str.isspace()
 如果字符串中只有空白字符且至少有一个字符则返回 True ，否则返回 False 。
@@ -133,10 +133,10 @@ str.title()
 返回原字符串的标题版本，其中每个单词第一个字母为大写，其余字母为小写。
 
 str.translate(table)
-返回原字符串的副本，其中每个字符按给定的转换表进行映射。 转换表必须是一个使用 __getitem__() 来实现索引操作的对象，通常为 mapping 或 sequence。 当以 Unicode 码位序号（整数）为索引时，转换表对象可以做以下任何一种操作：返回 Unicode 序号或字符串，将字符映射为一个或多个字符；返回 None，将字符从结果字符串中删除；或引发 LookupError 异常，将字符映射为其自身。
+返回原字符串的副本，其中每个字符按给定的转换表进行映射。 转换表必须是一个使用 **getitem**() 来实现索引操作的对象，通常为 mapping 或 sequence。 当以 Unicode 码位序号（整数）为索引时，转换表对象可以做以下任何一种操作：返回 Unicode 序号或字符串，将字符映射为一个或多个字符；返回 None，将字符从结果字符串中删除；或引发 LookupError 异常，将字符映射为其自身。
 
 str.upper()
-返回原字符串的副本，其中所有区分大小写的字符 4 均转换为大写。 
+返回原字符串的副本，其中所有区分大小写的字符 4 均转换为大写。
 
 str.zfill(width)
 返回原字符串的副本，在左边填充 ASCII '0' 数码使其长度变为 width。 正负值前缀 ('+'/'-') 的处理方式是在正负符号 之后 填充而非在之前。 如果 width 小于等于 len(s) 则返回原字符串的副本。
