@@ -5,5 +5,5 @@ SET CurrentDir=%~dp0
 for /f "eol=; tokens=*" %%I in ('powershell Get-Clipboard') do (
 cd.>"%CurrentDir%"/%%I.md
 )
-pause
+
 exit
