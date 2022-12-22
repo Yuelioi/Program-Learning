@@ -4,6 +4,7 @@ x64
 .vscode
 .obsidian
 node_modules
+_test
 
 Python/**/Include
 Python/**/Lib

@@ -7,16 +7,18 @@ import datetime
 import os
 from pathlib import Path
 from shutil import rmtree
-import sys
-sys.path.append("..")
-from sub_progress import translation as t
 
-driver = webdriver.Chrome(
-    executable_path=r"H:\Snippets\Program-Learning\Python\chromedriver.exe")
+
+from Snippets.sub_progress.translator import *
+
+from selenium.webdriver.chrome.service import Service
+
+
 
 
 def getGraph(path, imgPath):
-
+    driver = webdriver.Chrome(
+    executable_path=r"H:\Snippets\Program-Learning\Python\chromedriver.exe")
     driver.get(path)
     try:
         element = driver.find_element(by=By.CLASS_NAME, value="graph")
@@ -51,7 +53,7 @@ def content_progress(i, current_line, no_tran, to_tran):
         to_tran.append([i, current_line])
 
 
-def tran_file(path, loop):
+def tran_file(path, loop, driver):
 
     no_tran = []
     to_tran = []
@@ -67,16 +69,15 @@ def tran_file(path, loop):
 
         to_tran_src = [ele[1] for ele in to_tran]
 
-        if (len(to_tran_src) < 2):
-            return
-
         print("共计:" + str(len(to_tran_src)) + "行")
-        # to_tran_trg = tran_deepl_pro(to_tran_src)
+        # to_tran_trg = tran_deepl_pro_auto(to_tran_src)
 
-        to_tran_trg = translation.tran_deepl_auto(to_tran_src)
-
-        traned = [[to_tran[i][0], to_tran_trg[i]]
-                  for i in range(len(to_tran))]
+        to_tran_trg = tran_deepl_auto(to_tran_src,driver)
+        if traned != [] and to_tran!=[]:
+          traned = [[to_tran[i][0], to_tran_trg[i]]
+                    for i in range(len(to_tran))]
+        else:
+           return
 
         final_list.extend(traned)
         final_list.extend(no_tran)
@@ -169,9 +170,28 @@ def rebuild_ue_blueprint(root_dir):
                 rmtree(parent)
 
 
-test_file = r"H:\Scripting\Vue Projects\docs_ue\markdown\Utilities-zh\Animation\Notifies\GetMirrorDataTable - 副本.md"
+test_file = r"H:\Scripting\Vue Projects\docs_ue\测试"
 
-tran_file(test_file)
+
+def readFolder(root_dir):
+    loop = 0
+    driver = get_driver()
+    # driver =""
+    back = False
+    for parent, dir_names, file_names in os.walk(root_dir):
+
+        for file in file_names:
+            loop += 1
+            current = "CastToSynthSound.md"
+            
+            if  file == current:
+                back = True
+            if back:
+                tran_file(parent + "/" + file, loop, driver)
+
+
+test_file = r"H:\Scripting\Vue Projects\docs_ue\markdown\Utilities-zh"
+readFolder(test_file)
 
 
 root_dir = r'H:\Scripting\Vue Projects\docs2_yuelili_com\UE\BlueprintAPI-HTML\en-US\BlueprintAPIHtml'
