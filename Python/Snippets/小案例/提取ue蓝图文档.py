@@ -73,11 +73,11 @@ def tran_file(path, loop, driver):
         # to_tran_trg = tran_deepl_pro_auto(to_tran_src)
 
         to_tran_trg = tran_deepl_auto(to_tran_src,driver)
-        if traned != [] and to_tran!=[]:
-          traned = [[to_tran[i][0], to_tran_trg[i]]
+        if len(to_tran_trg) <2:
+          return
+
+        traned = [[to_tran[i][0], to_tran_trg[i]]
                     for i in range(len(to_tran))]
-        else:
-           return
 
         final_list.extend(traned)
         final_list.extend(no_tran)
@@ -182,7 +182,8 @@ def readFolder(root_dir):
 
         for file in file_names:
             loop += 1
-            current = "CastToSynthSound.md"
+ 
+            current = "CastToSourceEffectStereoDelayPre-.md"
             
             if  file == current:
                 back = True
@@ -190,7 +191,7 @@ def readFolder(root_dir):
                 tran_file(parent + "/" + file, loop, driver)
 
 
-test_file = r"H:\Scripting\Vue Projects\docs_ue\markdown\Utilities-zh"
+test_file = r"E:\Project\docs_ue\markdown\Utilities-zh"
 readFolder(test_file)
 
 
