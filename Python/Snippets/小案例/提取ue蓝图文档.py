@@ -14,11 +14,9 @@ from Snippets.sub_progress.translator import *
 from selenium.webdriver.chrome.service import Service
 
 
-
-
 def getGraph(path, imgPath):
     driver = webdriver.Chrome(
-    executable_path=r"H:\Snippets\Program-Learning\Python\chromedriver.exe")
+        executable_path=r"H:\Snippets\Program-Learning\Python\chromedriver.exe")
     driver.get(path)
     try:
         element = driver.find_element(by=By.CLASS_NAME, value="graph")
@@ -71,13 +69,19 @@ def tran_file(path, loop, driver):
 
         print("共计:" + str(len(to_tran_src)) + "行")
         # to_tran_trg = tran_deepl_pro_auto(to_tran_src)
+        try:
+            to_tran_trg = tran_deepl_pro_auto(to_tran_src)
+            # to_tran_trg = tran_deepl_auto(to_tran_src, driver)
+            if len(to_tran_trg) < 2:
+                print("______错误1" + path)
+                return
 
-        to_tran_trg = tran_deepl_auto(to_tran_src,driver)
-        if len(to_tran_trg) <2:
-          return
-
-        traned = [[to_tran[i][0], to_tran_trg[i]]
-                    for i in range(len(to_tran))]
+            traned = [[to_tran[i][0], to_tran_trg[i]]
+                      for i in range(len(to_tran))]
+        except:
+            print("______错误2" + path)
+            time.sleep(4)
+            return
 
         final_list.extend(traned)
         final_list.extend(no_tran)
@@ -182,16 +186,16 @@ def readFolder(root_dir):
 
         for file in file_names:
             loop += 1
- 
-            current = "CastToSourceEffectStereoDelayPre-.md"
-            
-            if  file == current:
+
+            current = "BuildNewProcessCommandLineArgs.md"
+
+            if file == current:
                 back = True
             if back:
                 tran_file(parent + "/" + file, loop, driver)
 
 
-test_file = r"E:\Project\docs_ue\markdown\Utilities-zh"
+test_file = r"H:\Scripting\Vue Projects\docs_ue\markdown\Blueprint-Normal-zh"
 readFolder(test_file)
 
 
