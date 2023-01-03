@@ -187,7 +187,7 @@ def readFolder(root_dir):
         for file in file_names:
             loop += 1
 
-            current = "BuildNewProcessCommandLineArgs.md"
+            current = "BreakGeometryScriptCopyMeshToAss-.md"
 
             if file == current:
                 back = True
@@ -195,7 +195,7 @@ def readFolder(root_dir):
                 tran_file(parent + "/" + file, loop, driver)
 
 
-test_file = r"H:\Scripting\Vue Projects\docs_ue\markdown\Blueprint-Normal-zh"
+test_file = r"E:\Project\docs_ue\markdown\Utilities-zh"
 readFolder(test_file)
 
 

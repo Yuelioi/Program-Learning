@@ -1,0 +1,19 @@
+# created by virtualenv automatically
+
+__pycache__
+x64
+.vs
+.trash
+.vscode
+.obsidian
+node_modules
+_test
+
+Python/**/Include
+Python/**/Lib
+Python/**/__pycache__
+Python/**/Scripts
+Python/**/.idea
+pyvenv.cfg
+
+secret.*
