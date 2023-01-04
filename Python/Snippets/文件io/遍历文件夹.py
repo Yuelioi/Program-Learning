@@ -11,8 +11,10 @@ def get_file_name(root_dir):
     files: 当前文件夹子文件列表
     """
     for root, dirs, files in os.walk(root_dir):
-
         for file in files:
-          print (1671689900< Path(root).joinpath(file).stat().st_mtime<1671691000  )
+          # if Path(file).suffix != ".csv":
+            os.rename(root+ "/" + file,root + "/" + file.split(".")[0]+".md")
         
 get_file_name("E:\Project\docs_ue\测试")
+
+root_dir = "E:\Project\docs_ue\测试"
