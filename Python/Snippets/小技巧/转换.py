@@ -2,6 +2,10 @@
 numbers = [1, 2, 3]
 ','.join(map(str, numbers))
 
+# 字符串转列表
+s = '[1, 2, 3, 4, 5]'
+numbers = eval(s)
+
 # 列表转字典
 d0 = ['tom', 'jerry']
 dict(enumerate(d0))  # {0: 'tom', 1: 'jerry'}
