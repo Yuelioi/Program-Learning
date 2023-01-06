@@ -195,9 +195,22 @@ def readFolder(root_dir):
                 tran_file(parent + "/" + file, loop, driver)
 
 
+def get_summary(root_dir):
+        for item in os.listdir(root_dir):
+            full_path = os.path.join(root_dir, item)
+            if os.path.isdir(full_path):
+                get_summary(root_dir)
+            else:
+                print(item)
+            
+
 test_file = r"H:\Scripting\Vue Projects\docs_ue\markdown\Blueprint-Normal-zh"
-readFolder(test_file)
+# readFolder(test_file)
 
 
 root_dir = r'H:\Scripting\Vue Projects\docs2_yuelili_com\UE\BlueprintAPI-HTML\en-US\BlueprintAPIHtml'
 # rebuild_ue_blueprint(root_dir)
+
+
+root_dir = r'H:\Scripting\Vue Projects\docs_ue\docs\final'
+get_summary(root_dir)
