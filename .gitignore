@@ -14,3 +14,4 @@ Python/**/.idea
 pyvenv.cfg
 
 secret.*
+*.exe

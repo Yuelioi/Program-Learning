@@ -129,6 +129,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Dcodec.cpp" />
+    <ClCompile Include="log.cpp" />
+    <ClCompile Include="open.cpp" />
     <ClCompile Include="Test01.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

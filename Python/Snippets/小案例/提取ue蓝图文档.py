@@ -187,7 +187,7 @@ def readFolder(root_dir):
         for file in file_names:
             loop += 1
 
-            current = "BuildNewProcessCommandLineArgs.md"
+            current = "BreakGeometryScriptCopyMeshToAss-.md"
 
             if file == current:
                 back = True
@@ -195,6 +195,7 @@ def readFolder(root_dir):
                 tran_file(parent + "/" + file, loop, driver)
 
 
+<<<<<<< HEAD
 def get_summary(root_dir):
         for item in os.listdir(root_dir):
             full_path = os.path.join(root_dir, item)
@@ -206,6 +207,10 @@ def get_summary(root_dir):
 
 test_file = r"H:\Scripting\Vue Projects\docs_ue\markdown\Blueprint-Normal-zh"
 # readFolder(test_file)
+=======
+test_file = r"E:\Project\docs_ue\markdown\Utilities-zh"
+readFolder(test_file)
+>>>>>>> 50b2e60efe65f7d0441c9c296f8a250ca2eb911c
 
 
 root_dir = r'H:\Scripting\Vue Projects\docs2_yuelili_com\UE\BlueprintAPI-HTML\en-US\BlueprintAPIHtml'

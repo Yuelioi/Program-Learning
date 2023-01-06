@@ -1,5 +1,6 @@
 
 import os
+from pathlib import Path
 
 
 def get_file_name(root_dir):
@@ -9,6 +10,7 @@ def get_file_name(root_dir):
     dirs: 当前文件夹子文件夹列表
     files: 当前文件夹子文件列表
     """
+<<<<<<< HEAD
     for root, dirs, files in os.walk(root_dir + "\\final"):
         for file in files:
             print(file)
@@ -27,3 +29,13 @@ def get_file_name(root_dir):
 path = r"H:\Scripting\Vue Projects\docs_ue\docs"
 
 get_file_name(path)
+=======
+    for root, dirs, files in os.walk(root_dir):
+        for file in files:
+          # if Path(file).suffix != ".csv":
+            os.rename(root+ "/" + file,root + "/" + file.split(".")[0]+".md")
+        
+get_file_name("E:\Project\docs_ue\测试")
+
+root_dir = "E:\Project\docs_ue\测试"
+>>>>>>> 50b2e60efe65f7d0441c9c296f8a250ca2eb911c
