@@ -195,7 +195,6 @@ def readFolder(root_dir):
                 tran_file(parent + "/" + file, loop, driver)
 
 
-<<<<<<< HEAD
 def get_summary(root_dir):
         for item in os.listdir(root_dir):
             full_path = os.path.join(root_dir, item)
@@ -203,19 +202,51 @@ def get_summary(root_dir):
                 get_summary(root_dir)
             else:
                 print(item)
-            
+def ue_combine_en_zh(root_dir):
+    for root, dirs, files in os.walk(root_dir + "\\final"):
+        for file in files:
+            print(file)
+            enRoot = root.replace(r"H:\Scripting\Vue Projects\docs_ue\docs\final",
+                                  r"H:\Scripting\Vue Projects\docs_ue\docs\en")
+            with open(enRoot + "\\" + file, "r+", encoding='utf-8') as f:
+                enContent = f.readlines()[1:]
 
-test_file = r"H:\Scripting\Vue Projects\docs_ue\markdown\Blueprint-Normal-zh"
-# readFolder(test_file)
-=======
-test_file = r"E:\Project\docs_ue\markdown\Utilities-zh"
-readFolder(test_file)
->>>>>>> 50b2e60efe65f7d0441c9c296f8a250ca2eb911c
+            with open(root + "\\" + file, "r+", encoding='utf-8') as f2:
+                file_content = f2.read()
+                f2.seek(0)
+                f2.truncate()
+                f2.write((file_content + "\n<hr>\n" + "".join(enContent)
+                          ).replace("$-", "/uploads/projects/ue-bluprint/"))       
+
+summary = ""
 
 
+def print_folder_tree(folder_path, parent="", indent=0):
+    # 遍历文件夹中的所有文件和子文件夹
+    global summary
+    for entry in os.scandir(folder_path):
+
+        if parent == "":
+            root = ""
+        else:
+            root = (parent + "-").lstrip("-")
+        tab = "\t" * indent
+
+        # 清除父目录的孤立文件
+        if not (parent == "" and entry.is_file()):
+            summary += f'{tab}- [{entry.name}](${root}{entry.name})' + "\n"
+        if entry.is_dir():
+            print_folder_tree(entry.path, parent+"-"+entry.name, indent + 1)
+
+
+root_dir = r"H:\Scripting\Vue Projects\docs_ue\docs\final"
+# root_dir= r"H:\Scripting\Vue Projects\docs_ue\测试"
 root_dir = r'H:\Scripting\Vue Projects\docs2_yuelili_com\UE\BlueprintAPI-HTML\en-US\BlueprintAPIHtml'
-# rebuild_ue_blueprint(root_dir)
-
-
 root_dir = r'H:\Scripting\Vue Projects\docs_ue\docs\final'
-get_summary(root_dir)
+
+print_folder_tree(root_dir)
+# with open(root_dir+"\\summary.md", "w+", encoding="utf-8") as f:
+#     f.write(summary)
+
+
+
