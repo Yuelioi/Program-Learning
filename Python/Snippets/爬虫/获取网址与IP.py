@@ -12,7 +12,8 @@ def get_ip(url):
         return "0.0.0.0"
     return IP_addres
 
-
+response = requests.get("https://api.yimian.xyz/img?type=moe").url
+print(response)
 def get_location(url):
     ip_address = get_ip(url)
     response = requests.get(f'https://ipapi.co/{ip_address}/json/').json()
@@ -28,8 +29,8 @@ def get_location(url):
     return location_data
 
 
-with codecs.open('1.csv', encoding='utf-8-sig') as f:
-    for row in csv.DictReader(f, skipinitialspace=True):
-        url = row["link"]
-        print(url, end="\t")
-        print(get_location(url)["country"])
+# with codecs.open('1.csv', encoding='utf-8-sig') as f:
+#     for row in csv.DictReader(f, skipinitialspace=True):
+#         url = row["link"]
+#         print(url, end="\t")
+#         print(get_location(url)["country"])
