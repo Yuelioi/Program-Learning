@@ -72,4 +72,6 @@ fp.with_suffix(".py")     # 只替换后缀
 # fdp.replace(Path("H:\Scripting\V2"))
 
 # 文件创建
-fp.touch()
+# fp.touch()
+
+print(str(Path("./1.png").resolve().as_uri()))
