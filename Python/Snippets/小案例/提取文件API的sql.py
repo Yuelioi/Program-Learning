@@ -28,7 +28,7 @@ def get_content(file_path, docs, cat):
             get_sql(name, docs, cat, markdown, "")
             print(markdown)
 
-
+get_content(
 index = 0
 
 
