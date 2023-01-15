@@ -13,19 +13,16 @@ function getListContent(selector) {
 }
 
 
-// 根据选择器 打印li里的内容
+// 根据选择器(列表) 打印子元素里的内容
 
 function getListContent(selector) {
-  let list = document.querySelector(selector);
-  let childs = list.querySelectorAll("li");
+  let list = document.querySelectorAll(selector);
   let out = "";
-
-  childs.forEach(element => {
-    // out += element.innerText + "\n";
-    out += element.innerText.split("\n")[1]+ "\n"; // B站获取视频列表
+  list.forEach(element => {
+    out += element.innerText + "\n";
   });
 
   console.log(out);
 }
 
-getListContent(".cur-list")
+getListContent("#built-in-functions > div > table > tbody > tr > td:nth-child(n) > div > div:nth-child(n) > a > code > span")

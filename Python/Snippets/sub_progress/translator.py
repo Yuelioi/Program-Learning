@@ -245,9 +245,7 @@ def tran_deepl(driver, src_list, src_lang='en'):
     time.sleep(1)
     traned = paste_it('\n'.join(src_list), driver).replace('\r', '')
     traned = traned.split("\n")[:trg_len]
-
     pyperclip.copy('')
-
 
     return traned
 
@@ -255,9 +253,8 @@ def tran_deepl(driver, src_list, src_lang='en'):
 def tran_deepl_pro(src_list):
     import deepl
 
-    auth_key = deepl_key  # Replace with your key
+    auth_key = deepl_key
     translator = deepl.Translator(auth_key)
-
     result = translator.translate_text(src_list, target_lang="ZH")
 
     finaltext = []

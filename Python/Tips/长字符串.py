@@ -3,3 +3,9 @@ long_text = (
     "BBBBB"
     "CCCCCCCC"
 )
+
+"""
+123
+124
+125
+"""

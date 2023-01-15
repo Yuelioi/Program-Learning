@@ -24,4 +24,8 @@ print(d2)
 scores.pop("地理") # 删除一组
 scores.clear() # 清空 {}
 
+# 同时使用键与值
+for k, v in scores.items():
+    print(k, v)
+
 

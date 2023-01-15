@@ -1,0 +1,159 @@
+# abs 绝对值
+abs(-1)  # =>1
+
+a = 114124
+# TODO aiter() # 3.10+
+
+# all 列表全真或者空迭代对象(如列表) 则=>True
+all([])  # True
+all([True, False])  # False
+
+# any 任意元素为真则=>True 空迭代对象(如列表)返回False
+any([])  # False
+any({"a": 1})  # True
+
+# TODO anext 3.10+
+
+# ascii() 类似repr
+ascii("中文")  # '\u4e2d\u6587'
+
+# bin() => `0b+二进制`
+bin(3)  # 0b11
+
+# bool(x=False) => True/False False值/对象见 逻辑值与布尔
+bool([])  # False (傻逼js)
+
+# TODO breakpoint() 3.7+
+
+# bytearray(source, encoding, errors) # 可变序列(参考列表)
+# bytearray(b'hello \xe4\xb8\xad\xe6\x96\x87')
+bytearray("hello 中文", encoding='utf-8')
+
+
+# bytes # 不可变序列
+bytes("hello 中文", encoding='utf-8')  # b'hello \xe4\xb8\xad\xe6\x96\x87'
+# xx.replace(b"\xe4",b"\xe5") # 与str类似 不过需要bytes类型作为参数
+
+# callable() #
+
+
+def fun():
+    ...
+
+
+callable(fun)  # True
+
+
+class FUN:
+    def __call__(self):
+        ...
+
+
+callable(FUN())  # True
+
+# chr() => unicode字符
+chr(73)  # I
+chr(16515)  # 䂃
+
+# @classmethod 把一个方法封装成类方法。
+# 参见 https://www.cnblogs.com/baxianhua/p/10845620.html
+
+
+class C:
+    y = "类属性"
+
+    def __init__(self, x) -> None:
+        self.x = x
+
+    def test(self):
+        print(self.x)
+
+    @classmethod
+    def f(cls, arg1):
+        print(cls.y, arg1)
+
+
+# C("实例化对象属性").f(20) # 类属性 20
+# c = C("实例化对象属性").test() # 实例化对象属性
+
+# compile()
+# compile(source, filename, mode, flags=0, dont_inherit=False, optimize=- 1)
+# 将 source 编译成代码或 AST 对象
+
+# complex() # 复数
+
+# delattr()
+
+# dict() 字典
+# dir() =>属性列表
+dir()  # 本地作用域
+dir(__builtins__)  # 指定作用域
+
+# divmod() => 商+余数
+divmod(10, 3)  # (3, 1)
+
+# enumerate()
+seasons = ['Spring', 'Summer', 'Fall', 'Winter']
+# [(0, 'Spring'), (1, 'Summer'), (2, 'Fall'), (3, 'Winter')]
+list(enumerate(seasons))
+# [(1, 'Spring'), (2, 'Summer'), (3, 'Fall'), (4, 'Winter')]
+list(enumerate(seasons, start=1))
+
+
+# eval() 解析表达式=>结果 慎用
+eval('a+1') # => a+1的结果
+
+# exec()
+exec('print("hello")') # hello
+# filter()
+# float()
+# format()
+# frozenset()
+# getattr()
+# globals()
+# hasattr()
+# hash()
+
+
+print(a)
+print(dir(a))
+# help()
+# hex()
+# id()
+# input()
+# int()
+# isinstance()
+# issubclass()
+# iter()
+# len()
+# list()
+# locals()
+# map()
+# max()
+# memoryview()
+# min()
+# next()
+# object()
+# oct()
+# open()
+# ord()
+# pow()
+# print()
+# property()
+# range()
+# repr()
+# reversed()
+# round()
+# set()
+# setattr()
+# slice()
+# sorted()
+# staticmethod()
+# str()
+# sum()
+# super()
+# tuple()
+# type()
+# vars()
+# zip()
+# __import__()

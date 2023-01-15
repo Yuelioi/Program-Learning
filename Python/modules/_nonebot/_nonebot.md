@@ -1,3 +1,22 @@
+## 配置文件
+
+https://v2.nonebot.dev/docs/tutorial/configuration
+
+- .env.\*
+- bot.py
+
+### 读取配置文件
+
+```python
+import nonebot
+# driver
+nonebot.get_driver().config.custom_config
+# bot
+nonebot.get_bot().config.custom_config
+# adapter
+nonebot.get_driver()._adapters["adapter_name"].config.custom_config
+```
+
 ## 判断消息是私聊还是群聊
 
 ```python
