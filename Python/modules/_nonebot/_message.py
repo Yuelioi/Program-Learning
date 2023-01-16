@@ -22,6 +22,7 @@ async def handle_test(bot: Bot, event: GroupMessageEvent):
 
     # CQ码 用Message发送 现在基本不用了
     msg = Message("[CQ:face,id=123]")
+    await test.send(msg, at_sender=True)
   
     # 文字
     msg = MessageSegment.text("hello world")
