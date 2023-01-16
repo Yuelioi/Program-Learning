@@ -101,22 +101,43 @@ list(enumerate(seasons, start=1))
 
 
 # eval() 解析表达式=>结果 慎用
-eval('a+1') # => a+1的结果
+eval('a+1')  # => a+1的结果
 
 # exec()
-exec('print("hello")') # hello
-# filter()
+# exec('print("hello")') # hello
+
+
+# filter(function, iterable) 用 iterable 中函数返回真的元素，构建一个新的迭代器。
+# 过滤列表中的偶数
+numbers = [1, 2, 3, 4, 5, 6]
+even_numbers = filter(lambda x: x % 2 == 0, numbers)
+list(even_numbers)  # [2, 4, 6]
+
 # float()
+a = float(10)  # 10.0
 # format()
+
+# 使用位置参数
+print('My name is {0} and I am {1} years old.'.format('John', 30))
+# Output: My name is John and I am 30 years old.
+
+# 使用关键字参数
+print('My name is {name} and I am {age} years old.'.format(name='John', age=30))
+# Output: My name is John and I am 30 years old.
+
+# 使用字典
+person = {'name': 'John', 'age': 30}
+print('My name is {0[name]} and I am {0[age]} years old.'.format(person))
+# Output: My name is John and I am 30 years old.
+
 # frozenset()
 # getattr()
 # globals()
 # hasattr()
 # hash()
 
-
 print(a)
-print(dir(a))
+
 # help()
 # hex()
 # id()
