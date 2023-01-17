@@ -23,7 +23,7 @@ async def main(video_id: str, api_key: str):
                 return thumbnail_url
 
 video_id = "27KYsQx8aRE"
-youtube_key = "AIzaSyDvKk4zrOCcF4MJEZeerPt9MdLNaUuw6Vs"
+youtube_key = ""
 
 loop = asyncio.get_event_loop()
 loop.run_until_complete(
