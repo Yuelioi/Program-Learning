@@ -55,6 +55,7 @@ fp.is_file  # 是否为文件
 # 属性
 fp.suffix  # 后缀 带.
 fp.stem  # 去掉后缀的名字
+fp.resolve() # 完整路径
 
 # 处理
 fp.as_posix()  # 改为/分割: H:/Scripting/Vue/xx.html

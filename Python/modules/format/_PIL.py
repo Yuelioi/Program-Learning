@@ -1,3 +1,5 @@
+# pip install Pillow
+
 from PIL import Image
 import random
 # import time
