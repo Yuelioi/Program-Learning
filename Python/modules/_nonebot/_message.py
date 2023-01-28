@@ -18,11 +18,10 @@ test = on_command("test", priority=99, block=False)
 
 
 @test.handle()
-async def handle_test(bot: Bot, event: GroupMessageEvent):
+async def handle_test(bot: Bot, event: GroupMessageEvent) -> None:
 
     # CQ码 用Message发送 现在基本不用了
     msg = Message("[CQ:face,id=123]")
-
     # 文字
     msg = MessageSegment.text("hello world")
     msg = MessageSegment.text("hello \nworld")
