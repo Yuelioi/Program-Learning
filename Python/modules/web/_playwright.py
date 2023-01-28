@@ -2,6 +2,7 @@ from playwright.sync_api import sync_playwright
 import pyperclip
 import time
 
+
 def paste_it(chunk, driver):
     # Get the input_area
     input_css = '.lmt__inner_textarea_container  textarea'
@@ -9,13 +10,10 @@ def paste_it(chunk, driver):
 
     input_area = driver.find_element(By.CSS_SELECTOR, input_css)
 
-
-      
     pyperclip.copy(chunk)
     input_area.clear()
     input_area.send_keys(Keys.CONTROL + "v")
 
-     
     numC = len(chunk)
     if numC < 500:
         time.sleep(3)
@@ -29,7 +27,6 @@ def paste_it(chunk, driver):
         time.sleep(10)
     else:
         time.sleep(11)
-
 
     button_css = '.lmt__target_toolbar button'
     y = driver.find_elements(By.CSS_SELECTOR, button_css)[-1].location['y']
@@ -49,11 +46,10 @@ def paste_it(chunk, driver):
     input_area.clear()
 
     return content
-  
-  
+
+
 def tran_deepl(driver, src_list, src_lang='en'):
     '''更新地址:https://chromedriver.chromium.org/downloads'''
-
 
     trg_len = len(src_list)
     time.sleep(1)
@@ -62,9 +58,11 @@ def tran_deepl(driver, src_list, src_lang='en'):
     pyperclip.copy('')
 
     return traned
- 
+
+
 with sync_playwright() as p:
-    browser = p.chromium.launch(executable_path=r"C:\Program Files\Google\Chrome\Application\chrome.exe")
+    browser = p.chromium.launch(
+        executable_path=r"C:\Program Files\Google\Chrome\Application\chrome.exe")
     page = browser.new_page()
     page.goto("https://www.deepl.com/translator")
     print(page.title())

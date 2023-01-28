@@ -10,7 +10,9 @@ logger = logging.getLogger(__name__)
 
 # logger.setLevel(logging.INFO) # 此为只显示info以上的log,不包含info
 # logging.basicConfig(level=logging.INFO) # 此为只显示info以上的log,包含info
-logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p') # 可以设置报错时间 01/05/2023 11:31:47 AM Python warning
+# 可以设置报错时间 01/05/2023 11:31:47 AM Python warning
+logging.basicConfig(format='%(asctime)s %(message)s',
+                    datefmt='%m/%d/%Y %I:%M:%S %p')
 
 
 # create a handler to log messages to the console

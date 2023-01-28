@@ -1,7 +1,5 @@
 import json
 
-'codecs', 'decoder', 'detect_encoding', 'dump', 'dumps', 'encoder', 'load', 'loads', 'scanner'
-
 
 # 将 Python 对象转换为 JSON 字符串
 data = {'name': 'John', 'age': 30}
@@ -19,4 +17,3 @@ print(data)
 # # 从 JSON 文件中读取 Python 对象
 # with open('data.json', 'r') as f:
 #     data = json.load(f)
-

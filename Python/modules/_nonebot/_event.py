@@ -17,13 +17,14 @@ post_type
 └--心跳
 '''
 
-## 分类
+# 分类
 import nonebot
 from nonebot.adapters.onebot.v11.message import Matcher
 from nonebot.adapters.onebot.v11 import PokeNotifyEvent
 from nonebot import on_message
 matcher = on_message()
 nonebot.init()
+
 
 @matcher.permission_updater
 async def update_type(matcher: Matcher):

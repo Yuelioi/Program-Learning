@@ -16,10 +16,9 @@ openai.api_key = "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"
 # print(response.choices[0].text)
 
 response = openai.Image.create(
-  prompt="美少女",
-  n=1,
-  size="1024x1024",
+    prompt="美少女",
+    n=1,
+    size="1024x1024",
 )
 
 print(response["data"][0]["url"])
-

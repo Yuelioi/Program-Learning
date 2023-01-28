@@ -22,7 +22,7 @@ async def handle_test(bot: Bot, event: GroupMessageEvent):
 
     # CQ码 用Message发送 现在基本不用了
     msg = Message("[CQ:face,id=123]")
-  
+
     # 文字
     msg = MessageSegment.text("hello world")
     msg = MessageSegment.text("hello \nworld")
@@ -39,7 +39,8 @@ async def handle_test(bot: Bot, event: GroupMessageEvent):
     # msg = MessageSegment.json('{\"app\": \"com.tencent.miniapp"&#44...\"}')
 
     # 语音 网络/本地
-    msg = MessageSegment.record("http://xx.com/1.mp3")  # 还没测 其他参见图片 需要ffmpeg(在PATH配置cq自动处理)转amr或者silk
+    # 还没测 其他参见图片 需要ffmpeg(在PATH配置cq自动处理)转amr或者silk
+    msg = MessageSegment.record("http://xx.com/1.mp3")
 
     # 匿名消息
     msg = MessageSegment.anonymous("hello")  # 还没测
@@ -48,11 +49,12 @@ async def handle_test(bot: Bot, event: GroupMessageEvent):
     msg = MessageSegment.at(10086)  # qq为all代表全体
 
     # node
-    msg = MessageSegment.node(100) # 需要消息id 还没试
+    msg = MessageSegment.node(100)  # 需要消息id 还没试
 
     # node_custom
     messages = []
-    msg = MessageSegment.node_custom(nickname="自定义发送者" ,user_id=435826135,content= MessageSegment.text("hello"))
+    msg = MessageSegment.node_custom(
+        nickname="自定义发送者", user_id=435826135, content=MessageSegment.text("hello"))
     messages.append(msg)
     await bot.send_group_forward_msg(group_id=491207941, messages=messages)
 

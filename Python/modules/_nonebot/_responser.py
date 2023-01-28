@@ -24,11 +24,12 @@ from nonebot.adapters.onebot.v11 import (
     PrivateMessageEvent,
     GroupMessageEvent,
     GroupRecallNoticeEvent,
-    
+
 )
 
 nonebot.init()
 test = on_command("test", priority=99, block=False)
+
 
 @test.handle()
 async def handle_test(event: GroupMessageEvent):

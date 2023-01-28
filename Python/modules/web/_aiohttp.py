@@ -1,8 +1,7 @@
 import aiohttp
 import asyncio
 from bs4 import BeautifulSoup
-import time
-import requests
+
 
 asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
@@ -18,8 +17,6 @@ def get_info(response):
 
 def get_url(response):
     return response.json()  # URL 需要的话用str()转换下
-
-
 
 
 async def main(url):
@@ -45,4 +42,5 @@ async def main(url):
 
 
 loop = asyncio.get_event_loop()
-loop.run_until_complete(main('https://www.youtube.com/watch?v=27KYsQx8aRE&ab_channel=MagnetVFX'))
+loop.run_until_complete(
+    main('https://www.youtube.com/watch?v=27KYsQx8aRE&ab_channel=MagnetVFX'))
