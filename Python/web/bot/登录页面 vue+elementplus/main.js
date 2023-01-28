@@ -26,8 +26,8 @@ const App = {
         password: [
           { required: true, message: "需要填写密码", trigger: "blur" },
           {
-            min: 4,
-            message: "密码至少4位",
+            min: 3,
+            message: "密码至少3位",
             trigger: "blur",
           },
         ],
@@ -46,14 +46,20 @@ const App = {
         return;
       }
       this.loading = true;
-      await this.simulateLogin();
+      // await this.simulateLogin();
       this.loading = false;
 
-      if (this.model.username === this.validCredentials.username && this.model.password === this.validCredentials.password) {
-        this.$message.success("登录成功");
-      } else {
-        this.$message.error("用户名或密码错误");
-      }
+      // 如果登录成功了 服务器端返回token,如果本地有token 那么在服务器端验证一下
+
+      let that = this;
+      verify_password(this.model.username, this.model.password).then(data => {
+        if (data) {
+          that.$message.success("登录成功");
+        } else {
+          that.$message.error("用户名或密码错误");
+        }
+        console.log(data);
+      });
     },
   },
 };
@@ -62,4 +68,17 @@ app.use(ElementPlus);
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component);
 }
+
+async function verify_password(username, password) {
+  const response = await axios.get("https://bot.yuelili.com/api/verify_password", {
+    params: {
+      username: username,
+      password: password,
+    },
+  });
+  return response.data;
+}
+
+let cookie = localStorage.getItem("bot_jwt_cookie");
+
 app.mount("#app");
