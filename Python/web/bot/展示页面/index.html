@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>登录</title>
+    <title>管理</title>
 
     <!-- Import style -->
     <link rel="stylesheet" href="//unpkg.com/element-plus/dist/index.css" />
@@ -23,15 +23,19 @@
   <body>
     <!-- modified from https://codesandbox.io/s/element-ui-login-page-forked-bbpohd?file=/src/components/Login.vue -->
     <div id="app">
-      <div class="common-layout">
-        <el-container>
-          <el-header>Header</el-header>
-          <el-container>
-            <el-aside width="200px">Aside</el-aside>
-            <el-main>Main</el-main>
-          </el-container>
-        </el-container>
-      </div>
+      <el-table :data="filterTableData" style="width: 100%">
+        <el-table-column label="Date" prop="date" />
+        <el-table-column label="Name" prop="name" />
+        <el-table-column align="right">
+          <template #header>
+            <el-input v-model="search" size="small" placeholder="Type to search" />
+          </template>
+          <template #default="scope">
+            <el-button size="small" @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
+            <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
     </div>
     <script src="main.js"></script>
   </body>

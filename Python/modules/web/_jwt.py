@@ -4,6 +4,7 @@ import jwt
 
 
 class AuthHandler():
+
     _salt = "@^4_00wedv**pi)+(!w1rwi=d3q4l=ie=g-u$s8jevmj*zgg2"
     _expire_message = dict(code=401, msg="token 已经失效")
     _unknown_error_message = dict(code=401, msg="token 解析失败")
@@ -51,7 +52,8 @@ if __name__ == '__main__':
     TEST_DATA = dict(name="mooor", exp=datetime.utcnow() +
                      timedelta(seconds=expire_seconds))
     token = AuthHandler.generate_token(TEST_DATA)
+    token = r"eyJhbGciOiJIUzI1NiIsInR5cCI6Imp3dCJ9.eyJuYW1lIjoibW9vb3IiLCJleHAiOjE2NzU1NzM0NjB9.maAv1fYPzWVVnVcW6tMdPpZEqfhumI-KVtcaeXXYeKU"
     print(token)
 
-    payload = AuthHandler.parse_token(token)
+    status, payload = AuthHandler.parse_token(token)
     print(payload)

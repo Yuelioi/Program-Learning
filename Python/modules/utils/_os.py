@@ -17,7 +17,7 @@ os.getcwd()
 os.listdir(fold_path)
 
 # 创建文件夹
-os.mkdir
+os.mkdir  # 只能一级一级创建
 os.makedirs  # 深度创建
 
 # rename

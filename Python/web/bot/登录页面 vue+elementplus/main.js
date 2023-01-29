@@ -1,10 +1,20 @@
 const App = {
+  setup() {
+    Vue.onMounted(() => {
+      let token = localStorage.getItem("bot_jwt_token");
+      if (token) {
+        parse_token(token).then(data => {
+          if (Boolean(data.status) == true) {
+            console.log("登录成功");
+          } else {
+            console.log("登录失败");
+          }
+        });
+      }
+    });
+  },
   data() {
     return {
-      validCredentials: {
-        username: "admin",
-        password: "admin",
-      },
       model: {
         username: "",
         password: "",
@@ -53,12 +63,12 @@ const App = {
 
       let that = this;
       verify_password(this.model.username, this.model.password).then(data => {
-        if (data) {
+        if (data.status == 200) {
           that.$message.success("登录成功");
+          localStorage.setItem("bot_jwt_token", data.token);
         } else {
           that.$message.error("用户名或密码错误");
         }
-        console.log(data);
       });
     },
   },
@@ -70,7 +80,7 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 }
 
 async function verify_password(username, password) {
-  const response = await axios.get("https://bot.yuelili.com/api/verify_password", {
+  const response = await axios.get("https://bot.yuelili.com/api/auth", {
     params: {
       username: username,
       password: password,
@@ -79,6 +89,13 @@ async function verify_password(username, password) {
   return response.data;
 }
 
-let cookie = localStorage.getItem("bot_jwt_cookie");
+async function parse_token(token) {
+  const response = await axios.get("https://bot.yuelili.com/api/parse_token", {
+    params: {
+      token: token,
+    },
+  });
+  return response.data;
+}
 
 app.mount("#app");

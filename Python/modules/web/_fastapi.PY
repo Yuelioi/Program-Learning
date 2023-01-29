@@ -21,10 +21,18 @@ def read_root() -> dict[str, str]:
     return {"Hello": "World"}
 
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, username: str, password: str):
+@app.get("/api/auth")
+def _(username: str, password: str):
     is_admin = AuthHandler.verify_password(username, password)
-    return {"item_id": item_id, "q": is_admin}
+
+    if is_admin:
+        expire_seconds = 3600
+        data = dict(name="mooor", exp=datetime.utcnow() +
+                    timedelta(seconds=expire_seconds))
+        token = AuthHandler.generate_token(data)
+        return {"status": 200, "username": username, "token": token}
+    else:
+        return {"status": 401, "username": username}
 
 
 # 2、声明一个 源 列表；重点：要包含跨域的客户端 源

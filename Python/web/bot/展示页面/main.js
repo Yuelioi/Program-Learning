@@ -1,60 +1,34 @@
 const App = {
   data() {
     return {
-      validCredentials: {
-        username: "admin",
-        password: "admin",
-      },
-      model: {
-        username: "",
-        password: "",
-      },
-      loading: false,
-      rules: {
-        username: [
-          {
-            required: true,
-            message: "未填写用户名",
-            trigger: "blur",
-          },
-          {
-            min: 4,
-            message: "用户名长度低于4位",
-            trigger: "blur",
-          },
-        ],
-        password: [
-          { required: true, message: "需要填写密码", trigger: "blur" },
-          {
-            min: 4,
-            message: "密码至少4位",
-            trigger: "blur",
-          },
-        ],
-      },
+      search: "",
+      tableData: [
+        {
+          date: "2016-05-03",
+          name: "Tom",
+          address: "No. 189, Grove St, Los Angeles",
+        },
+        {
+          date: "2016-05-02",
+          name: "John",
+          address: "No. 189, Grove St, Los Angeles",
+        },
+        {
+          date: "2016-05-04",
+          name: "Morgan",
+          address: "No. 189, Grove St, Los Angeles",
+        },
+      ],
     };
   },
-  methods: {
-    simulateLogin() {
-      return new Promise(resolve => {
-        setTimeout(resolve, 800);
-      });
+  computed: {
+    filterTableData() {
+      return this.tableData.filter(data => !this.search || data.name.toLowerCase().includes(this.search.toLowerCase()));
     },
-    async login() {
-      let valid = await this.$refs.form.validate();
-      if (!valid) {
-        return;
-      }
-      this.loading = true;
-      await this.simulateLogin();
-      this.loading = false;
-
-
-      if (this.model.username === this.validCredentials.username && this.model.password === this.validCredentials.password) {
-        this.$message.success("登录成功");
-      } else {
-        this.$message.error("用户名或密码错误");
-      }
+  },
+  methods: {
+    handleEdit(index, row) {
+      console.log(index, row);
     },
   },
 };
