@@ -1,5 +1,5 @@
 '''
-pip i mysql-connector
+pip install mysql-connector
 https://blog.csdn.net/weixin_43335392/article/details/124701008
 
 '''
