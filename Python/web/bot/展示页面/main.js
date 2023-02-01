@@ -1,6 +1,7 @@
 const App = {
   data() {
     return {
+      value: new Date(),
       search: "",
       tableData: [
         {
@@ -34,7 +35,7 @@ const App = {
 };
 const app = Vue.createApp(App);
 app.use(ElementPlus);
-for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
-  app.component(key, component);
-}
+// for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+//   app.component(key, component);
+// }
 app.mount("#app");
