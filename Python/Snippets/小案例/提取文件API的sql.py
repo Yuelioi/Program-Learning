@@ -28,9 +28,6 @@ def get_content(file_path, docs, cat):
             get_sql(name, docs, cat, markdown, "")
             print(markdown)
 
-get_content(
-index = 0
-
 
 def print_folder_tree(folder_path, cat=""):
     # 遍历文件夹中的所有文件和子文件夹
@@ -63,5 +60,3 @@ root_dir = r"H:\Scripting\Vue Projects\docs2_yuelili_com\AE\expression"
 # print_folder_tree(root_dir)
 # get_content(
 #     r"H:\Scripting\Vue Projects\docs2_yuelili_com\AE\expression\General\Global.md")
-
-

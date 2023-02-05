@@ -196,12 +196,14 @@ def readFolder(root_dir):
 
 
 def get_summary(root_dir):
-        for item in os.listdir(root_dir):
-            full_path = os.path.join(root_dir, item)
-            if os.path.isdir(full_path):
-                get_summary(root_dir)
-            else:
-                print(item)
+    for item in os.listdir(root_dir):
+        full_path = os.path.join(root_dir, item)
+        if os.path.isdir(full_path):
+            get_summary(root_dir)
+        else:
+            print(item)
+
+
 def ue_combine_en_zh(root_dir):
     for root, dirs, files in os.walk(root_dir + "\\final"):
         for file in files:
@@ -216,7 +218,8 @@ def ue_combine_en_zh(root_dir):
                 f2.seek(0)
                 f2.truncate()
                 f2.write((file_content + "\n<hr>\n" + "".join(enContent)
-                          ).replace("$-", "/uploads/projects/ue-bluprint/"))       
+                          ).replace("$-", "/uploads/projects/ue-bluprint/"))
+
 
 summary = ""
 
@@ -247,6 +250,3 @@ root_dir = r'H:\Scripting\Vue Projects\docs_ue\docs\final'
 print_folder_tree(root_dir)
 # with open(root_dir+"\\summary.md", "w+", encoding="utf-8") as f:
 #     f.write(summary)
-
-
-

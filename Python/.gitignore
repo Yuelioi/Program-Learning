@@ -8,6 +8,7 @@ x64
 .obsidian
 node_modules
 _test
+\_test
 
 Python/**/Include
 Python/**/Lib
