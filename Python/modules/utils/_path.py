@@ -75,8 +75,11 @@ fp.with_suffix(".py")     # 只替换后缀
 # 文件创建
 # fp.touch()
 
-# print(str(Path("./1.png").resolve().as_uri()))
-print(str((Path().parent).resolve() / "data" / "images" / "yueli-bot"))
+# 文件运行路径 并拼接
+Path().absolute() / "data" / "images"
+# 文件当前路径  并拼接
+Path(__file__).parent.resolve() / "1.png"
 
-print(str((Path().parent).resolve(
-) / "data/fonts/SourceHanSansCN-Medium"))
+#
+print(Path().absolute() / "data" / "images")
+print(Path(__file__).parent.resolve() / "data" / "images")
