@@ -1,60 +1,13 @@
 # -*- coding:utf-8 -*-
-
-# pip install Pillow
-
 from PIL import Image
-import random
-import textwrap
-
 
 from PIL import Image, ImageDraw, ImageFont
 
-
-white = (255, 255, 255)
-black = (0, 0, 0)
-
-
-footage = Image.open(r"Python\modules\utils\background.png")
-
 msg = """思源黑体思源黑体是一套 OpenType/CFF 泛中日韩字体。这个开源项目不仅提供了可用的 OpenType 字体，还提供了利用 AFDKO 工具创建这些 OpenType 字体时的所有源文件。下载字体（OTF、OTC、Super OTC, Subset OTF 和 Variable OTF/TTF/WOFF2）本项目提供了为多种部署方式而设定的独立字体资源以及 ZIP 文件供下载：最新发布参考《官方字体 readme 文件》的 Configurations（设置）部分，可以帮助您决定下载哪一套字体。推荐不熟悉 GitHub 的人士参照以英文、日文、韩文、简体中文、繁体中文提供的《思源字体官方下载指南》。您也可以两个 ZIP 文件形式下载整个 releases，内含所有设置。"""
-font_size = 48
-lines_space = 15
-line_padding_left_and_right = 30
-max_line_width = font_size * 31 - line_padding_left_and_right * 2
-
-
-current_draw_line_height = 0
-
-footage_clip_size = 45
-box = (0, 0, footage.width, footage_clip_size)
-header = footage.crop(box)
-box = (0, footage.height - footage_clip_size, footage.width, footage.height)
-footer = footage.crop(box)
-line_height = footage_clip_size + font_size + lines_space
-
-
-content = footage.crop(
-    box=(0, footage_clip_size, footage.width, line_height))
-
-
-# # 设置文字的字体
-
-
-font = ImageFont.truetype('SourceHanSansCN-Medium', font_size)
-
-
-def get_msg_size(msg, font):
-    size = []
-    for t in msg:
-        box = font.getbbox(t)
-        size.append(box[2] - box[0])
-    return size
-
-
-msg_size = get_msg_size(msg, font)
 
 
 def split_content(content, content_size_list, max_line_width):
+    """清理文字, 转为合适长度的文字列表"""
     current_line_width = 0
     final_content = []
     last_index = 0
@@ -71,37 +24,58 @@ def split_content(content, content_size_list, max_line_width):
     return final_content
 
 
-res = split_content(msg, msg_size, max_line_width)
-
-image_result = Image.new(
-    "RGB", (footage.width, line_height * (3 + len(res))))
-
-
-draw = ImageDraw.Draw(content)
-
-
-draw.text(xy=(line_padding_left_and_right, 0), text=res[0], font=font,
-          fill=(125, 97, 85))
-# # # 绘制文字
-# for idx, val in enumerate(res):
-#     draw.text(xy=(line_padding_left_and_right, current_draw_line_height + idx * (font_size + lines_space)), text=val, font=font,
-#               fill=(125, 97, 85))
-
-content.show()
-
-# print(textwrap.fill(msg, width=50))
-
-# d = ImageDraw.Draw(msg)
-
-# # draw text, half opacity
-# d.text((10, 10), "Hello", font=font, fill=(255, 255, 255, 128))
-# # draw text, full opacity
-# d.text((10, 60), "World", font=font, fill=(255, 255, 255, 255))
-
-# out = Image.alpha_composite(content, msg)
+def get_msg_size(msg, font):
+    """获取文字渲染后宽度"""
+    size = []
+    for t in msg:
+        box = font.getbbox(t)
+        size.append(box[2] - box[0])
+    return size
 
 
-# out.show()
+def text_to_image(text):
+
+    font_size = 48
+    font = ImageFont.truetype('SourceHanSansCN-Medium', font_size)
+    msg_size = get_msg_size(msg, font)
+    footage = Image.open(r"Python\modules\utils\background.png")
+
+    lines_space = 15
+    line_padding_left_and_right = 30
+    max_line_width = font_size * 31 - line_padding_left_and_right * 2
+    to_render_text_list = split_content(msg, msg_size, max_line_width)
+
+    footage_clip_size = 45
+    header = footage.crop(box=(0, 0, footage.width, footage_clip_size))
+    footer = footage.crop(box=(0, footage.height - footage_clip_size,
+                               footage.width, footage.height))
+    line_height = font_size + lines_space
+
+    content = footage.crop(
+        box=(0, footage_clip_size, footage.width, line_height + footage_clip_size))
+
+    image_result = Image.new("RGBA", (footage.width, footage_clip_size *
+                                      2 + len(to_render_text_list) * line_height), color=(255, 255, 255, 0))
+    image_result.paste(im=header, box=(0, 0))
+
+    # # 设置文字的字体
+
+    for idx, text in enumerate(to_render_text_list):
+        cache = content.copy()
+        draw = ImageDraw.Draw(cache)
+        draw.text(xy=(line_padding_left_and_right, 0), text=text, font=font,
+                  fill=(125, 97, 85))
+        image_result.paste(im=cache, box=(
+            0, footage_clip_size + line_height * (idx)))
+
+    # # # 绘制文字
+    image_result.paste(im=footer, box=(
+        0, footage_clip_size + line_height * len(to_render_text_list)))
+
+    image_result.show()
+
+
+text_to_image(msg)
 
 
 def _():

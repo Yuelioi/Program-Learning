@@ -55,7 +55,7 @@ fp.is_file  # 是否为文件
 # 属性
 fp.suffix  # 后缀 带.
 fp.stem  # 去掉后缀的名字
-fp.resolve() # 完整路径
+fp.resolve()  # 完整路径
 
 # 处理
 fp.as_posix()  # 改为/分割: H:/Scripting/Vue/xx.html
@@ -75,4 +75,8 @@ fp.with_suffix(".py")     # 只替换后缀
 # 文件创建
 # fp.touch()
 
-print(str(Path("./1.png").resolve().as_uri()))
+# print(str(Path("./1.png").resolve().as_uri()))
+print(str((Path().parent).resolve() / "data" / "images" / "yueli-bot"))
+
+print(str((Path().parent).resolve(
+) / "data/fonts/SourceHanSansCN-Medium"))

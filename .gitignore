@@ -12,6 +12,6 @@ Python/**/__pycache__
 Python/**/Scripts
 Python/**/.idea
 pyvenv.cfg
-
+data
 secret.*
 *.exe
