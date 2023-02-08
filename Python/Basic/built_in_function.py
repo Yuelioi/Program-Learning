@@ -118,37 +118,81 @@ a = float(10)  # 10.0
 # format()
 
 # 使用位置参数
-print('My name is {0} and I am {1} years old.'.format('John', 30))
+'My name is {0} and I am {1} years old.'.format('John', 30)
 # Output: My name is John and I am 30 years old.
 
 # 使用关键字参数
-print('My name is {name} and I am {age} years old.'.format(name='John', age=30))
+'My name is {name} and I am {age} years old.'.format(
+    name='John', age=30)
 # Output: My name is John and I am 30 years old.
 
 # 使用字典
 person = {'name': 'John', 'age': 30}
-print('My name is {0[name]} and I am {0[age]} years old.'.format(person))
+'My name is {0[name]} and I am {0[age]} years old.'.format(person)
 # Output: My name is John and I am 30 years old.
 
 # frozenset()
-# getattr()
-# globals()
-# hasattr()
-# hash()
 
-print(a)
+# getattr()
+
+
+class Person:
+    name = "John Doe"
+
+
+person = Person()
+getattr(person, "name", "Unknown")  # Output: "John Doe"
+getattr(person, "age", "Unknown")  # Output: "Unknown"
+
+
+# globals()
+...  # 当前模块全局变量 函数 类
+
+# hasattr()
+hasattr(person, "name")  # True
+
+
+# hash()
+hash(person)  # 148116558183 | __hash__()
 
 # help()
+# help(seasons)
+
 # hex()
+hex(255)  # 十六进制 '0xff'
+
 # id()
+id(person)
+
 # input()
+
 # int()
+
 # isinstance()
+isinstance(person, Person)  # 实例
 # issubclass()
+issubclass(Person, Person)  # True 子类(可以是自己)
+
+
 # iter()
+it = iter(range(5))
+next(it)  # 0
+next(it)  # 1
+
+
 # len()
+
+
 # list()
-# locals()
+
+
+# locals() # global + 函数内使用
+def add():
+    name = "1"
+    print(locals())  # {'name': '1'}
+    return 1
+
+
 # map()
 # max()
 # memoryview()
