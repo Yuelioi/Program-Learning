@@ -24,7 +24,7 @@ def convert_time(raw_time):
     second = leading_zeros(time_in_seconds % 60)
     minute = leading_zeros(int(math.floor(time_in_seconds / 60)) % 60)
     hour = leading_zeros(int(math.floor(time_in_seconds / 3600)))
-    return "{}:{}:{},{}".format(hour, minute, second, ms)
+    return f"{hour}:{minute}:{second},{ms}"
 
 
 def xml_id_display_align_before(text):
@@ -35,9 +35,8 @@ def xml_id_display_align_before(text):
     """
     align_before_re = re.compile(
         u'<region.*tts:displayAlign=\"before\".*xml:id=\"(.*)\"/>')
-    has_align_before = re.search(align_before_re, text)
-    if has_align_before:
-        return has_align_before.group(1)
+    if has_align_before := re.search(align_before_re, text):
+        return has_align_before[1]
     return u""
 
 
@@ -81,15 +80,15 @@ def format_text(line):
     while line.find("<") != -1:
         indexa = line.find("<")
         indexb = line.find(">")
-        line = line.replace(line[indexa:indexb+1], "")
+        line = line.replace(line[indexa:indexb + 1], "")
     return line
 
 
 def convert_vtt_time(line):
     times = line.replace(".", ",").split(" --> ")
     if len(times[0]) == 9:
-        times = ["00:" + t for t in times]
-    return "{} --> {}".format(times[0], times[1].split(" ")[0])
+        times = [f"00:{t}" for t in times]
+    return f'{times[0]} --> {times[1].split(" ")[0]}'
 
 
 def vtt_to_srt(text):
@@ -111,7 +110,7 @@ def vtt_to_srt(text):
     if current_sub_line:
         lines.append("\n".join(current_sub_line))
 
-    return "".join((u"{}\n{}".format(i, l) for i, l in enumerate(lines, 1)))
+    return "".join(f"{i}\n{l}" for i, l in enumerate(lines, 1))
 
 
 def xml_to_srt(text):
@@ -147,7 +146,7 @@ def xml_to_srt(text):
         string_region_re = r'<p(.*region="' + \
             display_align_before + r'".*")>(.*)</p>'
         s = re.sub(string_region_re, r'<p\1>{\\an8}\2</p>', s)
-        content = re.search(content_re, s).group(1)
+        content = re.search(content_re, s)[1]
 
         br_tags = re.search(br_re, content)
         if br_tags:
@@ -157,8 +156,8 @@ def xml_to_srt(text):
             span_end_re, content, has_cursive)
 
         prev_start = prev_time["start"]
-        start = re.search(start_re, s).group(1)
-        end = re.search(end_re, s).group(1)
+        start = re.search(start_re, s)[1]
+        end = re.search(end_re, s)[1]
         if len(start.split(":")) > 1:
             fmt_t = False
             start = start.replace(".", ",")
@@ -191,9 +190,9 @@ def main():
     filenames = [fn for fn in os.listdir(a.input)
                  if fn[-4:].lower() in SUPPORTED_EXTENSIONS]
     for fn in filenames:
-        with codecs.open("{}/{}".format(a.input, fn), 'rb', "utf-8") as f:
+        with codecs.open(f"{a.input}/{fn}", 'rb', "utf-8") as f:
             text = f.read()
-        with codecs.open("{}/{}.srt".format(a.output, fn[:-4]), 'wb', "utf-8") as f:
+        with codecs.open(f"{a.output}/{fn[:-4]}.srt", 'wb', "utf-8") as f:
             f.write(to_srt(text, fn[-4:]))
 
 

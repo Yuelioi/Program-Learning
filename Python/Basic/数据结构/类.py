@@ -1,14 +1,30 @@
-class MyClass:
-    def __init__(self, *args, **kwargs):
-        self.args = args
+class Parent:
+  name = "父类"
+  
+  def __init__(self, name):
+    self.name = name
+      
+  @classmethod
+  def class_print(cls):
+    return cls.name
+  
+  @staticmethod
+  def static_print():
+    return "父类静态方法"
 
-        # vars(self).update(kwargs) # 或者
 
-        for k, v in kwargs.items():
-            setattr(self, k, v)
+parent = Parent("实例对象")
+print(parent.name)  # 实例对象
+print(Parent.name)  # 父类
+print(Parent.static_print()) # 父类静态方法
 
 
-obj = MyClass(1, 2, 3, 4, arg1='hello', arg2='world')
-print(obj.args)  # (1, 2, 3, 4)
-print(obj.arg1)  # 'hello'
-print(dir(vars(obj)))
+class Child(Parent):
+  def __init__(self, name):
+    self.name = super().name
+    self.name1 = super().static_print()
+
+  
+child = Child("子类")
+print(child.name) # 父类
+print(child.name1) # 父类静态方法

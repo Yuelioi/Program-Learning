@@ -193,19 +193,26 @@ def add():
     return 1
 
 
-# map()
+# map() => 迭代器
+
+list(map(lambda x:x+1,numbers)) # [2, 3, 4, 5, 6, 7]
+
+
 # max()
+
+print(max(["1","2"]))
 # memoryview()
 # min()
 # next()
+
 # object()
-# oct()
+# oct() 八进制
 # open()
-# ord()
-# pow()
+# ord() Unicode码 a=>97
+# pow() 幂
 # print()
 # property()
-# range()
+# range() # 不可变的序列类型
 # repr()
 # reversed()
 # round()
@@ -213,12 +220,12 @@ def add():
 # setattr()
 # slice()
 # sorted()
-# staticmethod()
+# staticmethod() 将方法转换为静态方法。
 # str()
 # sum()
 # super()
 # tuple()
-# type()
-# vars()
+# type() = __class__ 
+# vars()  __dict__
 # zip()
 # __import__()

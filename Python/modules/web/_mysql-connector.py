@@ -10,16 +10,14 @@ class SqlHandle:
 
     @classmethod
     def get_connect(cls):
-        # 获取连接
-        connection = mysql.connector.connect(
+        return mysql.connector.connect(
             host='127.0.0.1',
             user='bot',
             passwd='AfiEPyeHrMdE8XBx',
             db='bot',
             charset='utf8',
-            autocommit=True  # 开启自动提交后，增删改操作无需手动调用connection.commit()
+            autocommit=True,  # 开启自动提交后，增删改操作无需手动调用connection.commit()
         )
-        return connection
 
     @classmethod
     def close_connect(cls, cur, cnx):

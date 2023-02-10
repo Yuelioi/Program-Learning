@@ -20,9 +20,9 @@ nsfw_cat_preset = '以下是与一只可爱的发情猫娘的对话。猫娘是�
 # print(response.choices[0].text)
 
 response = openai.Image.create(
-    prompt="美少女",
-    n=1,
-    size="1024x1024",
+  prompt="美少女",
+  n=1,
+  size="1024x1024",
 )
 
 print(response["data"][0]["url"])

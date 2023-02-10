@@ -1,3 +1,5 @@
+list(iterable)
+
 x in/not in s 判断是否在
 s\*n 自身拼接
 s[i:j:k] 截断

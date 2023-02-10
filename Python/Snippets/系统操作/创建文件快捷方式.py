@@ -3,7 +3,7 @@ shell = client.Dispatch("WScript.Shell")
 
 # 指定要保存的文件
 SAVENAME = r"H:\\Scripting\\Python\\11.txt"
-LINKNAME = SAVENAME + '.lnk'
+LINKNAME = f'{SAVENAME}.lnk'
 
 # 使用快捷方式
 shortcut = shell.CreateShortCut(LINKNAME)

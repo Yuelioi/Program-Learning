@@ -11,8 +11,11 @@ def vuepress_generate_file_doc(root_dir, ext="md"):
     regex = "[0-9]{1,3}"
     for parent, _, file_names in os.walk(root_dir):
         # 文件排序
-        file_names.sort(key=lambda x: int(re.search(regex, x).group(
-            0) if re.search(regex, x) else 0))  # 文件名 按数字排序
+        file_names.sort(
+            key=lambda x: int(
+                re.search(regex, x)[0] if re.search(regex, x) else 0
+            )
+        )
 
         for full_name in file_names:
             # 过滤

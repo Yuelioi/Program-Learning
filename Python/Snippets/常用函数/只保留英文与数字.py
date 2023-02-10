@@ -7,6 +7,4 @@ def hanji_to_eng(content):
     reg_res = re.findall(r"[A-Za-z0-9_]+", content)
 
     reg_res = " ".join(reg_res).strip().title().replace(" ", "-")
-    if len(reg_res) > 2:
-        return reg_res
-    return content
+    return reg_res if len(reg_res) > 2 else content

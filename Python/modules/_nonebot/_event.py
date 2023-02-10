@@ -28,4 +28,4 @@ nonebot.init()
 
 @matcher.permission_updater
 async def update_type(matcher: Matcher):
-    return matcher.permission  # return same without session_id check
+  return matcher.permission  # return same without session_id check

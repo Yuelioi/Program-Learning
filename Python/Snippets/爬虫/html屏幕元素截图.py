@@ -17,8 +17,8 @@ def getGraph(path, imgPath):
 
     x = location['x']
     y = location['y']
-    width = location['x']+size['width']
-    height = location['y']+size['height']
+    width = location['x'] + size['width']
+    height = location['y'] + size['height']
 
     im = Image.open(imgPath, mode='r')
     im = im.crop((int(x), int(y), int(width), int(height)))

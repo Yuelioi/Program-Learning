@@ -1,5 +1,3 @@
-from bs4 import BeautifulSoup
-import markdown
 import os
 import re
 from pathlib import Path
@@ -41,9 +39,7 @@ def print_folder_tree(folder_path, cat=""):
         if entry.is_dir():
             print_folder_tree(entry.path, entry.name)
             ...
-        else:
-            if entry.name == "summary.md":
-                continue
+        elif entry.name != "summary.md":
             get_content(entry.path)
 
 

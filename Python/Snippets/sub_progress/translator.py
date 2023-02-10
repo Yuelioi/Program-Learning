@@ -29,12 +29,11 @@ def _caiyun(txt):
     }
     headers = {
         'content-type': "application/json",
-        'x-authorization': "token " + token,
+        'x-authorization': f"token {token}",
     }
     response = requests.request(
         "POST", url, data=json.dumps(payload), headers=headers)
-    tran_str = json.loads(response.text)['target']
-    return tran_str
+    return json.loads(response.text)['target']
 
 
 def tran_caiyun(src_text):
@@ -44,14 +43,13 @@ def tran_caiyun(src_text):
     :return: final_translate_list 为列表
     '''
 
-
     final_translate_list = []
     if len(src_text) > 30:
         length = len(src_text)  # 总长
         n = length // 19  # 切分成多少份
         step = int(length / n) + 1  # 每份的长度
         for i in range(0, length, step):
-   
+
             text = '\n'.join(src_text[i: i + step])
             text = sub_gl_en_zh(text).split('\n')
             final_translate_list.extend(_caiyun(text))
@@ -59,8 +57,7 @@ def tran_caiyun(src_text):
         final_translate_list.extend(_caiyun(src_text))
 
     final_list = '\n'.join(final_translate_list)
-    final_list = sub_tichun_zh(final_list).split('\n')
-    return final_list
+    return sub_tichun_zh(final_list).split('\n')
 
 
 def _baidu(query):
@@ -116,8 +113,8 @@ def tran_baidu(src_text):
         src_cache = [src_text[i:i + 30]
                      for i in range(len(src_text)) if i % 30 == 0]
 
-        for i in range(0, len(src_cache)):
-            src_cache2 = "\n".join('%s' % id for id in src_cache[i])
+        for i in range(len(src_cache)):
+            src_cache2 = "\n".join(f'{id}' for id in src_cache[i])
             fin_list.extend(_baidu(src_cache2))
     else:
         src_text = "\n".join(src_text)
@@ -141,11 +138,11 @@ def tran_google(src_text):
     if len(src_text) > 12:
         src_cache = [src_text[i:i + 12]
                      for i in range(len(src_text)) if i % 12 == 0]
-        src_len = len(src_cache)
-        for i in range(0, src_len):
-            src_cache2 = '\n'.join('%s' % id for id in src_cache[i])
+
+        for i in range(len(src_cache)):
+            src_cache2 = '\n'.join(f'{id}' for id in src_cache[i])
             src_cache2 = sub_gl_en_zh(src_cache2)
-            
+
             fin_str = fin_str + \
                 translator.translate(src_cache2, dest="zh-CN").text + '\n'
         time.sleep(0.2)
@@ -164,16 +161,14 @@ def paste_it(chunk, driver):
     input_css = '.lmt__inner_textarea_container  textarea'
     input_css2 = 'd-textarea'
     try:
-      input_area = driver.find_element(By.CSS_SELECTOR, input_css)
+        input_area = driver.find_element(By.CSS_SELECTOR, input_css)
     except:
-      input_area = driver.find_element(By.CSS_SELECTOR, input_css2)
+        input_area = driver.find_element(By.CSS_SELECTOR, input_css2)
 
-      
     pyperclip.copy(chunk)
     input_area.clear()
-    input_area.send_keys(Keys.CONTROL + "v")
+    input_area.send_keys(f"{Keys.CONTROL}v")
 
-     
     numC = len(chunk)
     if numC < 500:
         time.sleep(3)
@@ -188,10 +183,9 @@ def paste_it(chunk, driver):
     else:
         time.sleep(11)
 
-
     button_css = '.lmt__target_toolbar button'
     y = driver.find_elements(By.CSS_SELECTOR, button_css)[-1].location['y']
-    driver.execute_script("window.scrollTo(0, {})".format(y - 150))
+    driver.execute_script(f"window.scrollTo(0, {y - 150})")
 
     time.sleep(1)
 
@@ -211,14 +205,15 @@ def paste_it(chunk, driver):
 
 def get_driver(src_lang='en'):
     options = webdriver.ChromeOptions()
-    options.add_argument('--allow-running-insecure-content') # 允许访问剪切板选项
-    options.add_argument('--clipboard-permission-request') # 允许网站访问剪贴板
+    options.add_argument('--allow-running-insecure-content')  # 允许访问剪切板选项
+    options.add_argument('--clipboard-permission-request')  # 允许网站访问剪贴板
     options.add_experimental_option("detach", True)
-    driver = webdriver.Chrome(service=Service("../../chromedriver.exe"),options=options)
-    return driver
+    return webdriver.Chrome(
+        service=Service("../../chromedriver.exe"), options=options
+    )
 
 
-def generate_list(src_list,max_char):
+def generate_list(src_list, max_char):
     chars = 0
     tar_list = []
     cache_list = []
@@ -241,7 +236,6 @@ def generate_list(src_list,max_char):
 def tran_deepl(driver, src_list, src_lang='en'):
     '''更新地址:https://chromedriver.chromium.org/downloads'''
 
-
     trg_len = len(src_list)
     time.sleep(1)
     traned = paste_it('\n'.join(src_list), driver).replace('\r', '')
@@ -258,17 +252,12 @@ def tran_deepl_pro(src_list):
     translator = deepl.Translator(auth_key)
     result = translator.translate_text(src_list, target_lang="ZH")
 
-    finaltext = []
-
-    for r in result:
-        finaltext.append(r.text)
-
-    return finaltext
+    return [r.text for r in result]
 
 
-def tran_deepl_auto(src_list,driver):
-    
-    list_cache = generate_list(src_list,2500)
+def tran_deepl_auto(src_list, driver):
+
+    list_cache = generate_list(src_list, 2500)
     res = []
     deepl_url = 'https://www.deepl.com/translator#en/ZH/'
     driver.get(deepl_url)
@@ -281,7 +270,7 @@ def tran_deepl_auto(src_list,driver):
 
 
 def tran_deepl_pro_auto(src_list):
-    list_cache = generate_list(src_list,4500)
+    list_cache = generate_list(src_list, 4500)
     res = []
 
     for one in tqdm(list_cache):
@@ -294,5 +283,5 @@ if __name__ == '__main__':
     a = ['Effects must respond correctly to footage with non-square pixels, and non-uniform downsampling factors. Even different layer parameters can have different pixel aspect ratios! Doing so isn’t difficult once you understand the concepts involved.', 'Simple effects needn’t do any work to match up [point parameters](../effect-basics/parameters.html) (#effect-basics-parameters) to the actual pixels in the output. Point parameters are given to the effect scaled for downsample factor and pixel aspect ratio; they are in the coordinate system of the input buffer. This provides an implicit “pixel coordinate system.” This coordinate system is handy and easy to understand. But effects that use absolute pixel measurements or geometry must take a deeper look at the relationship between the input buffer and the final rendered image.', 'First, it is not necessarily a square coordinate system, due to both pixel aspect ratio and non-uniform downsample factor. The final rendered image can be stretched or squashed horizontally, relative to the pixels your effect processes. Circles will appear as ellipses, squares as rectangles. The distance between two points varies based on their angle in this coordinate system; anything rotated in this system is skewed, in the final output.', 'Second, even if it _is_ a square coordinate system, it’s not necessarily the same size as the final output. This means that any slider which defines a size in pixels will be a problem when the image is rendered downsampled; the width of anti-aliasing filters changes based on downsample factor.', 'Sometimes these issues aren’t a problem. Any effect that colors pixels based solely on a linear function of the x and y coordinates need not bother with pixel aspect ratio and downsample factor at all. Staying in the input coordinate space is an option, though you must account for pixel aspect ratio and downsample factor elsewhere.', 'Suppose you’re writing a particle system effect that sprays textured sprites from a source position defined by an effect control point. Using pixel coordinates to represent the particle positions seems fine (as long as the particles don’t have to rotate around a point), but when you go to actually _render_ the particle textures, you’ll have to scale them by pixel aspect ratio and downsample factor.', 'If an effect already has coordinate transformation machinery in its pipeline, there’s an alternative that’s often simpler. Many algorithms require some sort of coordinate transformation; using matrices to set up a transformation, for example. But there are other easily adaptable algorithms, for example a texture generation effect that computes the value of each pixel based solely on its position. In this case, the code must take the raw pixel position and account for pixel aspect ratio and downsample factor.',
          'The simplest way to get all of this right is to work entirely in full resolution square coordinates, then scale by downsample factor and pixel aspect ratio as a final output transformation. Since point parameters are always reported in input buffer coordinates, convert them to full-resolution square coordinates before use. With this approach you don’t need to worry about sliders which define a size in pixels; just interpret them as defining size in full-resolution vertical pixels.', '1. When getting your point parameters, go immediately to floating point and a full resolution square pixel system, like this.', '2. Perform all setup (define transformation matrices, generate coordinates for later scan conversion, compute values based on the distance between points, rotating things, et cetera) in this coordinate space. Note that you’re not actually dealing with pixels in this stage; you’re just manipulating coordinates or coordinate transformations.', '3. To go back to a coordinate system that corresponds directly to the pixels of the output buffer, undo the transformations from step one. Do this as late as possible, so as little code as possible needs to deal with this non-square space. If you’re using matrices, this would be a final output transformation. For an effect which renders something based on the coordinate of each pixel, iterate over the output pixels and convert pixel coordinates to square coordinates before doing any processing for that pixel.', 'This may seem like extra work, but most reasonably complex effects like this have a coordinate transformation step anyway; and if they don’t, they still need one to handle pixel aspect ratio and downsample factor correctly.', 'After Effects does all of its stretching horizontally so as to not to introduce unnecessary field interpolations; when pixels are used as a unit, we think of them as vertical pixels.', 'Test at 1/2, 1/4, and custom resolutions and compare the output. Use an anamorphic (2:1) pixel aspect ratio composition to track down bugs in pixel aspect ratio handling (it really makes them obvious), and be sure to test with different horizontal and vertical downsample factors.', 'Some developers have reported problems with the downsample factors provided by some “After Effects compatible” plug-in hosts being zero. Check for zero before dividing.']
     # tran_deepl_auto(a,get_driver())
-    # print(tran_deepl_pro_auto(a))
-    print(tran_google(["こんにちは"]))
+    print(tran_deepl_pro_auto(a))
+    # print(tran_google(["こんにちは"]))

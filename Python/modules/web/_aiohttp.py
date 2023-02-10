@@ -26,7 +26,7 @@ async def main(url):
             soup = BeautifulSoup(content, 'html.parser')
             print(content)
             element = soup.select_one("#channel-header > yt-img-shadow > img")
-            print(str(element))
+            print(element)
             # print(element.sty)
             # tar_url = ""
             # async with session.get(tar_url, proxy='http://127.0.0.1:10809') as resp:

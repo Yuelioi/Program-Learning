@@ -2,7 +2,7 @@
 def glossary_replace(src_content, file_path):
 
     with open(file_path, encoding='utf-8') as f:
-        for line in f.readlines():
+        for line in f:
             src = line.split('\t')[0]
             trg = ""
             try:

@@ -14,18 +14,15 @@ class AuthHandler():
 
     @classmethod
     def verify_password(cls, username: str, password: str) -> bool:
-        if cls.user_data.get(username) == password:
-            return True
-        else:
-            return False
+        return cls.user_data.get(username) == password
 
     # 生成token
     @classmethod
     def generate_token(cls, payload: dict) -> str:
         headers = dict(typ="jwt", alg="HS256")
-        result = jwt.encode(payload=payload, key=cls._salt, algorithm="HS256",
-                            headers=headers)
-        return result
+        return jwt.encode(
+            payload=payload, key=cls._salt, algorithm="HS256", headers=headers
+        )
 
     # 解析token
     @classmethod
