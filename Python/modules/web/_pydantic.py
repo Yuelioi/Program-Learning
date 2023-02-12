@@ -9,10 +9,10 @@ from pydantic import BaseModel
 
 
 class User(BaseModel):
-    id: int
-    name = 'John Doe'
-    signup_ts: Optional[datetime] = None
-    friends: list[int] = []
+   id: int
+   name = 'John Doe'
+   signup_ts: Optional[datetime] = None
+   friends: list[int] = []
 
 
 external_data = {
