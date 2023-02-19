@@ -1,3 +1,6 @@
+# https://docs.python.org/zh-cn/3.9/library/functions.html
+
+
 # abs 绝对值
 abs(-1)  # =>1
 
@@ -195,12 +198,12 @@ def add():
 
 # map() => 迭代器
 
-list(map(lambda x:x+1,numbers)) # [2, 3, 4, 5, 6, 7]
+list(map(lambda x: x+1, numbers))  # [2, 3, 4, 5, 6, 7]
 
 
 # max()
 
-print(max(["1","2"]))
+print(max(["1", "2"]))
 # memoryview()
 # min()
 # next()
@@ -219,13 +222,13 @@ print(max(["1","2"]))
 # set()
 # setattr()
 # slice()
-# sorted()
+# sorted()  # 排序
 # staticmethod() 将方法转换为静态方法。
 # str()
 # sum()
 # super()
 # tuple()
-# type() = __class__ 
+# type() = __class__
 # vars()  __dict__
-# zip()
+# zip() # 返回一个元组的迭代器
 # __import__()

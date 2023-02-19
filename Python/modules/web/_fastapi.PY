@@ -8,8 +8,9 @@ uvicorn _fastapi:app --reload
 http://127.0.0.1:8000/items/5?q=somequery
 '''
 
+
 from _jwt import AuthHandler
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from fastapi.middleware.cors import CORSMiddleware
 
 from fastapi import FastAPI
@@ -23,16 +24,13 @@ def read_root() -> dict[str, str]:
 
 @app.get("/api/auth")
 def _(username: str, password: str):
-    is_admin = AuthHandler.verify_password(username, password)
-
-    if is_admin:
-        expire_seconds = 3600
-        data = dict(name="mooor", exp=datetime.utcnow() +
-                    timedelta(seconds=expire_seconds))
-        token = AuthHandler.generate_token(data)
-        return {"status": 200, "username": username, "token": token}
-    else:
+    if not (is_admin := AuthHandler.verify_password(username, password)):
         return {"status": 401, "username": username}
+    data = dict(
+        name="mooor", exp=datetime.now(timezone.utc) + timedelta(seconds=3600)
+    )
+    token = AuthHandler.generate_token(data)
+    return {"status": 200, "username": username, "token": token}
 
 
 # 2、声明一个 源 列表；重点：要包含跨域的客户端 源

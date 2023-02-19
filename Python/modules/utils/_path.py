@@ -64,6 +64,7 @@ fp.with_name("yy.html")  # 只替换文件名 H:\Scripting\Vue\yy.html
 fp.with_stem("yy")       # 只替换文件名(不带后缀)
 fp.with_suffix(".py")     # 只替换后缀
 
+
 # 方法
 
 # 文件夹创建以及移动 已存在则无法创建
