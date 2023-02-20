@@ -39,8 +39,8 @@ def generate_speech(srcText: List[str]):
         sound_with_altered_frame_rate = sound._spawn(sound.raw_data, overrides={
             "frame_rate": int(sound.frame_rate * rate)
         })
-        sound_slow = sound_with_altered_frame_rate.set_frame_rate(
-            sound.frame_rate)
+        # sound_slow = sound_with_altered_frame_rate.set_frame_rate(
+        #     sound.frame_rate)
 
         sound_with_altered_frame_rate.export(filename, format="wav")
 
