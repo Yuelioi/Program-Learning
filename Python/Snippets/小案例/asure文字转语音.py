@@ -10,10 +10,10 @@ from pydub import AudioSegment
 
 # 设置key 与 区域
 # https://portal.azure.com/#view/Microsoft_Azure_ProjectOxford/CognitiveServicesHub/~/SpeechServices
-from ..secret import speech_key, service_region
+from Snippets.secret import speech_key, service_region
 
 
-def get_speech(srcText: List[str]):
+def generate_speech(srcText: List[str]):
 
     # 设置配置
     speech_config = speechsdk.SpeechConfig(
@@ -43,3 +43,6 @@ def get_speech(srcText: List[str]):
             sound.frame_rate)
 
         sound_with_altered_frame_rate.export(filename, format="wav")
+
+
+generate_speech(["注意看, 这个男人叫小帅!"])

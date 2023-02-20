@@ -18,3 +18,4 @@ Python/**/.idea
 pyvenv.cfg
 
 secret.*
+output.wav
