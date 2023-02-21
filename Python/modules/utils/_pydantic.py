@@ -3,6 +3,7 @@
 
 from pydantic import BaseModel, Field
 from pydantic import AnyUrl
+from typing import Optional, Union
 
 
 class Model(BaseModel):
@@ -51,4 +52,21 @@ class Person(BaseModel):
 person = Person(name='John', age=30, email='john@example.com',
                 url="http://example.com?password=123")
 
-print(person.url.password)
+
+class Reply(BaseModel):
+    ID: Union[int, None] = None
+    username: Union[str, None] = None
+    keyword: str = ""
+    reply: str = ""
+    qq_groups: Union[list[str], str, None] = None
+
+
+reply_obj = Reply(
+    ID=None,
+    username="1",
+    keyword="3",
+    reply="4",
+
+)
+
+print(*reply_obj)
