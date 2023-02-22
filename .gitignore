@@ -17,3 +17,4 @@ pyvenv.cfg
 data
 secret.*
 *.exe
+test.*
