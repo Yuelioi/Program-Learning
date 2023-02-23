@@ -19,7 +19,7 @@ print(p1.items)  # !!! ['armor', 'sword']
 
 # 正确写法
 
-class Player:
+class Player2:
     def __init__(self, name, items=None):
         if items == None:
             self.items = []

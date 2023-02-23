@@ -1,0 +1,8 @@
+开机重启设置
+https://www.cnblogs.com/chentiao/p/16820469.html
+
+1.rc.local文件
+位置: /etc/rc.local 或 /etc/rc.d/rc.local
+
+3.Systemd
+/etc/systemd/system 创建 xx.service

@@ -1,3 +1,5 @@
+# https://www.bilibili.com/video/BV1xL411N7iS/
+
 b = None or False  # False
 b = False or None  # None
 
