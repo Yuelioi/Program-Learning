@@ -17,11 +17,6 @@ any({"a": 1})  # True
 
 # TODO anext 3.10+
 
-# ascii() 类似repr
-ascii("中文")  # '\u4e2d\u6587'
-
-# bin() => `0b+二进制`
-bin(3)  # 0b11
 
 # bool(x=False) => True/False False值/对象见 逻辑值与布尔
 bool([])  # False (傻逼js)
@@ -29,13 +24,7 @@ bool([])  # False (傻逼js)
 # TODO breakpoint() 3.7+
 
 # bytearray(source, encoding, errors) # 可变序列(参考列表)
-# bytearray(b'hello \xe4\xb8\xad\xe6\x96\x87')
-bytearray("hello 中文", encoding='utf-8')
 
-
-# bytes # 不可变序列
-bytes("hello 中文", encoding='utf-8')  # b'hello \xe4\xb8\xad\xe6\x96\x87'
-# xx.replace(b"\xe4",b"\xe5") # 与str类似 不过需要bytes类型作为参数
 
 # callable() #
 
@@ -54,9 +43,6 @@ class FUN:
 
 callable(FUN())  # True
 
-# chr() => unicode字符
-chr(73)  # I
-chr(16515)  # 䂃
 
 # @classmethod 把一个方法封装成类方法。
 # 参见 https://www.cnblogs.com/baxianhua/p/10845620.html
@@ -120,14 +106,6 @@ list(even_numbers)  # [2, 4, 6]
 a = float(10)  # 10.0
 # format()
 
-# 使用位置参数
-'My name is {0} and I am {1} years old.'.format('John', 30)
-# Output: My name is John and I am 30 years old.
-
-# 使用关键字参数
-'My name is {name} and I am {age} years old.'.format(
-    name='John', age=30)
-# Output: My name is John and I am 30 years old.
 
 # 使用字典
 person = {'name': 'John', 'age': 30}
@@ -161,8 +139,6 @@ hash(person)  # 148116558183 | __hash__()
 # help()
 # help(seasons)
 
-# hex()
-hex(255)  # 十六进制 '0xff'
 
 # id()
 id(person)
