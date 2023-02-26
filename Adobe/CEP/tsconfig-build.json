@@ -1,0 +1,10 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "paths": {
+            "@esTypes/*": [
+                "./src/js/lib/es-types"
+            ]
+        }
+    }
+}

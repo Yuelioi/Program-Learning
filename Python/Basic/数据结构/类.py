@@ -1,7 +1,7 @@
 class Parent:
     name = "父类"  # 类属性
 
-    def __init__(self, name):
+    def __init__(self, name: str):
         self.name = name
 
     @classmethod

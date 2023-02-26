@@ -14,6 +14,9 @@ sudo /usr/bin/supervisord -c /etc/supervisord.conf
 # 配置文件, 没有则自己创建
 /etc/systemd/system/supervisor.service
 
+# 重载配置文件
+sudo supervisorctl reread
+
 # 更新配置文件
 sudo supervisorctl update
 
@@ -30,7 +33,7 @@ sudo supervisorctl start myapp_name | all
 sudo supervisorctl stop myapp | all
 
 # 重启进程
-sudo supervisorctl restart process_name (在项目ini配置里)
+sudo supervisorctl restart process_name | all (在项目ini配置里)
 
 # 查看进程状态
 sudo supervisorctl status
