@@ -32,9 +32,7 @@ var palette = (function () {
     var button1 = group1.add("button");
     // button1.helpTip = "透明度出现和消失动画";
     button1.text = "透明渐隐";
-    button1.onClick = function () {
-        alert(123)
-    }
+
 
     var button2 = group1.add("button", undefined, "缩放出现");
     button2.helpTip = "缩放出现 + 弹性动画";
@@ -70,6 +68,149 @@ var palette = (function () {
     palette.layout.layout(true);
     palette.layout.resize();
     palette.onResizing = palette.onResize = function () { this.layout.resize(); }
+
+
+    function setKeyFrame(prop, time) {
+
+    }
+
+
+    button1.onClick = function () {
+        // 获取当前选中的活动图层
+        var activeLayer = app.project.activeItem.selectedLayers[0];
+
+        // 设置透明度从0到70%的关键帧
+        var opacityProperty = activeLayer.property("Opacity");
+        var currentOpacity = opacityProperty.value
+        var frameRate = activeLayer.containingComp.frameRate;
+        var frameDuration = 1 / frameRate;
+        var fadeInDurationFrames = 7;
+        var fadeInDurationSeconds = fadeInDurationFrames * frameDuration;
+        opacityProperty.setValueAtTime(activeLayer.inPoint, 0);
+        opacityProperty.setValueAtTime(activeLayer.inPoint + fadeInDurationSeconds, currentOpacity);
+        opacityProperty.setValueAtTime(activeLayer.outPoint, 0);
+        opacityProperty.setValueAtTime(activeLayer.outPoint - fadeInDurationSeconds, currentOpacity);
+
+
+
+        // 在图层入点和图层入点+7帧之间线性插值透明度
+        opacityProperty.setInterpolationTypeAtKey(opacityProperty.nearestKeyIndex(activeLayer.inPoint), KeyframeInterpolationType.BEZIER);
+        opacityProperty.setInterpolationTypeAtKey(opacityProperty.nearestKeyIndex(activeLayer.inPoint + fadeInDurationSeconds), KeyframeInterpolationType.BEZIER);
+        opacityProperty.setInterpolationTypeAtKey(opacityProperty.nearestKeyIndex((activeLayer.inPoint + activeLayer.inPoint + fadeInDurationSeconds) / 2), KeyframeInterpolationType.BEZIER);
+
+        // 在图层入点和图层入点+7帧之间线性插值透明度
+        opacityProperty.setInterpolationTypeAtKey(opacityProperty.nearestKeyIndex(activeLayer.outPoint), KeyframeInterpolationType.BEZIER);
+        opacityProperty.setInterpolationTypeAtKey(opacityProperty.nearestKeyIndex(activeLayer.outPoint - fadeInDurationSeconds), KeyframeInterpolationType.BEZIER);
+        opacityProperty.setInterpolationTypeAtKey(opacityProperty.nearestKeyIndex((activeLayer.outPoint + activeLayer.outPoint - fadeInDurationSeconds) / 2), KeyframeInterpolationType.BEZIER);
+
+    }
+
+    button2.onClick = function () {
+        // 获取当前选中的活动图层
+        var activeLayer = app.project.activeItem.selectedLayers[0];
+
+        // 设置缩放动画
+        var scaleProperty = activeLayer.property("Scale");
+        var currentScale = scaleProperty.value;
+        var frameRate = activeLayer.containingComp.frameRate;
+        var frameDuration = 1 / frameRate;
+        var durationFrames = 7;
+        var durationSeconds = durationFrames * frameDuration;
+        var fadeInDurationFrames = 7;
+        var fadeInDurationSeconds = fadeInDurationFrames * frameDuration;
+
+        scaleProperty.setValueAtTime(activeLayer.inPoint, [0, 0, 0]);
+        scaleProperty.setValueAtTime(activeLayer.inPoint + fadeInDurationSeconds, currentScale);
+
+
+        var exp = "e = .22; // Bouncing\n" +
+            "g = 1; // Gravity\n" +
+            "nMax = 10; // Maximum bounces\n" +
+            "n = 0;\n" +
+            "if (numKeys > 0){\n" +
+            "n = nearestKey(time).index;\n" +
+            "if (key(n).time > time) n--;\n" +
+            "}\n" +
+            "if (n > 0){\n" +
+            "t = time - key(n).time;\n" +
+            "v = -velocityAtTime(key(n).time - .001)*e;\n" +
+            "vl = length(v);\n" +
+            "if (value instanceof Array){\n" +
+            "vu = (vl > 0) ? normalize(v) : [0,0,0];\n" +
+            "}else{\n" +
+            "vu = (v < 0) ? -1 : 1;\n" +
+            "}\n" +
+            "tCur = 0;\n" +
+            "segDur = 2*vl/(g*1000);\n" +
+            "tNext = segDur;\n" +
+            "nb = 1; // number of bounces\n" +
+            "while (tNext < t && nb <= nMax){\n" +
+            "vl *= e;\n" +
+            "segDur *= e;\n" +
+            "tCur = tNext;\n" +
+            "tNext += segDur;\n" +
+            "nb++\n" +
+            "}\n" +
+            "if(nb <= nMax){\n" +
+            "delta = t - tCur;\n" +
+            "value +  vu*delta*(vl - (g*1000)*delta/2);\n" +
+            "}else{\n" +
+            "value\n" +
+            "}\n" +
+            "}else\n" +
+            "value"
+        scaleProperty.expression = exp;
+    }
+    button3.onClick = function () {
+
+        // 获取当前选中的图层
+        var activeLayer = app.project.activeItem.selectedLayers[0];
+        // 设置缩放动画
+        var opacityProperty = activeLayer.property("Opacity");
+        var currentOpacity = opacityProperty.value
+        var frameRate = activeLayer.containingComp.frameRate;
+        var frameDuration = 1 / frameRate;
+        var durationSeconds = 5 * frameDuration;
+
+        for (var i = 0; i <= (activeLayer.outPoint - activeLayer.inPoint) / durationSeconds; i++) {
+            var opacity = (i % 2 == 0) ? 0 : currentOpacity;
+            var currentTime = activeLayer.inPoint + i * durationSeconds;
+            opacityProperty.setValueAtTime(currentTime, opacity);
+            opacityProperty.setInterpolationTypeAtKey(opacityProperty.nearestKeyIndex(currentTime), KeyframeInterpolationType.HOLD);
+
+        }
+    }
+
+    button4.onClick = function () {
+        // 获取当前选中的形状图层
+        var activeLayer = app.project.activeItem.selectedLayers[0];
+
+        var frameRate = activeLayer.containingComp.frameRate;
+        var frameDuration = 1 / frameRate;
+        var durationSeconds = 20 * frameDuration;
+
+        // 添加 Trim Paths 属性并设置初始值
+        var shapeGroup = activeLayer.property("Contents");
+        var trimPaths = shapeGroup.addProperty("ADBE Vector Filter - Trim");
+        var endProperty = trimPaths.property("End");
+        endProperty.setValueAtTime(activeLayer.inPoint, 0);
+        endProperty.setValueAtTime(activeLayer.inPoint + durationSeconds, 100);
+
+
+        // 设置动画时长为 20 帧
+        var interval = shapeLayer.frameDuration * 20;
+        var startTime = endTime - interval;
+        endProperty.setValuesAtTimes([startTime, endTime], [0, 100]);
+
+    }
+
+    button5.onClick = function () {
+
+    }
+
+
+
+
 
     if (palette instanceof Window) palette.show();
 
