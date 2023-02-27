@@ -6,7 +6,6 @@ import {
 
 import { clipsRender } from "./batch"
 
-export { helloError, helloArrayStr, helloObj, helloNum, clipsRender };
 
 export const qeDomFunction = () => {
     if (typeof qe === "undefined") {
@@ -26,11 +25,26 @@ const helloNum = (num: number) => {
 };
 
 
-export const openProjFolder = () => {
-    alert("Open Folder")
+const openProjFolder = (num: number) => {
+    alert(num.toString())
     Folder(File(app.project.path).parent.fsName).execute();
 };
+const myFuncObj = (obj: { height: number, width: number }) => {
+    alert(obj.height.toString())
+    return {
+        y: obj.height,
+        x: obj.width,
+    };
+};
+export const myFunc = (num: number, word: string) => {
+    alert(num.toString())
+    return { num, word };
+}
 
+
+
+
+export { helloError, helloArrayStr, helloObj, helloNum, clipsRender, openProjFolder, myFuncObj };
 
 
 

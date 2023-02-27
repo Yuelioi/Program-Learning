@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <ExtensionManifest
 Version="6.0"
-ExtensionBundleId="com.bolt.cep"
+ExtensionBundleId="com.yuelili.cep"
 ExtensionBundleVersion="0.0.1"
-ExtensionBundleName="Bolt CEP"
+ExtensionBundleName="PR Tools"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 >
 <ExtensionList>
-  <Extension Id="com.bolt.cep.main" Version="0.0.1" />
+  <Extension Id="com.yuelili.cep.main" Version="0.0.1" />
 </ExtensionList>
 <ExecutionEnvironment>
   <HostList>
@@ -25,7 +25,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   </RequiredRuntimeList>
 </ExecutionEnvironment>
 <DispatchInfoList>
-  <Extension Id="com.bolt.cep.main">
+  <Extension Id="com.yuelili.cep.main">
     <DispatchInfo>
       <Resources>
         <MainPath>./main/index.html</MainPath>

@@ -1,24 +1,28 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import { fs, path } from "../lib/node";
-
-import { csi, evalTS, evalES, evalFile, subscribeBackgroundColor } from "../lib/utils";
+import { fs, os, path } from "../lib/node";
 import { Yl_Tools, auth, initLogin, createFolder } from "../lib/config";
+import {
+    csi,
+    evalES,
+    evalFile,
+    evalTS,
+    openLinkInBrowser,
+    subscribeBackgroundColor,
+} from "../lib/utils";
 import "../index.scss";
-// Prepare
 
-
-
+const count = ref(2);
+const backgroundColor = ref("#282c34");
 
 let username = ref("");
 let password = ref("");
-let isLogin = ref(false);
+let isLogin = ref(true);
 const v1 = ref(0);
 const v2 = ref(0);
 const v3 = ref(0);
 const v4 = ref(0);
 let isLoading = ref(false);
-const backgroundColor = ref("#282c34");
 let yl_tools: Yl_Tools;
 
 const login = async () => {
@@ -30,78 +34,71 @@ const login = async () => {
     }
 }
 
-const open_proj_folder = () => {
-    console.log(evalES(`helloWorld("${csi.getApplicationID()}")`));
-};
-
-//* Demonstration of End-to-End Type-safe ExtendScript Interaction
+//* Demonstration of Traditional string eval-based ExtendScript Interaction
 const jsxTest = () => {
-
-    evalTS("helloNum", 1000).then((res) => {
-        console.log(typeof res, res);
-    });
-    evalTS("helloArrayStr", ["ddddd", "aaaaaa", "zzzzzzz"]).then((res) => {
-        console.log(typeof res, res);
-    });
-    evalTS("helloObj", { height: 90, width: 100 }).then((res) => {
-        console.log(typeof res, res);
-        console.log(res.x);
-        console.log(res.y);
-    });
-    evalTS("helloError", "test").catch((e) => {
-        console.log("there was an error", e);
-    });
+    console.log(evalES(`openProjFolder("${csi.getApplicationID()}")`));
 };
 
-const open_proj_folder2 = () => {
-    alert("open_proj_folder4")
-    csi.evalScript(`helloNum(${11})`, () => {
-        console.log(222)
-    });
-    csi.evalScript("openProjFolder()", () => {
-        console.log(111)
-    });
-    // evalES(`openProjFolder("${11}")`);
-    // evalTS(`openProjFolder`, 60);
-
-
-};
 
 const open_sub_folder = () => {
     yl_tools.open_sub_folder();
 };
 
 const json_2_mog = () => {
-    // evalES(`helloWorld("${csi.getApplicationID()}")`);
-    evalTS("myFunc", 60, 'test').then((res) => {
-        console.log(res.word);
-    });
+    // evalES(`clipsRender("${csi.getApplicationID()}")`);
+
+};
+const open_proj_folder = () => {
+    console.log(evalES(`openProjFolder("${csi.getApplicationID()}")`));
+
 };
 
 
 const clips_render = () => {
-    // evalTS(`clipsRender("${v1.value}","${v2.value}","${v3.value}","${v3.value}")`);
+    // evalES(`clipsRender("${v1.value}","${v2.value}","${v3.value}","${v3.value}")`);
+    evalES(`test("${csi.getApplicationID()}")`);
 };
 
-onMounted(async () => {
+//* Demonstration of End-to-End Type-safe ExtendScript Interaction
+const jsxTestTS = () => {
+    evalTS("helloStr", "test").then((res) => {
+        console.log(res);
+    });
+    evalTS("helloNum", 1000).then((res) => {
+        console.log(typeof res, res);
+    });
+    // evalTS("helloArrayStr", ["ddddd", "aaaaaa", "zzzzzzz"]).then((res) => {
+    //     console.log(typeof res, res);
+    // });
+    // evalTS("helloObj", { height: 90, width: 100 }).then((res) => {
+    //     console.log(typeof res, res);
+    //     console.log(res.x);
+    //     console.log(res.y);
+    // });
+    // evalTS("helloError", "test").catch((e) => {
+    //     console.log("there was an error", e);
+    // });
+};
+
+const nodeTest = () => {
+    alert(
+        `Node.js ${process.version}\nPlatform: ${os.platform
+        }\nFolder: ${path.basename(window.cep_node.global.__dirname)}`
+    );
+};
+onMounted(() => {
     if (window.cep) {
         subscribeBackgroundColor((c: string) => (backgroundColor.value = c));
         const extRoot = csi.getSystemPath("extension");
         const jsxSrc = `${extRoot}/jsx/index.js`;
         const jsxBinSrc = `${extRoot}/jsx/index.jsxbin`;
         if (fs.existsSync(jsxSrc)) {
+            console.log(jsxSrc);
             evalFile(jsxSrc);
         } else if (fs.existsSync(jsxBinSrc)) {
+            console.log(jsxBinSrc);
             evalFile(jsxBinSrc);
         }
-    }
-    yl_tools = new Yl_Tools();
-    createFolder(yl_tools.sub_path)
-    createFolder(yl_tools.data_path)
-    const res = await initLogin()
-    if (res) {
-        username.value = res["username"];
-        password.value = res["password"];
     }
 });
 </script>
@@ -109,50 +106,67 @@ onMounted(async () => {
 <template>
     <div class="app" :style="{ backgroundColor: backgroundColor }">
         <header class="app-header">
-            <div id="login-bar" class="login-bar" v-show="!isLogin">
-                <div class="login-box">
-                    <img class="login-photo" src="@public/resources/img/profile.jpg" alt="" />
-                </div>
-                <p class="sign" align="center">欢迎1</p>
-                <input id="user" class="form-control-login" type="text" align="center" v-model="username"
-                    placeholder="Username" />
-                <input id="password" type="password" align="center" class="form-control-login" v-model="password"
-                    placeholder="Password" />
-                <p>{{ isLogin }}</p>
-                <div class="container"><button id="btn-login" :disabled="isLoading" @click="login"> Sign in </button></div>
-            </div>
-            <div id="tools" v-show="isLogin">
-                <div class="button-group">
-                    <p class="des">参数组</p>
-                    <div class="input">
-                        <input type="text" placeholder="参数1" name="" class="params" v-model="v1" />
-                        <input type="text" placeholder="参数2" name="" class="params" v-model="v2" />
-                        <input type="text" placeholder="参数3" name="" class="params" v-model="v3" />
-                        <input type="text" placeholder="参数4" name="" class="params" v-model="v4" />
-                    </div>
-                    <p class="des">导入导出</p>
-                    <div class="buttons">
-                        <button class="btn" @click="json_2_mog" title="单击选择指定文件">
-                            剪映字幕转基本图形
-                        </button>
 
-                        <button class="btn" @click="clips_render" title="参数1：参考轨道&#10;参数2：是否选择&#10;参数3：是否连续&#10;参数4：自定义名称">
-                            批量添加到AME渲染
-                        </button>
-                    </div>
-
-                    <p class="des">其他</p>
-                    <div class="buttons">
-                        <button class="btn" @click="jsxTest">
-                            打开工程所在文件夹
-                        </button>
-                        <button class="btn" @click="open_sub_folder">
-                            打开字幕所在文件夹
-                        </button>
-                    </div>
-                </div>
+            <div class="button-group">
+                <button @click="count++">Count is: {{ count }}</button>
+                <button @click="nodeTest">
+                    <img class="icon-button" src="../assets/node-js.svg" />
+                </button>
+                <button @click="jsxTest">
+                    <img class="icon-button" src="../assets/adobe.svg" />
+                </button>
+                <button @click="jsxTestTS">Ts</button>
             </div>
+
+            <p>
+                <button @click="
+                    () => openLinkInBrowser('https://github.com/hyperbrew/bolt-cep')
+                ">
+                    Bolt Docs
+                </button>
+                |
+                <button @click="() => openLinkInBrowser('https://v3.vuejs.org/')">
+                    Vue Docs
+                </button>
+                |
+                <button @click="
+                    () => openLinkInBrowser('https://vitejs.dev/guide/features.html')
+                ">
+                    Vite Docs
+                </button>
+            </p>
         </header>
+        <div id="tools" v-show="isLogin">
+            <div class="button-group">
+                <p class="des">参数组</p>
+                <div class="input">
+                    <input type="text" placeholder="参数1" name="" class="params" v-model="v1" />
+                    <input type="text" placeholder="参数2" name="" class="params" v-model="v2" />
+                    <input type="text" placeholder="参数3" name="" class="params" v-model="v3" />
+                    <input type="text" placeholder="参数4" name="" class="params" v-model="v4" />
+                </div>
+                <p class="des">导入导出</p>
+                <div class="buttons">
+                    <button class="btn" @click="json_2_mog" title="单击选择指定文件">
+                        剪映字幕转基本图形
+                    </button>
+
+                    <button class="btn" @click="clips_render" title="参数1：参考轨道&#10;参数2：是否选择&#10;参数3：是否连续&#10;参数4：自定义名称">
+                        批量添加到AME渲染
+                    </button>
+                </div>
+
+                <p class="des">其他</p>
+                <div class="buttons">
+                    <button class="btn" @click="open_proj_folder">
+                        打开工程所在文件夹
+                    </button>
+                    <button class="btn" @click="open_sub_folder">
+                        打开字幕所在文件夹
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 

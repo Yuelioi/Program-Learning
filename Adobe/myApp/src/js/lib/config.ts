@@ -1,8 +1,8 @@
-import CSInterface from "../lib/csinterface";
-import { SystemPath } from "../lib/csinterface";
-import { fs, path } from "../lib/node";
+import CSInterface from "./csinterface";
+import { SystemPath } from "./csinterface";
+import { fs, path } from "./node";
 export const csi = new CSInterface();
-import getMAC from "../lib/vendor/getMac"
+import getMAC from "./vendor/getMac"
 
 
 interface User {

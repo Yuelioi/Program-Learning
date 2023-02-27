@@ -13,8 +13,8 @@ const cepDist = "cep";
 
 const src = path.resolve(__dirname, "src");
 const root = path.resolve(src, "js");
-const outDir = path.resolve(__dirname, "dist", "cep");
-// const outDir = path.resolve("C:\\Program Files (x86)\\Common Files\\Adobe\\CEP\\extensions", "cep");
+// const outDir = path.resolve(__dirname, "dist", "cep");
+const outDir = path.resolve("C:\\Program Files (x86)\\Common Files\\Adobe\\CEP\\extensions\\cep2");
 
 const debugReact = false;
 const isProduction = process.env.NODE_ENV === "production";
@@ -51,10 +51,7 @@ if (action) {
 export default defineConfig({
     plugins: [vue(), cep(config)],
     resolve: {
-        alias: [
-            { find: "@", replacement: path.resolve(__dirname, "./src") },
-            { find: "@esTypes", replacement: path.resolve(__dirname, "src") },
-            { find: "@public", replacement: path.resolve(__dirname, "src/public") }],
+        alias: [{ find: "@esTypes", replacement: path.resolve(__dirname, "src") }],
     },
     root,
     clearScreen: false,
@@ -85,7 +82,8 @@ export default defineConfig({
 });
 
 // rollup es3 build
-const outPathExtendscript = path.join("dist", "cep", "jsx", "index.js");
+// const outPathExtendscript = path.join("dist", "cep", "jsx", "index.js");
+const outPathExtendscript = path.join("C:\\Program Files (x86)\\Common Files\\Adobe\\CEP\\extensions\\cep2\\jsx\\index.js");
 extendscriptConfig(
     `src/jsx/index.ts`,
     outPathExtendscript,

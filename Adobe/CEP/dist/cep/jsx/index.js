@@ -2,12 +2,12 @@
 
 var config = {
   version: version,
-  id: "com.bolt.cep",
-  displayName: "Bolt CEP",
+  id: "com.yuelili.cep",
+  displayName: "PR Tools",
   symlink: "local",
   port: 3010,
-  servePort: 5000,
-  startingDebugPort: 8860,
+  servePort: 5010,
+  startingDebugPort: 8870,
   extensionManifestVersion: 6.0,
   requiredRuntimeVersion: 9.0,
   hosts: [{
@@ -1150,21 +1150,37 @@ var helloWorld$1 = function helloWorld() {
 var helloNum = function helloNum(num) {
   alert("Hello from Premiere Pro." + num);
 };
-var openProjFolder = function openProjFolder() {
-  alert("Open Folder");
+var openProjFolder = function openProjFolder(num) {
+  alert(num.toString());
   Folder(File(app.project.path).parent.fsName).execute();
+};
+var myFuncObj = function myFuncObj(obj) {
+  alert(obj.height.toString());
+  return {
+    y: obj.height,
+    x: obj.width
+  };
+};
+var myFunc = function myFunc(num, word) {
+  alert(num.toString());
+  return {
+    num: num,
+    word: word
+  };
 };
 
 var ppro = /*#__PURE__*/__objectFreeze({
   __proto__: null,
+  qeDomFunction: qeDomFunction,
+  helloWorld: helloWorld$1,
+  myFunc: myFunc,
   helloError: helloError,
   helloArrayStr: helloArrayStr,
   helloObj: helloObj,
   helloNum: helloNum,
   clipsRender: clipsRender,
-  qeDomFunction: qeDomFunction,
-  helloWorld: helloWorld$1,
-  openProjFolder: openProjFolder
+  openProjFolder: openProjFolder,
+  myFuncObj: myFuncObj
 });
 
 var helloWorld = function helloWorld() {

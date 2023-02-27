@@ -4,12 +4,12 @@ import { version } from "./package.json";
 
 const config: CEP_Config = {
     version,
-    id: "com.bolt.cep",
-    displayName: "Bolt CEP",
+    id: "com.yuelili.cep",
+    displayName: "PR Tools",
     symlink: "local",
     port: 3010,
-    servePort: 5000,
-    startingDebugPort: 8860,
+    servePort: 5010,
+    startingDebugPort: 8870,
     extensionManifestVersion: 6.0,
     requiredRuntimeVersion: 9.0,
     hosts: [
