@@ -1,25 +1,45 @@
 {
     "compilerOptions": {
         "target": "ES3",
-        "module": "CommonJS",
-        "lib": [
-            "ESNext",
-            "DOM"
-        ],
         "useDefineForClassFields": false,
-        "moduleResolution": "Node",
-        "strict": true,
-        "sourceMap": true,
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "esModuleInterop": true,
-        "noEmit": true,
-        "noUnusedLocals": true,
+        "allowJs": false,
         "noUnusedParameters": true,
-        "noImplicitReturns": true,
-        "skipLibCheck": true
+        "noUnusedLocals": true,
+        "skipLibCheck": true,
+        "esModuleInterop": false,
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "module": "None",
+        "moduleResolution": "Node",
+        "resolveJsonModule": false,
+        "isolatedModules": false,
+        "noLib": true,
+        "noEmit": false,
+        "baseUrl": ".",
+        "jsx": "preserve",
+        "rootDirs": [
+            "./src"
+        ],
+        "outDir": "./dist",
+        "typeRoots": [
+            "./node_modules/types-for-adobe"
+        ],
+        "types": [
+            "./index",
+            "./node_modules/types-for-adobe/AfterEffects/22.0",
+            "./node_modules/types-for-adobe/shared/global",
+            "./node_modules/types-for-adobe/shared/JavaScript",
+            "./node_modules/types-for-adobe/shared/PlugPlugExternalObject",
+            "./node_modules/types-for-adobe/shared/XMPScript",
+            "./src/types/ScriptUI",
+        ]
     },
     "include": [
-        "src"
+        "src/**/*.ts",
+        "src/**/*.tsx",
+    ],
+    "exclude": [
+        "node_modules"
     ]
 }

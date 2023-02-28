@@ -1,0 +1,8 @@
+{
+    "compilerOptions": {
+        "target": "es3",
+        "noLib": true,
+        "strict": true,
+    },
+    "extends": "./tsconfig",
+}

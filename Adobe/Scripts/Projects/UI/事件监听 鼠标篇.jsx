@@ -1,4 +1,4 @@
-源码: https://www.yuelili.com/?p=22039
+// 源码: https://www.yuelili.com/?p=22039
 
 var myButton = new Window("palette", "我的按钮");
 myButton.button = myButton.add("button", undefined, "单击我");
