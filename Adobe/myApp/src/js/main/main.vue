@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import { fs, os, path } from "../lib/node";
-import { Yl_Tools, auth, initLogin, createFolder } from "../lib/config";
+import { fs, os, path } from "@jslib/node";
+import { sub_path, data_path, pwd_json_path } from "@jslib/pathlib"
+import { createFolder } from "@jslib/os"
 import {
     csi,
     evalES,
@@ -11,6 +12,9 @@ import {
     subscribeBackgroundColor,
 } from "../lib/utils";
 import "../index.scss";
+const { exec } = require('child_process');
+
+
 
 const count = ref(2);
 const backgroundColor = ref("#282c34");
@@ -23,40 +27,44 @@ const v2 = ref(0);
 const v3 = ref(0);
 const v4 = ref(0);
 let isLoading = ref(false);
-let yl_tools: Yl_Tools;
 
 const login = async () => {
     isLoading.value = true;
-    const res = await auth(username.value, password.value)
+    // const res = await auth(username.value, password.value)
     isLoading.value = false;
-    if (res) {
-        isLogin.value = true;
-    }
+    // if (res) {
+    //     isLogin.value = true;
+    // }
 }
 
-//* Demonstration of Traditional string eval-based ExtendScript Interaction
+
 const jsxTest = () => {
     console.log(evalES(`openProjFolder("${csi.getApplicationID()}")`));
 };
 
-
 const open_sub_folder = () => {
-    yl_tools.open_sub_folder();
+    exec(`explorer.exe "${path.resolve(sub_path)}"`, (err: any) => {
+        if (err) {
+            console.error(`Failed to open folder "${sub_path}". Error:`, err);
+        } else {
+            console.log(`Folder "${sub_path}" opened successfully.`);
+        }
+    });
+
 };
 
 const json_2_mog = () => {
-    // evalES(`clipsRender("${csi.getApplicationID()}")`);
+    evalES(`clipsRender("${csi.getApplicationID()}")`);
 
 };
 const open_proj_folder = () => {
-    console.log(evalES(`openProjFolder("${csi.getApplicationID()}")`));
 
+    console.log(evalES(`openProjFolder("${csi.getApplicationID()}")`));
 };
 
 
 const clips_render = () => {
-    // evalES(`clipsRender("${v1.value}","${v2.value}","${v3.value}","${v3.value}")`);
-    evalES(`test("${csi.getApplicationID()}")`);
+    // console.log(evalES(`clipsToRender("${csi.getApplicationID()}")`));
 };
 
 //* Demonstration of End-to-End Type-safe ExtendScript Interaction
@@ -67,17 +75,6 @@ const jsxTestTS = () => {
     evalTS("helloNum", 1000).then((res) => {
         console.log(typeof res, res);
     });
-    // evalTS("helloArrayStr", ["ddddd", "aaaaaa", "zzzzzzz"]).then((res) => {
-    //     console.log(typeof res, res);
-    // });
-    // evalTS("helloObj", { height: 90, width: 100 }).then((res) => {
-    //     console.log(typeof res, res);
-    //     console.log(res.x);
-    //     console.log(res.y);
-    // });
-    // evalTS("helloError", "test").catch((e) => {
-    //     console.log("there was an error", e);
-    // });
 };
 
 const nodeTest = () => {
@@ -86,7 +83,7 @@ const nodeTest = () => {
         }\nFolder: ${path.basename(window.cep_node.global.__dirname)}`
     );
 };
-onMounted(() => {
+onMounted(async () => {
     if (window.cep) {
         subscribeBackgroundColor((c: string) => (backgroundColor.value = c));
         const extRoot = csi.getSystemPath("extension");
@@ -99,6 +96,13 @@ onMounted(() => {
             console.log(jsxBinSrc);
             evalFile(jsxBinSrc);
         }
+
+        await createFolder(sub_path)
+        await createFolder(data_path)
+        if (!fs.existsSync(pwd_json_path)) {
+            // 如果文件不存在，则创建该文件
+            fs.writeFileSync(pwd_json_path, "");
+        }
     }
 });
 </script>
@@ -106,7 +110,6 @@ onMounted(() => {
 <template>
     <div class="app" :style="{ backgroundColor: backgroundColor }">
         <header class="app-header">
-
             <div class="button-group">
                 <button @click="count++">Count is: {{ count }}</button>
                 <button @click="nodeTest">
@@ -115,26 +118,8 @@ onMounted(() => {
                 <button @click="jsxTest">
                     <img class="icon-button" src="../assets/adobe.svg" />
                 </button>
-                <button @click="jsxTestTS">Ts</button>
+                <button @click="jsxTestTS">Ts1</button>
             </div>
-
-            <p>
-                <button @click="
-                    () => openLinkInBrowser('https://github.com/hyperbrew/bolt-cep')
-                ">
-                    Bolt Docs
-                </button>
-                |
-                <button @click="() => openLinkInBrowser('https://v3.vuejs.org/')">
-                    Vue Docs
-                </button>
-                |
-                <button @click="
-                    () => openLinkInBrowser('https://vitejs.dev/guide/features.html')
-                ">
-                    Vite Docs
-                </button>
-            </p>
         </header>
         <div id="tools" v-show="isLogin">
             <div class="button-group">

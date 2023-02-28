@@ -1,8 +1,25 @@
 {
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "paths": {
-      "@esTypes/*": ["./src/js/lib/es-types"]
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "paths": {
+            "@esTypes/*": [
+                "./src/js/lib/es-types"
+            ],
+            "@js/*": [
+                "./src/js/*"
+            ],
+            "@jsx/*": [
+                "./src/jsx/*"
+            ],
+            "@jslib/*": [
+                "./src/js/lib/*"
+            ],
+            "@jsxlib/*": [
+                "./src/jsx/lib/*"
+            ],
+            "@types-for-adobe/*": [
+                "./node_modules/types-for-adobe/*"
+            ],
+        }
     }
-  }
 }

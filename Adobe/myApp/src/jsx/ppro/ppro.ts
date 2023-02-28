@@ -21,7 +21,7 @@ export const qeDomFunction = () => {
 
 
 export const openProjFolder = (num: number) => {
-    alert("Hello from Premiere Pro.13");
+    alert("Hello from Premiere Pro.1345");
     Folder(File(app.project.path).parent.fsName).execute();
 };
 
