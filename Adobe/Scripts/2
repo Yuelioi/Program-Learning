@@ -1,0 +1,77 @@
+{
+    "name": "ae-jsx-runner",
+    "displayName": "AE *.jsx Runner",
+    "description": "Run Adobe After Effects *.jsx Script without ExtendScript Toolkit.",
+    "version": "0.1.0",
+    "publisher": "zpfz",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/zpfz/vscode-ae-jsx-runner.git"
+    },
+    "engines": {
+        "vscode": "^1.5.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "keywords": [
+        "ae",
+        "after effects",
+        "extendscript",
+        "jsx",
+        "runner"
+    ],
+    "icon": "img/icon.png",
+    "activationEvents": [
+        "onCommand:run.JSXScript"
+    ],
+    "main": "./out/src/extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "run.JSXScript",
+                "title": "运行 After Effects 脚本",
+                "icon": {
+                    "light": "./img/light.svg",
+                    "dark": "./img/dark.svg"
+                }
+            }
+        ],
+        "menus": {
+            "editor/title": [
+                {
+                    "when": "resourceExtname == .jsx || resourceExtname == .tsx",
+                    "command": "run.JSXScript",
+                    "group": "navigation"
+                }
+            ],
+            "editor/context": [
+                {
+                    "when": "resourceExtname == .jsx || resourceExtname == .tsx",
+                    "command": "run.JSXScript",
+                    "group": "navigation"
+                }
+            ],
+            "editor/title/context": [
+                {
+                    "when": "resourceExtname == .jsx || resourceExtname == .tsx",
+                    "command": "run.JSXScript",
+                    "group": "navigation"
+                }
+            ]
+        }
+    },
+    "license": "MIT",
+    "homepage": "https://github.com/zpfz/vscode-ae-jsx-runner/",
+    "__metadata": {
+        "id": "306980de-115d-4036-9be1-d54bcdb12258",
+        "publisherId": "892ad22f-0468-4a65-bda9-a3805a806ee2",
+        "publisherDisplayName": "Feng L.H.",
+        "targetPlatform": "undefined",
+        "isApplicationScoped": false,
+        "updated": false,
+        "isPreReleaseVersion": false,
+        "preRelease": false,
+        "installedTimestamp": 1663557943934
+    }
+}

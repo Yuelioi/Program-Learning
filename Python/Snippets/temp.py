@@ -1,163 +1,108 @@
-from nonebot.adapters.onebot.v11 import Bot, GroupMessageEvent
-from nonebot.params import EventPlainText
-from nonebot.typing import T_State
-from nonebot.rule import ArgumentParser
-from nonebot.adapters.onebot.v11.message import Message
-from nonebot.adapters.onebot.v11 import MessageSegment as MS
-from nonebot.params import CommandArg, RawCommand
-from pathlib import Path
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 
-import requests
-import random
-import time
-import aiohttp
-import asyncio
 
-from aiohttp import TCPConnector
-import openai
-from config import *
 import datetime
+from pathlib import Path
 
 
-def generate_pos(image_width):
+def generate_timestamp():
+    return datetime.datetime.now().strftime("%Y%m%d-%H%M%S%f")[:-4]
 
 
-async def handle_image(src):
-    src = Path(src).resolve()
-    image = Image.open(src)
-
-    image_copy = image.copy()
-    width = 3
-    image_new = Image.new('RGB', (width, width), (0, 0, 255))
-    image_width = image.width
-    image_height = image.height
-
-    for i in range(5):
-        nd_w = random.randint(1, image_width-width)
-        rnd_h = random.randint(1, clip*2)
-        rnd = random.randint(width, image.width-width)
-        if rnd_h > clip:
-            rnd_h = image_height-rnd_h+clip
-        image_copy.paste(image_new, (rnd_w, rnd_h, rnd+width, rnd+width))
-    out = r'/www/wwwroot/project/Robot/nobotX/diy/temp/' + \
-        datetime.datetime.now().strftime("%Y%m%d-%H%M%S%f")[:-4] + src.suffix
-    image_copy.save(out)
-    return out
+def get_root_path():
+    return str(Path(__file__).parent.parent.resolve())
 
 
-@test.handle()
-async def handle_test(bot: Bot, event: GroupMessageEvent):
-
-    await test.finish(MS.image(Path("/www/wwwroot/project/Robot/nobotX/diy/images/96102232.jpg")))
+def generate_cache_image_path():
+    return Path(__file__).parent.parent.resolve() / "data/cache" / f'{generate_timestamp()}.jpg'
 
 
-@reply.handle()
-async def handle_reply(bot: Bot, msg: Message = EventPlainText()):
-    for key in reply_data.keys():
-        if key in msg:
-            await reply.finish(MS.text(reply_data[key]))
+def split_content(content, content_size_list, max_line_width):
+    """清理文字, 转为合适长度的文字列表"""
 
-    for wd in one_word_list.keys():
-        if wd == msg:
-            await reply.finish(MS.text(one_word_list[wd]))
+    current_line_width = 0
+    final_content = []
+    last_index = 0
+
+    for i in range(len(content)):
+        if current_line_width + content_size_list[i] >= max_line_width:
+            if i == len(content) - 1:
+                # 正好最后一个字超了 直接加
+                final_content.append(content[last_index:])
+            else:
+                final_content.append(content[last_index:i])
+                last_index = i
+                current_line_width = 0
+
+        else:
+            if i == len(content) - 1:
+                final_content.append(content[last_index:])
+            current_line_width += content_size_list[i]
+    return final_content
 
 
-def get_chat(prompt):
-    openai.api_key = random.choice(api_keys)
-    response = openai.Completion.create(
-        model="text-davinci-003",
-        prompt=prompt,
-        temperature=0.3,
-        max_tokens=800,
-        top_p=1.0,
-        frequency_penalty=0.0,
-        presence_penalty=0.0
+def get_msg_size(msg, font):
+    """获取文字渲染后宽度"""
+    size = []
+    for t in msg:
+        box = font.getbbox(t)
+        size.append(box[2] - box[0])
+    return size
+
+
+def text_to_image(text_list):
+    """将文字转为图片"""
+    font_size = 24
+
+    font = ImageFont.truetype(
+        f"{get_root_path()}/data/fonts/SourceHanSansCN-Medium.otf", font_size
     )
 
-    return response.choices[0].text.strip()
+    footage_clip_size = 60
+    lines_space = 15
+    line_padding_left_and_right = 60  # 文字距离最左边距离
+
+    line_height = font_size + lines_space
+
+    footage = Image.open(f"{get_root_path()}/data/images/background.jpg")
+    header = footage.crop(box=(0, 0, footage.width, footage_clip_size))
+    footer = footage.crop(box=(0, footage.height - footage_clip_size,
+                               footage.width, footage.height))
+
+    max_line_width = footage.width - line_padding_left_and_right * 2  # 自己减下边框值
+    content = footage.crop(
+        box=(0, footage_clip_size, footage.width, line_height + footage_clip_size))
+
+    to_render_text_list = []
+    for to_render_text in text_list:
+        msg_size = get_msg_size(to_render_text, font)
+        to_render_text_list.extend(
+            split_content(to_render_text, msg_size, max_line_width))
+
+    image_result = Image.new("RGB", (footage.width, footage_clip_size *
+                             2 + len(to_render_text_list) * line_height), color=(255, 255, 255, 0))
+    image_result.paste(im=header, box=(0, 0))
+
+    for idx, text in enumerate(to_render_text_list):
+        cache = content.copy()
+        draw = ImageDraw.Draw(cache)
+        draw.text(xy=(line_padding_left_and_right, 0), text=text, font=font,
+                  fill=(125, 97, 85))
+        image_result.paste(im=cache, box=(
+            0, footage_clip_size + line_height * (idx)))
+
+    image_result.paste(im=footer, box=(
+        0, footage_clip_size + line_height * len(to_render_text_list)))
+    image_result.show()
+    cache_path = generate_cache_image_path()
+    print(cache_path)
+    image_result.save(fp=cache_path)
+
+    return cache_path
 
 
-def get_ai_image(prompt):
-    openai.api_key = random.choice(api_keys)
-    response = openai.Image.create(
-        prompt=prompt,
-        n=1,
-        size="1024x1024"
-    )
-    return response["data"][0]["url"]
+if __name__ == "__main__":
+    text1 = ['娱乐功能', '名称: 复述 用法:echo + 需要机器人重复的内容','------------------------------------------------', '名称: 龙图插件 用法:关键字含龙图,或者发送龙图', '名称: 表情包生成 用法:表情包指令:查看所有指令', '名称: 成分查看 用法:成分 + B站uid',
+             '名称: AI聊天 用法:chat + 问题(结尾最好带问号)', '名称: 随机二次元图 用法:实用关键词 召唤老婆/我老婆呢', '名称: 随机插件 用法:抽群友关键词 抽群友/抽..女群友/抽..男群友/抽老婆/抽老公\n\t\t抽菜单关键词 吃什么, 吃啥, 饿饿, 换一个吃, 想吃', '实用功能', '群管理', '名称: 群员管理 用法:关键词: 杀群友: 查看半年未说话群友, 并且可以选择一键踢出', '名称: 备份群文件 用法:关键词: 备份群文件\n关键词: 恢复群文件', '链接解析', '名称: 微博解析 用法:被动技能', '名称: Twitter解析 用法:被动技能', '名称: CSDN解析 用法:被动技能', '名称: youtube解析 用法:被动技能', '名称: Github解析 用法:被动技能']
 
-
-@ai_image.handle()
-async def ai_imagee(bot: Bot, event: GroupMessageEvent, state: T_State, args: Message = CommandArg()):
-    arg = args.extract_plain_text()
-    if arg:
-        await ai_image.finish(MS.image(get_ai_image(arg)))
-    else:
-        await ai_image.finish(MS.text("你倒是说话啊 baka"))
-
-
-@ chat.handle()
-async def chatt(bot: Bot, event: GroupMessageEvent, state: T_State, args: Message = CommandArg()):
-    arg = args.extract_plain_text()
-    if arg:
-        await chat.finish(MS.text(get_chat(arg)))
-    else:
-        await chat.finish(MS.text("你倒是说话啊 baka"))
-
-
-async def get_url2(url, cmd):
-    params = {}
-    if cmd == "r18":
-        params = {"r18": 1}
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url, params=params) as response:
-            json = await response.json()
-            tar_url = json["data"][0]["urls"]["original"]
-            name = json["data"][0]["pid"]
-            img = await session.get(tar_url, proxy='http://127.0.0.1:10809')
-            content = await img.read()
-            target = "diy/images/" + str(name) + "." + tar_url.split(".")[-1]
-
-            with open(target, 'wb') as f:
-                f.write(content)
-
-            return target
-
-
-@ get_setu.handle()
-async def get_setuu(bot: Bot, event: GroupMessageEvent, state: T_State, cmd: str = RawCommand()):
-    gid = event.group_id
-    if gid in setu_group:
-
-        try:
-            img_path = await get_url2("https://api.lolicon.app/setu/v2", cmd)
-        except:
-            img_path = await get_url("https://www.dmoe.cc/random.php")
-
-        file_path = await handle_image(img_path)
-        try:
-            msg = MS.image(Path(file_path).as_uri())
-        except:
-            msg = MS.text("获取失败喵")
-        await get_setu.finish(msg)
-    await get_setu.finish(MS.text("暂无权限喵 请联系管理员开通"))
-
-
-async def get_url(url):
-    async with aiohttp.ClientSession(connector=TCPConnector(ssl=False)) as session:
-        async with session.get(url) as response:
-            return response.url
-
-
-@ get_image.handle()
-async def get_imagee(bot: Bot, event: GroupMessageEvent, state: T_State):
-    gid = event.group_id
-
-    try:
-        msg = await get_url("https://api.ixiaowai.cn/api/api.php")
-        await get_image.finish(MS.image(str(msg)))
-    except:
-        msg = await get_url("https://www.dmoe.cc/random.php")
-
-    await get_image.finish(MS.image(str(msg)))
+    print(text_to_image(text1))

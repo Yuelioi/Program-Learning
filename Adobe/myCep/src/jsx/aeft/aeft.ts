@@ -8,10 +8,7 @@ import {
 export { helloError, helloStr, helloNum, helloArrayStr, helloObj };
 
 export const helloWorld = () => {
-    alert("Hello from After Effects!");
-    app.project.activeItem;
-};
-export const openProjFolder = (num: number) => {
-    alert("EAA");
-    Folder(File((app as any).project.file).parent.fsName).execute();
+    alert("Hello from After Effe2");
+    const activeComp = app.project.activeItem;
+    alert(activeComp ? (activeComp as CompItem).name : '没有活动项目');
 };

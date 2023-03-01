@@ -262,6 +262,20 @@ button6.onClick = function () {
 
 }
 button7.onClick = function () {
+    var activeLayer = (app.project.activeItem as CompItem).selectedLayers[0];
+    if (activeLayer instanceof ShapeLayer) {
+        var curGroup = activeLayer.property("ADBE Root Vectors Group");
+        var curContents = curGroup.property("ADBE Vectors Group");
+        var curShape = curContents.property(1);
+        if ((curShape.property("ADBE Vector Shape") as PropertyGroup).numProperties > 0) {
+            // 给第一个形状的描边添加虚线效果
+            var curStroke = curShape.property("ADBE Vector Stroke");
+            if ((curStroke as PropertyGroup).numProperties > 0) {
+                var curDash = (curStroke as PropertyGroup).addProperty("ADBE Vector Stroke Dashes") as Property;
+                curDash.setValue([10, 10]); // 设置虚线的间隔和宽度
+            }
+        }
+    }
 
 }
 button8.onClick = function () {

@@ -88,12 +88,9 @@ var helloObj = function helloObj(obj) {
 };
 
 var helloWorld$4 = function helloWorld() {
-  alert("Hello from After Effects!");
-  app.project.activeItem;
-};
-var openProjFolder$1 = function openProjFolder(num) {
-  alert("EAA");
-  Folder(File(app.project.file).parent.fsName).execute();
+  alert("Hello from After Effe2");
+  var activeComp = app.project.activeItem;
+  alert(activeComp ? activeComp.name : '没有活动项目');
 };
 
 var aeft = /*#__PURE__*/__objectFreeze({
@@ -103,8 +100,7 @@ var aeft = /*#__PURE__*/__objectFreeze({
   helloNum: helloNum,
   helloArrayStr: helloArrayStr,
   helloObj: helloObj,
-  helloWorld: helloWorld$4,
-  openProjFolder: openProjFolder$1
+  helloWorld: helloWorld$4
 });
 
 var helloWorld$3 = function helloWorld() {
@@ -131,9 +127,6 @@ var anim = /*#__PURE__*/__objectFreeze({
   helloWorld: helloWorld$2
 });
 
-// import { clipsRender } from "./batch"
-// import { clipsRender } from "./test"
-
 var qeDomFunction = function qeDomFunction() {
   if (typeof qe === "undefined") {
     app.enableQE();
@@ -143,34 +136,19 @@ var qeDomFunction = function qeDomFunction() {
     qe.project.getVideoEffectByName("test");
   }
 };
-var openProjFolder = function openProjFolder(num) {
-  alert("Hello from Premiere Pro.1345");
-  Folder(File(app.project.path).parent.fsName).execute();
-};
 var helloWorld$1 = function helloWorld() {
-  alert("Hello from Premiere Pro.12");
+  alert("Hello from Premiere Pro.");
 };
-function clipsRender() {
-  // const sequence = app.project.activeSequence || false;
-  // alert(sequence.name)
-}
-function test() {
-  // const sequence = app.project.activeSequence || false;
-  // alert(sequence.name)
-}
 
 var ppro = /*#__PURE__*/__objectFreeze({
   __proto__: null,
-  qeDomFunction: qeDomFunction,
-  openProjFolder: openProjFolder,
-  helloWorld: helloWorld$1,
-  clipsRender: clipsRender,
-  test: test,
   helloError: helloError,
   helloStr: helloStr,
   helloNum: helloNum,
   helloArrayStr: helloArrayStr,
-  helloObj: helloObj
+  helloObj: helloObj,
+  qeDomFunction: qeDomFunction,
+  helloWorld: helloWorld$1
 });
 
 var helloWorld = function helloWorld() {

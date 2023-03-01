@@ -43,6 +43,7 @@ const jsxTest = () => {
 };
 
 const open_sub_folder = () => {
+    alert("Open");
     exec(`explorer.exe "${path.resolve(sub_path)}"`, (err: any) => {
         if (err) {
             console.error(`Failed to open folder "${sub_path}". Error:`, err);
@@ -58,7 +59,6 @@ const json_2_mog = () => {
 
 };
 const open_proj_folder = () => {
-
     console.log(evalES(`openProjFolder("${csi.getApplicationID()}")`));
 };
 

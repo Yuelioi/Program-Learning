@@ -32,7 +32,6 @@
             "./node_modules/types-for-adobe/shared/JavaScript",
             "./node_modules/types-for-adobe/shared/PlugPlugExternalObject",
             "./node_modules/types-for-adobe/shared/XMPScript",
-            "./src/types/ScriptUI",
         ]
     },
     "include": [
