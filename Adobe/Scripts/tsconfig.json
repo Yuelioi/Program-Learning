@@ -27,16 +27,12 @@
         ],
         "types": [
             "./index",
-            "./node_modules/types-for-adobe/AfterEffects/22.0",
-            "./node_modules/types-for-adobe/shared/global",
-            "./node_modules/types-for-adobe/shared/JavaScript",
-            "./node_modules/types-for-adobe/shared/PlugPlugExternalObject",
-            "./node_modules/types-for-adobe/shared/XMPScript",
+            "./node_modules/types-for-adobe/AfterEffects/22.0"
         ]
     },
     "include": [
         "src/**/*.ts",
-        "src/**/*.tsx",
+        "src/main/*.tsx"
     ],
     "exclude": [
         "node_modules"

@@ -7,6 +7,7 @@
         "dist",
         "index.d.ts"
     ],
+    "outDir": "./dist1",
     "main": "./src/main.ts",
     "types": "./index.d.ts",
     "exports": {
@@ -14,7 +15,7 @@
     },
     "scripts": {
         "test": "tsc",
-        "build1": "rimraf ./dist && tsc",
+        "preview": "rimraf ./dist && tsc",
         "build": "rimraf ./dist && tsc -p \"tsconfig-build.json\" "
     },
     "devDependencies": {
