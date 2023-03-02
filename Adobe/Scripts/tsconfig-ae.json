@@ -1,12 +1,39 @@
 {
     "compilerOptions": {
-        "target": "es3",
-        "noLib": true,
+        "module": "es6",
+        "target": "ES3",
+        "useDefineForClassFields": false,
+        "allowJs": false,
+        "noUnusedParameters": true,
+        "noUnusedLocals": true,
+        "skipLibCheck": true,
+        "esModuleInterop": false,
+        "allowSyntheticDefaultImports": true,
         "strict": true,
-        "removeComments": true
+        "forceConsistentCasingInFileNames": true,
+        "moduleResolution": "Node",
+        "resolveJsonModule": false,
+        "isolatedModules": false,
+        "noLib": true,
+        "noEmit": false,
+        "baseUrl": ".",
+        "jsx": "preserve",
+        "rootDirs": [
+            "./src"
+        ],
+        "outDir": "./dist",
+        "typeRoots": [
+            "./node_modules/types-for-adobe"
+        ],
+        "types": [
+            "./index",
+            "./node_modules/types-for-adobe/AfterEffects/22.0"
+        ]
     },
-    "extends": "./tsconfig",
     "include": [
-        "src/**/*.ts",
+        "src/main/*.tsx",
     ],
+    "exclude": [
+        "node_modules"
+    ]
 }

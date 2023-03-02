@@ -5,5 +5,5 @@
         "strict": true,
         "removeComments": true
     },
-    "extends": "./tsconfig",
+    "extends": "./tsconfig"
 }

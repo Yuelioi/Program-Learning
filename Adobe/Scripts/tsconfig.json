@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "module": "es6",
         "target": "ES3",
         "useDefineForClassFields": false,
         "allowJs": false,
@@ -30,14 +31,15 @@
         ],
         "paths": {
             "@utils/*": [
-                "utils"
+                "./utils/*"
             ]
         }
     },
     "include": [
         "src/**/*.ts",
         "src/**/*.tsx",
-        "utils/**/*.tsx"
+        "utils/**/*.tsx",
+        "utils/prop.tsx"
     ],
     "exclude": [
         "node_modules"
