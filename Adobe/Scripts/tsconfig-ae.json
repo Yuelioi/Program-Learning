@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "target": "es3",
+        "noLib": true,
+        "strict": true,
+        "removeComments": true
+    },
+    "extends": "./tsconfig",
+    "include": [
+        "src/**/*.ts",
+    ],
+}

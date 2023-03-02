@@ -10,7 +10,6 @@
         "allowSyntheticDefaultImports": true,
         "strict": true,
         "forceConsistentCasingInFileNames": true,
-        "module": "None",
         "moduleResolution": "Node",
         "resolveJsonModule": false,
         "isolatedModules": false,
@@ -28,11 +27,17 @@
         "types": [
             "./index",
             "./node_modules/types-for-adobe/AfterEffects/22.0"
-        ]
+        ],
+        "paths": {
+            "@utils/*": [
+                "utils"
+            ]
+        }
     },
     "include": [
         "src/**/*.ts",
-        "src/main/*.tsx"
+        "src/**/*.tsx",
+        "utils/**/*.tsx"
     ],
     "exclude": [
         "node_modules"
