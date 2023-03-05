@@ -20,5 +20,8 @@
     "axios": "^1.2.5",
     "ts-node": "^10.9.1",
     "vite": "^4.1.4"
+  },
+  "devDependencies": {
+    "rollup": "^3.18.0"
   }
 }

@@ -26,7 +26,6 @@
             "./node_modules/types-for-adobe"
         ],
         "types": [
-            "./index",
             "./node_modules/types-for-adobe/AfterEffects/22.0"
         ],
         "paths": {
@@ -43,5 +42,20 @@
     ],
     "exclude": [
         "node_modules"
-    ]
+    ],
+    "env": {
+        "ts-link": {
+            "plugins": []
+        },
+        "development": {
+            "outputFile": "dist/bundle-dev.jsx",
+            "plugins": []
+        },
+        "production": {
+            "outputFile": "dist/bundle-prod.jsx",
+            "plugins": [
+                "rollup-plugin-uglify"
+            ]
+        }
+    }
 }

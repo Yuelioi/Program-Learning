@@ -24,69 +24,62 @@ const action = process.env.ACTION;
 
 let input = {};
 cepConfig.panels.map((panel) => {
-  input[panel.name] = path.resolve(root, panel.mainPath);
+    input[panel.name] = path.resolve(root, panel.mainPath);
 });
 
 const config = {
-  cepConfig,
-  isProduction,
-  isPackage,
-  isMetaPackage,
-  isServe,
-  debugReact,
-  dir: `${__dirname}/${devDist}`,
-  cepDist: cepDist,
-  zxpDir: `${__dirname}/${devDist}/zxp`,
-  zipDir: `${__dirname}/${devDist}/zip`,
-  packages: cepConfig.installModules || [],
+    cepConfig,
+    isProduction,
+    isPackage,
+    isMetaPackage,
+    isServe,
+    debugReact,
+    dir: `${__dirname}/${devDist}`,
+    cepDist: cepDist,
+    zxpDir: `${__dirname}/${devDist}/zxp`,
+    zipDir: `${__dirname}/${devDist}/zip`,
+    packages: cepConfig.installModules || [],
 };
 
 if (action) {
-  runAction(config, action);
-  process.exit();
+    runAction(config, action);
+    process.exit();
 }
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), cep(config)],
-  resolve: {
-    alias: [{ find: "@esTypes", replacement: path.resolve(__dirname, "src") }],
-  },
-  root,
-  clearScreen: false,
-  server: {
-    port: cepConfig.port,
-  },
-  preview: {
-    port: cepConfig.servePort,
-  },
-
-  build: {
-    sourcemap: isPackage ? cepConfig.zxp.sourceMap : cepConfig.build?.sourceMap,
-    watch: {
-      include: "src/jsx/**",
+    plugins: [vue(), cep(config)],
+    resolve: {
+        alias: [{ find: "@esTypes", replacement: path.resolve(__dirname, "src") }],
+    },
+    root,
+    clearScreen: false,
+    server: {
+        port: cepConfig.port,
+    },
+    preview: {
+        port: cepConfig.servePort,
     },
 
-    rollupOptions: {
-      input,
-      output: {
-        manualChunks: {},
-        preserveModules: false,
-        format: "cjs",
-      },
+    build: {
+        sourcemap: isPackage ? cepConfig.zxp.sourceMap : cepConfig.build?.sourceMap,
+        watch: {
+            include: "src/jsx/**",
+        },
+
+        rollupOptions: {
+            input,
+            output: {
+                manualChunks: {},
+                preserveModules: false,
+                format: "cjs",
+            },
+        },
+        target: "chrome74",
+        outDir,
     },
-    target: "chrome74",
-    outDir,
-  },
 });
 
 // rollup es3 build
 const outPathExtendscript = path.join("dist", "cep", "jsx", "index.js");
-extendscriptConfig(
-  `src/jsx/index.ts`,
-  outPathExtendscript,
-  cepConfig,
-  extensions,
-  isProduction,
-  isPackage
-);
+extendscriptConfig(`src/jsx/index.ts`, outPathExtendscript, cepConfig, extensions, isProduction, isPackage);

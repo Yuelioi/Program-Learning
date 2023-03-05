@@ -1,23 +1,6 @@
 {
+    "extends": "./tsconfig.json",
     "compilerOptions": {
-        "module": "es6",
-        "target": "ES3",
-        "useDefineForClassFields": false,
-        "allowJs": false,
-        "noUnusedParameters": true,
-        "noUnusedLocals": true,
-        "skipLibCheck": true,
-        "esModuleInterop": false,
-        "allowSyntheticDefaultImports": true,
-        "strict": true,
-        "forceConsistentCasingInFileNames": true,
-        "moduleResolution": "Node",
-        "resolveJsonModule": false,
-        "isolatedModules": false,
-        "noLib": true,
-        "noEmit": false,
-        "baseUrl": ".",
-        "jsx": "preserve",
         "rootDirs": [
             "./src"
         ],
@@ -31,9 +14,42 @@
         ]
     },
     "include": [
-        "src/main/*.tsx"
+        "src/main/*.tsx",
+        "src/main/*.ts"
     ],
     "exclude": [
         "node_modules"
-    ]
+    ],
+    "env": {
+        "tsx-linker": {
+            "tsconfig": {
+                "tsconfig": "tsconfig.json"
+            },
+            "rollup": {
+                "input": "./src/main/main.tsx",
+                "outputFile": "dist/bundle-dev.jsx",
+                "plugins": []
+            }
+        },
+        "development": {
+            "tsconfig": {},
+            "rollup": {
+                "input": "./src/main/main.tsx",
+                "outputFile": "dist/bundle-dev.jsx",
+                "plugins": []
+            }
+        },
+        "production": {
+            "tsconfig": {
+                "removeComments": true
+            },
+            "rollup": {
+                "input": "./src/main/main.tsx",
+                "outputFile": "dist/bundle-prod.jsx",
+                "plugins": [
+                    "rollup-plugin-uglify"
+                ]
+            }
+        }
+    }
 }

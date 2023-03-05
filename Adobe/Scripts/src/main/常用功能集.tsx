@@ -83,52 +83,68 @@ var panelGlobal: any = this;
 
     button1.onClick = function () {
         // 获取当前选中的活动图层
-        var activeLayer = (app.project.activeItem as CompItem).selectedLayers[0];
-        var opacityProperty: Property = activeLayer.property("Opacity") as Property;
-        var currentOpacity = opacityProperty.value;
-        var frameRate = activeLayer.containingComp.frameRate;
-        var frameDuration = 1 / frameRate;
-        var fadeInDurationFrames = 7;
-        var fadeInDurationSeconds = fadeInDurationFrames * frameDuration;
-        var tStart = activeLayer.time;
+        var activeLayers = (app.project.activeItem as CompItem).selectedLayers;
         app.beginUndoGroup(this.text);
 
-        opacityProperty.setValueAtTime(tStart, 0);
-        opacityProperty.setValueAtTime(tStart + fadeInDurationSeconds, currentOpacity);
+        for (var i = 0; i < activeLayers.length; i++) {
+            const activeLayer = activeLayers[i] as Layer;
+            var opacityProperty: Property = activeLayer.property("Opacity") as Property;
+            var currentOpacity = opacityProperty.value;
+            var frameRate = activeLayer.containingComp.frameRate;
+            var frameDuration = 1 / frameRate;
+            var fadeInDurationFrames = 7;
+            var fadeInDurationSeconds = fadeInDurationFrames * frameDuration;
+            var tStart = activeLayer.time;
 
-        opacityProperty.setInterpolationTypeAtKey(opacityProperty.nearestKeyIndex(tStart), KeyframeInterpolationType.BEZIER);
-        opacityProperty.setInterpolationTypeAtKey(opacityProperty.nearestKeyIndex(tStart + fadeInDurationSeconds), KeyframeInterpolationType.BEZIER);
-        opacityProperty.setInterpolationTypeAtKey(
-            opacityProperty.nearestKeyIndex((tStart + tStart + fadeInDurationSeconds) / 2),
-            KeyframeInterpolationType.BEZIER
-        );
+            opacityProperty.setValueAtTime(tStart, 0);
+            opacityProperty.setValueAtTime(tStart + fadeInDurationSeconds, currentOpacity);
 
+            opacityProperty.setInterpolationTypeAtKey(opacityProperty.nearestKeyIndex(tStart), KeyframeInterpolationType.BEZIER);
+            opacityProperty.setInterpolationTypeAtKey(
+                opacityProperty.nearestKeyIndex(tStart + fadeInDurationSeconds),
+                KeyframeInterpolationType.BEZIER
+            );
+            opacityProperty.setInterpolationTypeAtKey(
+                opacityProperty.nearestKeyIndex((tStart + tStart + fadeInDurationSeconds) / 2),
+                KeyframeInterpolationType.BEZIER
+            );
+        }
         app.endUndoGroup();
     };
 
+    /**
+     * 透明渐隐
+     */
     button11.onClick = function () {
         // 获取当前选中的活动图层
-        var activeLayer = (app.project.activeItem as CompItem).selectedLayers[0];
-        // 设置透明度从0到70%的关键帧
-        var opacityProperty: Property = activeLayer.property("Opacity") as Property;
-        var currentOpacity = opacityProperty.value;
-        var frameRate = activeLayer.containingComp.frameRate;
-        var frameDuration = 1 / frameRate;
-        var fadeInDurationFrames = 7;
-        var fadeInDurationSeconds = fadeInDurationFrames * frameDuration;
-        var tStart = activeLayer.time;
+
+        var activeLayers = (app.project.activeItem as CompItem).selectedLayers;
         app.beginUndoGroup(this.text);
 
-        opacityProperty.setValueAtTime(tStart, currentOpacity);
-        opacityProperty.setValueAtTime(tStart + fadeInDurationSeconds, 0);
+        for (var i = 0; i < activeLayers.length; i++) {
+            const activeLayer = activeLayers[i] as Layer;
+            // 设置透明度从0到70%的关键帧
+            var opacityProperty: Property = activeLayer.property("Opacity") as Property;
+            var currentOpacity = opacityProperty.value;
+            var frameRate = activeLayer.containingComp.frameRate;
+            var frameDuration = 1 / frameRate;
+            var fadeInDurationFrames = 7;
+            var fadeInDurationSeconds = fadeInDurationFrames * frameDuration;
+            var tStart = activeLayer.time;
 
-        opacityProperty.setInterpolationTypeAtKey(opacityProperty.nearestKeyIndex(tStart), KeyframeInterpolationType.BEZIER);
-        opacityProperty.setInterpolationTypeAtKey(opacityProperty.nearestKeyIndex(tStart + fadeInDurationSeconds), KeyframeInterpolationType.BEZIER);
-        opacityProperty.setInterpolationTypeAtKey(
-            opacityProperty.nearestKeyIndex((tStart + tStart + fadeInDurationSeconds) / 2),
-            KeyframeInterpolationType.BEZIER
-        );
+            opacityProperty.setValueAtTime(tStart, currentOpacity);
+            opacityProperty.setValueAtTime(tStart + fadeInDurationSeconds, 0);
 
+            opacityProperty.setInterpolationTypeAtKey(opacityProperty.nearestKeyIndex(tStart), KeyframeInterpolationType.BEZIER);
+            opacityProperty.setInterpolationTypeAtKey(
+                opacityProperty.nearestKeyIndex(tStart + fadeInDurationSeconds),
+                KeyframeInterpolationType.BEZIER
+            );
+            opacityProperty.setInterpolationTypeAtKey(
+                opacityProperty.nearestKeyIndex((tStart + tStart + fadeInDurationSeconds) / 2),
+                KeyframeInterpolationType.BEZIER
+            );
+        }
         app.endUndoGroup();
     };
 
@@ -137,60 +153,64 @@ var panelGlobal: any = this;
      */
     button2.onClick = function () {
         // 获取当前选中的活动图层
-        var activeLayer = (app.project.activeItem as CompItem).selectedLayers[0];
-
-        // 设置缩放动画
-        var scaleProperty: Property = activeLayer.property("Scale") as Property;
-        var currentScale = scaleProperty.value;
-        var frameRate = activeLayer.containingComp.frameRate;
-        var frameDuration = 1 / frameRate;
-        var fadeInDurationFrames = 5;
-        var fadeInDurationSeconds = fadeInDurationFrames * frameDuration;
-
-        var tStart = activeLayer.time;
+        var activeLayers = (app.project.activeItem as CompItem).selectedLayers;
         app.beginUndoGroup(this.text);
 
-        scaleProperty.setValueAtTime(tStart, [0, 0, 0]);
-        scaleProperty.setValueAtTime(tStart + fadeInDurationSeconds, currentScale);
+        for (var i = 0; i < activeLayers.length; i++) {
+            const activeLayer = activeLayers[i] as Layer;
 
-        var amp = (activeLayer.property("Effects") as PropertyGroup).addProperty("ADBE Slider Control"); // 添加表达式控件 slider control
-        amp.name = "amp";
-        (amp.property("Slider") as Property).setValue(20);
-        var freq = (activeLayer.property("Effects") as PropertyGroup).addProperty("ADBE Slider Control"); // 添加表达式控件 slider control
-        freq.name = "freq";
-        (freq.property("Slider") as Property).setValue(40);
-        var decay = (activeLayer.property("Effects") as PropertyGroup).addProperty("ADBE Slider Control"); // 添加表达式控件 slider control
-        decay.name = "decay";
-        (decay.property("Slider") as Property).setValue(60);
+            // 设置缩放动画
+            var scaleProperty: Property = activeLayer.property("Scale") as Property;
+            var currentScale = scaleProperty.value;
+            var frameRate = activeLayer.containingComp.frameRate;
+            var frameDuration = 1 / frameRate;
+            var fadeInDurationFrames = 5;
+            var fadeInDurationSeconds = fadeInDurationFrames * frameDuration;
 
-        var exp =
-            "try {\n" +
-            'amp = effect("amp")("ADBE Slider Control-0001") / 200;\n' +
-            'freq = effect("freq")("ADBE Slider Control-0001") / 30;\n' +
-            'decay = effect("decay")("ADBE Slider Control-0001")/ 10;\n' +
-            "n = 0;\n" +
-            "if (numKeys > 0){\n" +
-            "n = nearestKey(time).index;\n" +
-            "if (key(n).time > time){\n" +
-            "n--;\n" +
-            "}\n" +
-            "}\n" +
-            "if (n == 0){\n" +
-            "t = 0;\n" +
-            "} else {\n" +
-            "t = time - key(n).time;\n" +
-            "}\n" +
-            "\n" +
-            "if (n > 0){\n" +
-            "v = velocityAtTime(key(n).time - thisComp.frameDuration/10);\n" +
-            "value + v*amp*Math.sin(freq*t*2*Math.PI)/Math.exp(decay*t);\n" +
-            "} else {\n" +
-            "value;\n" +
-            "}\n" +
-            "}catch (e$$4) {\n" +
-            "value = value;\n" +
-            "}\n";
-        scaleProperty.expression = exp;
+            var tStart = activeLayer.time;
+
+            scaleProperty.setValueAtTime(tStart, [0, 0, 0]);
+            scaleProperty.setValueAtTime(tStart + fadeInDurationSeconds, currentScale);
+
+            var amp = (activeLayer.property("Effects") as PropertyGroup).addProperty("ADBE Slider Control"); // 添加表达式控件 slider control
+            amp.name = "amp";
+            (amp.property("ADBE Slider Control-0001") as Property).setValue(20);
+            var freq = (activeLayer.property("Effects") as PropertyGroup).addProperty("ADBE Slider Control"); // 添加表达式控件 slider control
+            freq.name = "freq";
+            (freq.property("ADBE Slider Control-0001") as Property).setValue(40);
+            var decay = (activeLayer.property("Effects") as PropertyGroup).addProperty("ADBE Slider Control"); // 添加表达式控件 slider control
+            decay.name = "decay";
+            (decay.property("ADBE Slider Control-0001") as Property).setValue(60);
+
+            var exp =
+                "try {\n" +
+                'amp = effect("amp")("ADBE Slider Control-0001") / 200;\n' +
+                'freq = effect("freq")("ADBE Slider Control-0001") / 30;\n' +
+                'decay = effect("decay")("ADBE Slider Control-0001")/ 10;\n' +
+                "n = 0;\n" +
+                "if (numKeys > 0){\n" +
+                "n = nearestKey(time).index;\n" +
+                "if (key(n).time > time){\n" +
+                "n--;\n" +
+                "}\n" +
+                "}\n" +
+                "if (n == 0){\n" +
+                "t = 0;\n" +
+                "} else {\n" +
+                "t = time - key(n).time;\n" +
+                "}\n" +
+                "\n" +
+                "if (n > 0){\n" +
+                "v = velocityAtTime(key(n).time - thisComp.frameDuration/10);\n" +
+                "value + v*amp*Math.sin(freq*t*2*Math.PI)/Math.exp(decay*t);\n" +
+                "} else {\n" +
+                "value;\n" +
+                "}\n" +
+                "}catch (e$$4) {\n" +
+                "value = value;\n" +
+                "}\n";
+            scaleProperty.expression = exp;
+        }
         app.endUndoGroup();
     };
 
@@ -219,10 +239,13 @@ var panelGlobal: any = this;
         }
 
         for (var i = 0; i <= 4; i++) {
-            var opacity = i % 2 == 1 ? tarOpacity : currentOpacity;
+            if (event.button == 2) {
+                var opacity = i % 2 == 0 ? currentOpacity : tarOpacity;
+            } else {
+                var opacity = i % 2 == 0 ? tarOpacity : currentOpacity;
+            }
             var currentTime = tStart + i * durationSeconds;
             opacityProperty.setValueAtTime(currentTime, opacity);
-            // opacityProperty.setInterpolationTypeAtKey(opacityProperty.nearestKeyIndex(currentTime), KeyframeInterpolationType.HOLD);
         }
         app.endUndoGroup();
     }
@@ -257,66 +280,67 @@ var panelGlobal: any = this;
      * 移动透明 + 弹性
      */
     button5.onClick = function () {
-        // 获取当前选中的形状图层
-        var activeLayer = (app.project.activeItem as CompItem).selectedLayers[0];
-
-        var frameRate = activeLayer.containingComp.frameRate;
-        var frameDuration = 1 / frameRate;
-        var durationSeconds = 5 * frameDuration;
-
-        var opacityProperty: Property = activeLayer.property("Opacity") as Property;
-        var positionProperty: Property = activeLayer.property("Position") as Property;
-        var currentOpacity = opacityProperty.value;
-        var currentPosition = positionProperty.value;
-
+        var activeLayers = (app.project.activeItem as CompItem).selectedLayers;
         app.beginUndoGroup(this.text);
 
-        // 添加表达式
-        var amp = (activeLayer.property("Effects") as PropertyGroup).addProperty("ADBE Slider Control"); // 添加表达式控件 slider control
-        amp.name = "amp";
-        (amp.property("ADBE Slider Control-0001") as Property).setValue(20);
-        var freq = (activeLayer.property("Effects") as PropertyGroup).addProperty("ADBE Slider Control"); // 添加表达式控件 slider control
-        freq.name = "freq";
-        (freq.property("ADBE Slider Control-0001") as Property).setValue(40);
-        var decay = (activeLayer.property("Effects") as PropertyGroup).addProperty("ADBE Slider Control"); // 添加表达式控件 slider control
-        decay.name = "decay";
-        (decay.property("ADBE Slider Control-0001") as Property).setValue(60);
+        for (var i = 0; i < activeLayers.length; i++) {
+            const activeLayer = activeLayers[i] as Layer;
+            var frameRate = activeLayer.containingComp.frameRate;
+            var frameDuration = 1 / frameRate;
+            var durationSeconds = 5 * frameDuration;
 
-        var tStart = activeLayer.time;
+            var opacityProperty: Property = activeLayer.property("Opacity") as Property;
+            var positionProperty: Property = activeLayer.property("Position") as Property;
+            var currentOpacity = opacityProperty.value;
+            var currentPosition = positionProperty.value;
 
-        opacityProperty.setValueAtTime(tStart, 0);
-        opacityProperty.setValueAtTime(tStart + durationSeconds, currentOpacity);
+            // 添加表达式
+            var amp = (activeLayer.property("Effects") as PropertyGroup).addProperty("ADBE Slider Control"); // 添加表达式控件 slider control
+            amp.name = "amp";
+            (amp.property("ADBE Slider Control-0001") as Property).setValue(20);
+            var freq = (activeLayer.property("Effects") as PropertyGroup).addProperty("ADBE Slider Control"); // 添加表达式控件 slider control
+            freq.name = "freq";
+            (freq.property("ADBE Slider Control-0001") as Property).setValue(40);
+            var decay = (activeLayer.property("Effects") as PropertyGroup).addProperty("ADBE Slider Control"); // 添加表达式控件 slider control
+            decay.name = "decay";
+            (decay.property("ADBE Slider Control-0001") as Property).setValue(60);
 
-        positionProperty.setValueAtTime(tStart, [currentPosition[0], currentPosition[1] - 100]);
-        positionProperty.setValueAtTime(tStart + durationSeconds, currentPosition);
-        var exp =
-            "try {\n" +
-            'amp = effect("amp")("ADBE Slider Control-0001") / 200;\n' +
-            'freq = effect("freq")("ADBE Slider Control-0001") / 30;\n' +
-            'decay = effect("decay")("ADBE Slider Control-0001") / 10;\n' +
-            "n = 0;\n" +
-            "if (numKeys > 0){\n" +
-            "n = nearestKey(time).index;\n" +
-            "if (key(n).time > time){\n" +
-            "n--;\n" +
-            "}\n" +
-            "}\n" +
-            "if (n == 0){\n" +
-            "t = 0;\n" +
-            "} else {\n" +
-            "t = time - key(n).time;\n" +
-            "}\n" +
-            "\n" +
-            "if (n > 0){\n" +
-            "v = velocityAtTime(key(n).time - thisComp.frameDuration/10);\n" +
-            "value + v*amp*Math.sin(freq*t*2*Math.PI)/Math.exp(decay*t);\n" +
-            "} else {\n" +
-            "value;\n" +
-            "}\n" +
-            "}catch (e$$4) {\n" +
-            "value = value;\n" +
-            "}\n";
-        positionProperty.expression = exp;
+            var tStart = activeLayer.time;
+
+            opacityProperty.setValueAtTime(tStart, 0);
+            opacityProperty.setValueAtTime(tStart + durationSeconds, currentOpacity);
+
+            positionProperty.setValueAtTime(tStart, [currentPosition[0], currentPosition[1] - 100]);
+            positionProperty.setValueAtTime(tStart + durationSeconds, currentPosition);
+            var exp =
+                "try {\n" +
+                'amp = effect("amp")("ADBE Slider Control-0001") / 200;\n' +
+                'freq = effect("freq")("ADBE Slider Control-0001") / 30;\n' +
+                'decay = effect("decay")("ADBE Slider Control-0001") / 10;\n' +
+                "n = 0;\n" +
+                "if (numKeys > 0){\n" +
+                "n = nearestKey(time).index;\n" +
+                "if (key(n).time > time){\n" +
+                "n--;\n" +
+                "}\n" +
+                "}\n" +
+                "if (n == 0){\n" +
+                "t = 0;\n" +
+                "} else {\n" +
+                "t = time - key(n).time;\n" +
+                "}\n" +
+                "\n" +
+                "if (n > 0){\n" +
+                "v = velocityAtTime(key(n).time - thisComp.frameDuration/10);\n" +
+                "value + v*amp*Math.sin(freq*t*2*Math.PI)/Math.exp(decay*t);\n" +
+                "} else {\n" +
+                "value;\n" +
+                "}\n" +
+                "}catch (e$$4) {\n" +
+                "value = value;\n" +
+                "}\n";
+            positionProperty.expression = exp;
+        }
         app.endUndoGroup();
     };
 
@@ -404,6 +428,8 @@ var panelGlobal: any = this;
         var activeLayer = (app.project.activeItem as CompItem).selectedLayers[0];
 
         let color;
+        app.beginUndoGroup(this.text);
+
         if (activeLayer && activeLayer.matchName === "ADBE Text Layer") {
             color = (activeLayer.property("Source Text") as Property).value.fillColor;
         } else if (activeLayer && activeLayer.matchName === "ADBE Vector Layer") {
@@ -427,6 +453,7 @@ var panelGlobal: any = this;
         colorProperty.setValueAtTime((app.project.activeItem as CompItem).time + frameDuration * 7, color);
         colorProperty.setValueAtTime((app.project.activeItem as CompItem).time + frameDuration * 7 + frameDuration * 50, color);
         colorProperty.setValueAtTime((app.project.activeItem as CompItem).time + frameDuration * 7 + frameDuration * 50 + frameDuration * 7, color);
+        app.endUndoGroup();
     };
 
     palette.layout.layout(true);
