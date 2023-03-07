@@ -1,10 +1,19 @@
 通用法则 : 谁调就是谁
-1.在方法中，this指的是所有者对象。
-2.单独的情况下，this指的是全局对象。
-3.在函数中，this指的是全局对象。
-4.在函数中，严格模式下，this指的是undefined。
-5.在事件中，this指的是接收事件的元素。
+
+https://www.bilibili.com/video/BV19V411J77j
+
+1.在方法中，this 指的是所有者对象。 2.单独的情况下，this 指的是全局对象。 3.在函数中，this 指的是全局对象。 4.在函数中，严格模式下，this 指的是 undefined。 5.在事件中，this 指的是接收事件的元素。
 @docs:http://www.ruanyifeng.com/blog/2018/06/javascript-this.html
+
+沿着作用域,向上找最近的 function(不是箭头函数), 看它如何执行/调用的
+
+function 调用分为
+
+1. 作为函数调用: 如 foo(), 指向全局对象(globalThis), 严格模式为 undefined
+2. 作为方法调用: foo.bar()/`foo['bar']())`/`foo[0]()`, 指向调用这个方法的对象
+3. 构造函数, new Foo(), 指向新对象
+4. 特殊: foo.call/apply/bind
+5. 找不到: 指向全局
 
 ```javascript
 // 全局对象 默认是Window / 或者Nodejs的全局对象
@@ -55,4 +64,21 @@ obj.p.fun2(); // { id: 7, fun: [Function: fun2] }
 <button onclick="this.style.display='none'">this指向当前按钮</button>;
 
 // call apply bind
+```
+
+示例
+
+```javascript
+length = 5;
+function fn() {
+    console.log(this.length);
+}
+obj = {
+    length: 10,
+    foo(fn) {
+        fn();
+        arguments[0](); // ~ arguments.0(); 所以是3个参数
+    },
+};
+obj.foo(fn, 1, 2); // 5 3
 ```

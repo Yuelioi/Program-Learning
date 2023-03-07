@@ -12,6 +12,7 @@
         "strict": true,
         "forceConsistentCasingInFileNames": true,
         "moduleResolution": "Node",
+        "strictNullChecks": true,
         "resolveJsonModule": false,
         "isolatedModules": false,
         "noLib": true,
