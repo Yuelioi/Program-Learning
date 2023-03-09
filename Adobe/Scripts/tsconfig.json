@@ -1,33 +1,28 @@
 {
     "compilerOptions": {
-        "module": "es6",
         "target": "ES3",
+        "ignoreDeprecations": "5.0",
         "useDefineForClassFields": false,
         "allowJs": false,
         "noUnusedParameters": true,
         "noUnusedLocals": true,
         "skipLibCheck": true,
-        "esModuleInterop": false,
-        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": false,
         "strict": true,
         "forceConsistentCasingInFileNames": true,
-        "moduleResolution": "Node",
+        "moduleResolution": "node",
         "strictNullChecks": true,
-        "resolveJsonModule": false,
+        "resolveJsonModule": true,
         "isolatedModules": false,
-        "noLib": true,
         "noEmit": false,
-        "baseUrl": ".",
         "jsx": "preserve",
         "rootDirs": [
             "./src"
         ],
         "outDir": "./dist",
-        "typeRoots": [
-            "./node_modules/types-for-adobe"
-        ],
         "types": [
-            "./node_modules/types-for-adobe/AfterEffects/22.0"
+            "./node_modules/types-for-adobe/AfterEffects/22.0/index.d.ts"
         ],
         "paths": {
             "@utils/*": [
@@ -36,27 +31,12 @@
         }
     },
     "include": [
-        "src/**/*.ts",
-        "src/**/*.tsx",
-        "utils/**/*.tsx",
-        "utils/prop.tsx"
+        "./src/**/*.ts",
+        "./src/**/*.tsx",
+        "./utils/**/*.tsx",
+        "./utils/**/*.ts"
     ],
     "exclude": [
-        "node_modules"
-    ],
-    "env": {
-        "ts-link": {
-            "plugins": []
-        },
-        "development": {
-            "outputFile": "dist/bundle-dev.jsx",
-            "plugins": []
-        },
-        "production": {
-            "outputFile": "dist/bundle-prod.jsx",
-            "plugins": [
-                "rollup-plugin-uglify"
-            ]
-        }
-    }
+        "./node_modules"
+    ]
 }

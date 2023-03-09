@@ -5,22 +5,15 @@ import { readFileSync } from "fs";
 // set NODE_ENV = ts-link
 const tsConfig = JSON.parse(readFileSync("tsconfig-ae.json"));
 // process.env.NODE_ENV = 'tsx-linker';
-switch (env) {
-
-}
 
 const env = process.env.NODE_ENV || "development";
 const config = tsConfig.env[env];
-console.log(config)
 export default {
-    input: config.rollup.input || "./src/main/main.tsx",
+    input: "./src/main/1.tsx",
     output: {
         file: config.outputFile,
         format: "iife",
-        name: "MyApp"
+        name: "MyApp",
     },
-    plugins: [
-        typescript({ "tsconfig": "tsconfig.json" }),
-        ...config.rollup.plugins
-    ]
+    plugins: [typescript({ tsconfig: "tsconfig.json" }), ...config.rollup.plugins],
 };
