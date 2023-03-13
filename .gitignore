@@ -22,3 +22,9 @@ test.*
 # Adobe
 
 Adobe/dist
+
+
+# Rust
+
+.lock
+target
