@@ -20,9 +20,9 @@ copyToClipboard('Hello World');
 
 
 // *execCommand
-document.execCommand('copy')（复制）
-document.execCommand('cut')（剪切）
-document.execCommand('paste')（粘贴）
+document.execCommand('copy')
+document.execCommand('cut')
+document.execCommand('paste')
 
 const inputElement = document.querySelector('#input');
 inputElement.select();
