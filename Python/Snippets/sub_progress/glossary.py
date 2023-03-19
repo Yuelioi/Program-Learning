@@ -9,8 +9,8 @@ def glossary_replace(src_content, file_path):
                 trg = line.split('\t')[1].split('\n')[0]
             except BaseException:
                 ...
-            res_content = src_content.replace(src, trg)
-    return res_content
+            if res_content := src_content.replace(src, trg):
+                return res_content
 
 
 def sub_gl_en_zh(src_content):
