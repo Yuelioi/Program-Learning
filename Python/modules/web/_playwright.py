@@ -1,4 +1,6 @@
 # 同步调用
+import aiohttp
+import aiofiles
 import asyncio
 from playwright.async_api import async_playwright
 from playwright.sync_api import sync_playwright
@@ -38,17 +40,23 @@ async def main2():
         await page.goto('https://www.behance.net/gallery/161360299/Cosmoses-?tracking_source=project_owner_other_projects')
         # 异步等待
 
-        await page.goto('https://www.behance.net/gallery/161360299/Cosmoses-?tracking_source=project_owner_other_projects')
-        # 异步等待
+        cover_element = await page.wait_for_selector('meta[property="og:image"]', state="attached", timeout=10000)
 
-        cover_element = await page.wait_for_selector('meta[property="og:image"]', timeout=10000)
-        print(1223)
         if cover_element:
+            title = await page.title()
             cover_url = await cover_element.get_attribute('content')
-            print(cover_url)
-        # 使用.nth(0) 获取第一个元素
-        # await top.nth(0).screenshot(path="screenshot2.png")
-        # await browser.close()
+            print(title)
+            out = "cover.jpg"
+            if cover_url:
+
+                async with aiohttp.ClientSession() as session:
+                    async with session.get(cover_url, proxy="http://127.0.0.1:10809") as response:
+                        if response.status == 200:
+                            # 使用异步I/O保存文件
+                            async with aiofiles.open(out, "wb") as f:
+                                async for data in response.content.iter_chunked(1024):
+                                    await f.write(data)
+                            print(f"封面已保存到本地：{out}")
 
 
 if __name__ == '__main__':
