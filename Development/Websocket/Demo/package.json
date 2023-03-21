@@ -1,0 +1,19 @@
+{
+    "name": "demo",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "serve": "node server/server.js",
+        "serve-group": "node server/server-group.js",
+        "client": "node client/client.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "socket.io": "^4.6.1",
+        "websocket": "^1.0.34"
+    }
+}

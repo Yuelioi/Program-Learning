@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input id="text" type="text">
+    <input type="button" value="send" onclick="send()">
+    <div id="messages"></div>
+    <script>
+        var websocket = new WebSocket('ws://127.0.0.1:8080', "echo-protocol");
+        websocket.onopen = function () {
+            console.log("Connection established. ReadyState: " + websocket.readyState);
+        }
+
+        function send() {
+            const text = document.getElementById("text").value;
+            if (websocket.readyState === WebSocket.OPEN) {
+                websocket.send(text);
+            } else {
+                console.log("Connection is not open. ReadyState: " + websocket.readyState);
+            }
+        }
+
+        websocket.onmessage = function (message) {
+            console.log("Message received. Type: " + message.type + ", Data: " + message.data);
+            if (message.type === "utf8") {
+                console.log("Received1: '" + message.utf8Data + "'");
+                const messagesDiv = document.getElementById("messages");
+                messagesDiv.innerHTML = message.utf8Data
+            }
+        };
+
+        websocket.onerror = function (error) {
+            console.error("WebSocket error: " + error);
+        };
+
+        websocket.onclose = function (event) {
+            console.log("WebSocket connection closed. Code: " + event.code + ", Reason: " + event.reason);
+        };
+    </script>
+
+</body>
+
+</html>
