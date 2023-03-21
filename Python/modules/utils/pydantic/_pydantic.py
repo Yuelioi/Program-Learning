@@ -11,12 +11,11 @@ class Model(BaseModel):
     b: float
     c: str
 
-
+# 可以自动格式转换 float=> int
 # > dict |{'a': 3, 'b': 2.72, 'c': '123'}
-model = Model(a=3.1415, b=' 2.72 ', c=123).dict()
+# model = Model(a=3.1415, b=' 2.72 ', c=123).dict()
 # > str | {'a': 3, 'b': 2.72, 'c': '123'}
-model = Model(a=3.1415, b=' 2.72 ', c=123).json()
-print(model)
+# model = Model(a=3.1415, b=' 2.72 ', c=123).json()
 
 
 #  types  字段类型------------------------------------------------------------------------------
