@@ -1,24 +1,22 @@
 /**
  * @Usage: use commonjs modules
- * @Install: pnpm install rollup-plugin-commonjs -D
+ * @Install: pnpm install @rollup/plugin-commonjs -D
  */
 
 // rollup.config.js
 
-import commonjs from 'rollup-plugin-commonjs'
+import commonjs from "@rollup/plugin-commonjs";
 export default {
     // ...
-    plugins: [
-        json()
-    ]
-}
+    plugins: [commonjs()],
+};
 
 // cjs-test.js
 module.exports = {
-    foo: 'bar'
-}
+    foo: "bar",
+};
 
 // index.js
 
-import cjs from './cjs-test'
+import cjs from "./cjs-test";
 log(cjs);
