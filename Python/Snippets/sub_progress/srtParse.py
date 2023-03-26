@@ -35,7 +35,9 @@ def splitByPeriod(subs):
             if periodIndex > len(sub.text) - 3:
                 tText += f" {sub.text}"
                 tEnd = sub.end
-                newsub = createSub(tIndex, tStart, tEnd, tText.strip())
+                # 创建字幕, 并把\n 换成空格
+                newsub = createSub(tIndex, tStart, tEnd,
+                                   tText.replace("\\n", " ").replace("\\N", " ").strip())
                 trg_subs.append(newsub)
                 tStart = 0
                 tText = ""
@@ -43,7 +45,9 @@ def splitByPeriod(subs):
                 tEnd = sub.end - ((sub.end - sub.start) /
                                   len(sub.text) * (len(sub.text) - periodIndex))
                 tText += f" {sub.text[:periodIndex+1]}"
-                newsub = createSub(tIndex, tStart, tEnd, tText.strip())
+                # 创建字幕, 并把\n 换成空格
+                newsub = createSub(tIndex, tStart, tEnd,
+                                   tText.replace("\\n", " ").replace("\\N", " ").strip())
                 trg_subs.append(newsub)
                 tStart = tEnd
                 tText = sub.text[periodIndex+1:]

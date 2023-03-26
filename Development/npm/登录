@@ -1,0 +1,7 @@
+切回 npm 官方镜像
+
+npm config set registry https://registry.npmjs.org/
+
+登录时指定为官方镜像
+
+npm login --registry https://registry.npmjs.org

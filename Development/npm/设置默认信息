@@ -1,0 +1,5 @@
+npm config set --init-author-email "yuelioi1210@gmail.com"
+npm config set --init-author-name "yueli"
+npm config set --init-author-url "https://github.com/yuelioi"
+npm config set --init-license "MIT"
+npm config set --init-version "0.0.1"

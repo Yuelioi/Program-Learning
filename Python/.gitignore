@@ -18,5 +18,8 @@ Python/**/.idea
 pyvenv.cfg
 
 secret.*
+get_cookie
 output.wav
 test.*
+*.vtt
+*.srt
