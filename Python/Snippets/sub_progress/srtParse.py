@@ -1,6 +1,7 @@
 import pysrt
 import pysubs2
 import os
+import re
 
 
 def createSub(index: int, start: int, end: int, text: str):
@@ -56,3 +57,56 @@ def splitByPeriod(subs):
         else:
             tText += f" {sub.text}"
     return trg_subs
+
+
+def time2float(t):
+    '''    
+    :param t: 00:05:30.200
+    :return: 210.200
+    '''
+    t_list = [float(x) for x in t.split(":")]
+    return t_list[0]*3600+t_list[1]*60+t_list[2]
+
+
+def oldvtt2subs(vtt_file: str):
+
+    trg_subs = pysrt.SubRipFile()
+
+    starts = []
+    ends = []
+    texts = []
+
+    pattern = r'<.*?>'
+    repl = ''
+    sub_length = 0
+    with open(vtt_file, 'r') as f:
+        vtt_content = f.read()
+    format_sub = re.sub(pattern, repl, vtt_content).replace(
+        ' align:start position:0%', '')
+    sub_list = format_sub.split('\n')[4:]
+
+    for i in range(len(sub_list)):
+        if i % 12 == 8:
+            try:
+                starts.append(time2float(
+                    sub_list[i - 8].split(' --> ')[0]))
+                ends.append(time2float(
+                    sub_list[i].split(' --> ')[1]))
+            except Exception:
+                sub_length = len(starts)
+        elif i % 12 == 9:
+            texts.append(
+                str(f'{sub_list[i]} {str(sub_list[i + 1])}').strip())
+    if sub_length:
+        texts = texts[:sub_length]
+        ends = ends[:sub_length]
+
+    for i in range(len(texts)):
+        trg_subs.append(createSub(i+1, starts[i]*1000, ends[i]*1000, texts[i]))
+
+    return trg_subs
+
+
+if __name__ == "__main__":
+    oldvtt2subs(
+        r"H:\Snippets\Program-Learning\Python\Snippets\sub_progress\output\1.vtt")

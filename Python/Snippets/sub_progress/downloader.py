@@ -75,7 +75,7 @@ def ytb_dl_download(url: str, out_path: str):
     return v_path, t_path
 
 
-def yt_dlp_download(url: str, output_path: Path, down_sub: bool = False):
+def yt_dlp_download(url: str, output_path: Path, down_video: bool = False, down_sub: bool = False, down_thumbnail: bool = False):
     # update: python -m pip install --force-reinstall https://github.com/yt-dlp/yt-dlp/archive/master.tar.gz
 
     # todo: file name filter
@@ -91,6 +91,12 @@ def yt_dlp_download(url: str, output_path: Path, down_sub: bool = False):
         ydl_opts['writesubtitles'] = True
         ydl_opts['subtitlesformat'] = 'vtt'
         ydl_opts['writeautomaticsub'] = "auto"
+
+    if down_thumbnail:
+        ydl_opts['writethumbnail'] = True
+
+    if not down_video:
+        ydl_opts['skip_download'] = True
 
     with YoutubeDL(ydl_opts) as ydl:
         if video_info := ydl.extract_info(url, download=False):

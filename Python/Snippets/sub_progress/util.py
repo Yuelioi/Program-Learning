@@ -18,9 +18,9 @@ def split_long_sub(text):
     return [str(sentence).strip() for sentence in splits[0]]
 
 
-def is_old_sub(vtt: str | Path):
+def is_old_sub(vtt: str):
     with open(vtt) as vtt_file:
-        vtt_file.read()
+        return "align:start" in vtt_file.read()
 
 
 def get_videoId_by_link(url: str):
