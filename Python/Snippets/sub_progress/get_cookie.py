@@ -1,6 +1,5 @@
 from playwright.sync_api import sync_playwright
 import os
-import requests
 from requests.utils import cookiejar_from_dict
 
 script_dir = os.path.dirname(os.path.abspath(__file__))

@@ -14,3 +14,7 @@ ffmpeg -i audio.wav  -acodec libfaac audio.aac
 @REM libmp3lame
 ffmpeg -i audio.wav -acodec libmp3lame audio.mp3
 
+@REM wav
+@REM libmp3lame
+ffmpeg -i input.aac -acodec pcm_s16le output.wav
+

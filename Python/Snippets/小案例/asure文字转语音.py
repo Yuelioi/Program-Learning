@@ -1,6 +1,8 @@
 import re
 from typing import List
 
+# https://learn.microsoft.com/zh-cn/azure/cognitive-services/speech-service/get-started-text-to-speech?tabs=windows%2Cterminal&pivots=programming-language-python
+# pip install azure-cognitiveservices-speech
 
 import azure.cognitiveservices.speech as speechsdk
 from azure.cognitiveservices.speech import AudioDataStream
@@ -12,8 +14,7 @@ from pydub import AudioSegment
 # https://portal.azure.com/#view/Microsoft_Azure_ProjectOxford/CognitiveServicesHub/~/SpeechServices
 from Snippets.secret import speech_key, service_region
 
-
-def generate_speech(srcText: List[str]):
+pip install - r requirements.txtdef generate_speech(srcText: List[str]):
 
     # 设置配置
     speech_config = speechsdk.SpeechConfig(
