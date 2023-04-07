@@ -1,0 +1,28 @@
+cd: set-location [x] /eg: cd c:/
+dir/ls: get-childitem
+cls/clear: clear-host
+
+get-alias
+
+update-help -force: 更新文档
+get-help [x] /eg: get-help *serce*
+get-verb: Gets approved PowerShell verbs.
+
+
+GET_module 
+
+* 快捷操作
+tab & shift tab
+; 可以同时执行多个语句
+| pipeline
+* 
+
+-whatif : 
+
+支持 * 通配符
+
+
+* 其他备用
+
+% -> ForEach-Object
+? -> Where-Object

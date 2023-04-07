@@ -1,9 +1,11 @@
 "use strict";
 
+require("core-js/modules/es.date.to-string.js");
+require("core-js/modules/es.object.to-string.js");
+require("core-js/modules/es.regexp.to-string.js");
 require("core-js/modules/es.array.includes.js");
+require("core-js/modules/es.string.includes.js");
 var sayHi = function sayHi() {
-  console.log("hello world");
+  return [1, 2, 3];
 };
-var arr = [1, 2, 3];
-console.log(arr.includes(1));
-sayHi();
+alert(sayHi().includes(1).toString());
