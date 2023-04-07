@@ -1,3 +1,4 @@
+# Version 1.1
 # Author:Yueli
 # Description: Change Language of After Effects
 # Link: https://www.yuelili.com/?p=22357
@@ -8,26 +9,32 @@ $versions = Get-ChildItem 'HKLM:\SOFTWARE\Adobe\After Effects' |
 Select-Object -ExpandProperty Name |
 ForEach-Object { $_ -replace 'HKEY_LOCAL_MACHINE\\SOFTWARE\\Adobe\\After Effects\\' }
 
-# Show Version
-for ($i = 0; $i -lt $versions.Count; $i++) {
-    Write-Host ($i + 1)$($versions[$i])
+if ($versions.Count -eq 1) {
+    $version = $versions
+    Write-Host "Current Selected Version:" $version
 }
+else {
+    # Show Version
+    for ($i = 0; $i -lt $versions.Count; $i++) {
+        Write-Host ($i + 1).ToString() + "." + $versions[$i]
 
-# Select Version
-while ($true) {
-    $choice = Read-Host "Select After Effects Version"
-    if (-not [int]::TryParse($choice, [ref]$null) -or $choice -lt 1 -or $choice -gt $versions.Count) {
-        Write-Host "Please Select Correct Version(index)"
-    }
-    else {
-        break
     }
 
+    # Select Version
+    while ($true) {
+        $choice = Read-Host "Select After Effects Version"
+        if (-not [int]::TryParse($choice, [ref]$null) -or $choice -lt 1 -or $choice -gt $versions.Count) {
+            Write-Host "Please Select Correct Version(index)"
+        }
+        else {
+            break
+        }
+    }
+
+    $version = $versions[$choice - 1]
 }
 
-$version = $versions[$choice - 1]
 $path = Get-ItemPropertyValue "HKLM:\SOFTWARE\Adobe\After Effects\$version" -Name "InstallPath"
-
 
 # Lang list
 $languages = "zh_CN", "en_US"
@@ -65,6 +72,5 @@ if ($node) {
 else {
     Write-Host "Something Error"
 }
-
 
 pause
