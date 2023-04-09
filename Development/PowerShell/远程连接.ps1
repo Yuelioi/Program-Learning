@@ -1,0 +1,1 @@
+Enter-PSSession -ComputerName http://1.116.109.232:9999/tencentcloud -Credential elqpkdds
