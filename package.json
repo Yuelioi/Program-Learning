@@ -1,5 +1,8 @@
 {
 	"dependencies": {
 		"websocket": "^1.0.34"
+	},
+	"devDependencies": {
+		"typescript": "^5.0.4"
 	}
 }

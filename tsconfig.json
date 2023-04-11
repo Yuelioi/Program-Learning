@@ -10,6 +10,7 @@
         "resolveJsonModule": true,
         "isolatedModules": false,
         "esModuleInterop": true,
+        "experimentalDecorators": true,
         "lib": [
             "esnext",
             "dom"
@@ -26,14 +27,6 @@
             ]
         }
     },
-    "include": [
-        "/_test"
-    ],
-    "references": [
-        {
-            "path": "./tsconfig.node.json"
-        }
-    ],
     "types": [
         "node"
     ],
