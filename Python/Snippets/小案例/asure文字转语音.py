@@ -12,9 +12,10 @@ from pydub import AudioSegment
 
 # 设置key 与 区域
 # https://portal.azure.com/#view/Microsoft_Azure_ProjectOxford/CognitiveServicesHub/~/SpeechServices
-from Snippets.secret import speech_key, service_region
+from Snippets.sub_progress.secret import speech_key, service_region
 
-pip install - r requirements.txtdef generate_speech(srcText: List[str]):
+
+def generate_speech(srcText: List[str]):
 
     # 设置配置
     speech_config = speechsdk.SpeechConfig(
