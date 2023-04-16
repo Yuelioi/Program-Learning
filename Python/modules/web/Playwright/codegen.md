@@ -2,6 +2,7 @@ codegen 是一个好用的交互式工具
 
 ```powershell
 playwright codegen bilibili.com
+playwright codegen https://www.bilibili.com/video/BV1UD4y1s7Wi/
 ```
 
 ```powershell

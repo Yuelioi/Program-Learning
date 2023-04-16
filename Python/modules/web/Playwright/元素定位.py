@@ -17,7 +17,8 @@ contains:包含, //h1[contains(text(),'Playwright')], //*[contains(@class, 'vide
 $x("//h1[@class='video-title tit']")
 """
 import re
-from playwright.sync_api import sync_playwright
+import time
+from playwright.sync_api import sync_playwright, expect
 
 
 def test_xpath():
@@ -36,12 +37,13 @@ def test_css():
         browser = p.chromium.launch(headless=False)
         page = browser.new_page()
         page.goto("https://www.bilibili.com/video/BV1UD4y1s7Wi/")
+
         title = page.locator(".video-title.tit").text_content()
-        title = page.locator(".video-title.tit").text_content()
-        print(title)
+        # print(title)
+        # time.sleep(1000)
 
 
-def test_playwright():
+def test_playwright_selector():
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=False)
         page = browser.new_page()
@@ -51,15 +53,14 @@ def test_playwright():
         page.get_by_title("bilibili")
         page.get_by_text("为TA充电")
         page.get_by_placeholder("用户名")
-        page.get_by_role("button")
-        cls = page.get_attribute(selector=".video-title.tit", name="class")
-        print(cls)
+        page.get_by_role("button", name="select")
 
 
 def main():
     # test_xpath()
-    # test_css()
-    test_playwright()
+    test_css()
+    # test_playwright_selector()
+    ...
 
 
 if __name__ == "__main__":
