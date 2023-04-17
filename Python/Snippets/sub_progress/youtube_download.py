@@ -1,14 +1,14 @@
 import itertools
-from Snippets.sub_progress.downloader import yt_dlp_download
+from Snippets.sub_progress.functions.downloader import yt_dlp_download
 from tqdm import tqdm
 
 from pathlib import Path
 import os
 
-from Snippets.sub_progress.translator import tran_deepl_pro_auto
-from Snippets.sub_progress.util import get_urls_by_playlistId, get_playlistId_by_link, is_old_sub
-from Snippets.sub_progress.srtParse import oldvtt2subs
-from Snippets.sub_progress.srtParse import splitByPeriod
+from Snippets.sub_progress.functions.translator import tran_deepl_pro_auto
+from Snippets.sub_progress.functions.util import get_urls_by_playlistId, get_playlistId_by_link, is_old_sub
+from Snippets.sub_progress.functions.srtParse import oldvtt2subs
+from Snippets.sub_progress.functions.srtParse import splitByPeriod
 import pysubs2
 import os
 import glob
@@ -19,20 +19,20 @@ os.chdir(script_dir)
 
 
 def main():
-    url = "https://www.youtube.com/watch?v=nMn8-BbRsN8&list=PLyJiOytEPs4etH7Ujq7PU7jlOlHL-9RmV&index=1&ab_channel=JaquelineVanek"
+    url = "https://www.youtube.com/watch?v=xUmMHgZ9YfI&t=4s&ab_channel=JakeInMotion"
     if PLAYLIST_ID := get_playlistId_by_link(url):
         urls = get_urls_by_playlistId(PLAYLIST_ID)
     else:
         urls = [url]
-    urls = [
-        'https://www.youtube.com/watch?v=m8k-oqBlntY',
-        'https://www.youtube.com/watch?v=urQlN_YL-Bw',
-        'https://www.youtube.com/watch?v=hB4_a76EyPY',
-        'https://www.youtube.com/watch?v=Q2avczzZxq4']
+
     for idx, url in tqdm(enumerate(urls)):
         print(f"{idx}/{len(urls)}")
         if currentPath := yt_dlp_download(
-            url=url, output_path=script_dir / "output", down_sub=True
+                url=url,
+                output_path=script_dir / "output",
+                # down_sub=True,
+                down_video=True,
+                # down_thumbnail=True,
         ):
 
             if vtt_subs := glob.glob(f"{currentPath}*.vtt"):
@@ -70,9 +70,9 @@ def srt2ass(currentPath):
 
 
 # ss = pysubs2.load(f'{currentPath}.ass')
-srt2ass(currentPath)
+# srt2ass(currentPath)
 
-pysubs2.SSAStyle(fontname='思源黑体 Regular', fontsize=48)
+# pysubs2.SSAStyle(fontname='思源黑体 Regular', fontsize=48)
 
 
 def autoTranslate(currentPath):
@@ -93,3 +93,7 @@ def autoTranslate(currentPath):
 
     # 保存
     tran_sub.save(f"{currentPath}.zh.srt")
+
+
+if __name__ == "__main__":
+    main()

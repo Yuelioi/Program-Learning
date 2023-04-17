@@ -8,10 +8,10 @@ import os
 script_dir = os.path.dirname(os.path.abspath(__file__))
 os.chdir(script_dir)
 
-# sub_url = "https://player.vimeo.com/texttrack/80905541.vtt?token=641e05a4_0x6c3847bcaf67439b144be894c72b399dd6e190f7"
-# subDownload(sub_url)
+sub_url = "https://player.vimeo.com/texttrack/85339586.vtt?token=643b3adf_0x48304df92e6f0e98a9348f7526884fc25159ada0"
+subName = "6"
+# subDownload(sub_url, subName)
 
-subName = "5.2"
 
 # 读取 并转换字幕
 vtt_subs = pysubs2.load(f"{subName}.vtt")
