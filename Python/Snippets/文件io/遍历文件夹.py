@@ -22,6 +22,8 @@ def loop_folder_new(folder_path):
         print(entry.name)
         if entry.is_dir():
             loop_folder_new(folder_path)
+        else:
+            ...
 
 
 root_dir = "E:\Project\docs_ue\测试"
