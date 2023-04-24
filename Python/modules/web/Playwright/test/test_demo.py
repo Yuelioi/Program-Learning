@@ -4,15 +4,18 @@ from playwright.sync_api import Page, expect
 # 在终端输入 pytest 即可
 # 默认是无头浏览器运行
 
+url = "https://zhuanlan.zhihu.com/p/385178515"
+
 
 def test_homepage_has_Playwright_in_title(page: Page):
-    page.goto("https://baidu.com/")
+    page.goto(url)
 
     # Expect a title "to contain" a substring.
-    expect(page).to_have_title(re.compile("百度"))
+    page.wait_for_selector('.Post-Main')
+    top = page.locator(".Post-Main")
 
-    input_text = page.locator("#kw")
-    input_text.fill("月离的万事屋")
+    # input_text = page.locator("#kw")
+    # input_text.fill("月离的万事屋")
 
-    get_search = page.locator("text=百度一下")
-    get_search.click()
+    # get_search = page.locator("text=百度一下")
+    # get_search.click()
