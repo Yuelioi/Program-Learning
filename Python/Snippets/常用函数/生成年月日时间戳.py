@@ -6,7 +6,7 @@ def getYYMMDD():
     import datetime
 
     now_time = datetime.datetime.now()
-    return now_time.strftime("%Y%m%d-%H%M%S%f")[:-4]
+    return now_time.strftime(r"%Y%m%d-%H%M%S%f")[:-4]
 
 
 print(getYYMMDD())  # 20230104-18400001

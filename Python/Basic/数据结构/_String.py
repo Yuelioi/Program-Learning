@@ -1,9 +1,7 @@
 str = "hello"
-str.capitalize() #首字符大写，其余为小写。
 
-str.casefold() # 消除大小写。 可用于忽略大小写的匹配。
 
-print(str.center(10,"_")) # __hello___
+print(str.center(10, "_"))  # __hello___
 """
 # str.count(sub[, start[, end]]) 返回子字符串非重叠出现的次数。 
 # str.encode(encoding='utf-8', errors='strict') # 原字符串编码为字节串对象的版本。 默认编码为 'utf-8'。
@@ -31,12 +29,10 @@ str.isupper() # 至少有一个区分大小写的字符,且均为大写
 str.isnumeric() # 至少有一个字符且所有字符均为数值
 str.isspace() # 只有空白字符且至少有一个字符
 
-str.join(iterable)
+str.join(iterable) # 字符串转列表
 str.ljust(width[, fillchar]) # 原字符串在其中靠左对齐。
-str.lower() # 返回原字符串的副本，转换为小写
-str.upper()
 
-str.rstrip([chars])
+str.rstrip([chars]) # 去空白
 str.strip([chars])
 str.lstrip([chars])
 
@@ -45,11 +41,22 @@ str.split(sep=None, maxsplit=- 1)
 str.rsplit(sep=None, maxsplit=- 1)
 str.rstrip([chars])
 
-str.swapcase()
+str.swapcase() # 互换
 str.title()
+str.capitalize() #首字符大写，其余为小写。
+str.casefold() # 消除大小写。 可用于忽略大小写的匹配。
+str.lower() # 返回原字符串的副本，转换为小写
+str.upper() # 大写
+
+
 str.translate(table)
 str.zfill(width)
 """
+# 不错的两个函数
 
-print("42".zfill(5)) # 左边填充 00042
-print("42".zfill(5)) # 00042
+person = {'name': 'Alice', 'age': 25}
+greeting = 'Hello, {name}! You are {age} years old.'
+print(greeting.format_map(person))  # 输出：Hello, Alice! You are 25 years old.
+
+print("42".zfill(5))  # 左边填充 00042
+print("42".zfill(5))  # 00042

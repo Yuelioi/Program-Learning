@@ -9,7 +9,7 @@ if len(user_input) > 0:
     print(f"你输入的字符串是：{user_input}")
 
 # 使用海象运算符的写法
-if (user_input := input("请输入一个字符串：")):
+if user_input := input("请输入一个字符串："):
     print(f"你输入的字符串是：{user_input}")
 
 
