@@ -1,6 +1,9 @@
 
 @REM 视频截图 第10秒 第1帧
 ffmpeg -i input.mp4 -ss 00:00:10 -vframes 1 output.jpg
+@REM 视频截图 每10帧截一张
+ffmpeg -i input.mp4 -vf "select=not(mod(n\,10))" -vsync vfr output_%04d.png
+
 
 @REM 视频旋转 
 @REM 0.不旋转 
