@@ -41,28 +41,22 @@ def xibao(text: str):
         # 行间距
         line_height = 10
 
-        # 字体设置
+        # 字体设置c
         font_path = os.path.join('..', 'SourceHanSansCN-Medium.otf')
         font = ImageFont.truetype(font_path, font_size)
-        text_size = font.getsize(text)
-
-        final = split_text(text, font, max_width)
-
-        # 预先获得文字总列数
-        lines = (text_size[0] // max_width) + 1
-        # 预先获得文字总高度
-        text_height = line_height * (lines - 1) + text_size[1] * lines
+        final = text
 
         # 起始文字高度, 因为有标题 所以先加 50
-        start_height = int((bg_size[1]-text_height)/2)
+        start_height = 30
+        start_width = 500
         draw = ImageDraw.Draw(img)
 
         for i in range(len(final)):
             text_coordinate = (
-                (bg_size[0] - font.getsize(final[i])[0])/2, start_height
+                start_width, start_height
                 + i * line_height + font.getsize(final[i])[1] * i)
             draw.text(text_coordinate, final[i], (50, 50, 50), font=font)
         img.show()
 
 
-xibao("群友是猪")
+xibao("征征征征")
