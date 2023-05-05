@@ -88,4 +88,6 @@ app.post("/todos", (req, res) => {
     res.status(201).send(`已成功添加${maxId}`);
 });
 
-app.listen(4000, () => [console.log("running")]);
+app.listen(4000, () => {
+    console.log("running");
+});
