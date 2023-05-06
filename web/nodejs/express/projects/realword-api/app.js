@@ -7,6 +7,8 @@ const cors = require("cors");
 
 const errorHandler = require("./middleware/error-handler");
 
+require("./model/index");
+
 // 使用中间件
 app.use(morgan("dev"));
 app.use(express.json());

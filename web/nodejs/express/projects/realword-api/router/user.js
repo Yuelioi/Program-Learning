@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const userValidator = require("../validator/user");
 
 const userController = require("../controller/user");
 
@@ -7,7 +8,12 @@ const userController = require("../controller/user");
 router.post("/login", userController.login);
 
 // 注册
-router.post("/", userController.register);
+router.post(
+    "/",
+    // 配置验证规则
+    userValidator.register,
+    userController.register
+);
 
 // 获取用户
 router.get("/", userController.getCurrentUser);
