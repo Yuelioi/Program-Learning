@@ -5,13 +5,14 @@ const userValidator = require("../validator/user");
 const userController = require("../controller/user");
 
 // 登录
-router.post("/login", userController.login);
+router.post("/login", userValidator.login, userController.login);
 
 // 注册
 router.post(
     "/",
     // 配置验证规则
     userValidator.register,
+    // 配置注册逻辑
     userController.register
 );
 

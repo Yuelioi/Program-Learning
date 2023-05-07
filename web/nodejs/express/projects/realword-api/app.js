@@ -1,10 +1,10 @@
 const express = require("express");
 const app = express();
-const router = require("./router/index");
 
 const morgan = require("morgan");
 const cors = require("cors");
 
+const router = require("./router/index");
 const errorHandler = require("./middleware/error-handler");
 
 require("./model/index");
@@ -21,8 +21,8 @@ app.use("/api", router);
 // 异常处理
 app.use(errorHandler());
 
-const PORT = process.env.PROT || 9015;
+const PORT = process.env.PROT || 19015;
 
 app.listen(PORT, () => {
-    console.log("running");
+    console.log(`running at ${PORT}`);
 });
