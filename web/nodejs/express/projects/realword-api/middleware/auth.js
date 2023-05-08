@@ -15,7 +15,9 @@ module.exports = async (req, res, next) => {
 
     try {
         const decodedToken = await verify(token, jwtSecret);
+        // 挂载 user 信息
         req.user = await User.findById(decodedToken.userId);
+        console.log("登录成功");
         next();
     } catch (error) {
         console.log(error);

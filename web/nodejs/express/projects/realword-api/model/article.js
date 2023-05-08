@@ -4,21 +4,31 @@ const baseModel = require("./base-model");
 
 const articleScheme = new Schema({
     ...baseModel,
-    username: {
+    title: {
         type: String,
         required: true,
     },
-    email: {
+    description: {
         type: String,
         required: true,
     },
-    password: {
+    body: {
         type: String,
         required: true,
     },
-    bio: {
-        type: String,
+    tagList: {
+        type: [String],
         default: null,
+    },
+    favoriteCount: {
+        type: Number,
+        default: 0,
+    },
+    author: {
+        // https://mongoosejs.com/docs/populate.html
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
     },
 });
 

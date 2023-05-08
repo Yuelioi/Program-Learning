@@ -1,5 +1,5 @@
 const { User } = require("../model");
-const { jwtSecret } = require("../config/config.default");
+const { jwtSecret, expTime } = require("../config/config.default");
 const jwt = require("../util/jwt");
 
 // 用户登录
@@ -17,7 +17,7 @@ exports.login = async (req, res, next) => {
             },
             jwtSecret,
             {
-                expiresIn: 60,
+                expiresIn: expTime,
             }
         );
         // 3. 发送成功响应

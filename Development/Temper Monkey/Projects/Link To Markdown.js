@@ -45,18 +45,18 @@
     button.onclick = function () {
         const link = window.location.href;
         const hostMap = {
-            "www.bilibili.com": () => document.title.replace("_哔哩哔哩_bilibili", ""),
-            "blog.csdn.net": () => $("#articleContentId").text(),
-            "juejin.cn": () => $(".article-title").text().trim(),
-            "developer.android.google.cn": () => document.title,
-            "github.com": () => document.title.split(":")[0],
-            "jianshu.com": () => document.title.split(" - 简书")[0],
-            "cloud.tencent.com": () => document.title.split(" - 云+社区 - 腾讯云")[0],
-            "medium.com": () => getMeta("og:title"),
-            "zhihu.com": () => document.title.split(" - 知乎")[0],
+            "www.bilibili.com": document.title.replace("_哔哩哔哩_bilibili", ""),
+            "space.bilibili.com": document.title.replace("_哔哩哔哩_bilibili", ""),
+            "blog.csdn.net": $("#articleContentId").text(),
+            "juejin.cn": $(".article-title").text().trim(),
+            "github.com": document.title.split(":")[0],
+            "jianshu.com": document.title.split(" - 简书")[0],
+            "cloud.tencent.com": document.title.split(" - 云+社区 - 腾讯云")[0],
+            "medium.com": getMeta("og:title"),
+            "www.zhihu.com": document.title.split(" - 知乎")[0].replace(/\(.*私信.*\)/g, ""),
         };
         const { host } = window.location;
-        const title = hostMap[host] || (() => document.title);
+        const title = hostMap[host] || document.title;
         const markdownLink = `[${title}](${link})`;
         GM_setClipboard(markdownLink, "text");
         console.log(`GM_setClipboard=${markdownLink}`);

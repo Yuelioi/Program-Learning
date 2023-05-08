@@ -3,6 +3,8 @@ const { body } = require("express-validator");
 const { User } = require("../model");
 const md5 = require("../util/md5");
 
+// * https://www.realworld.how/docs/specs/backend-specs/endpoints#registration
+
 // * NOTE
 // * 没有加async 会导致验证失败
 // * custom 中的函数需要返回一个 Promise 对象，而 async 函数会自动返回一个 Promise，

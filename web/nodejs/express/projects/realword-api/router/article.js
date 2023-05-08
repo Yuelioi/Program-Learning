@@ -1,5 +1,6 @@
 const express = require("express");
 const articleControl = require("../controller/article");
+const articleValidator = require("../validator/article");
 const auth = require("../middleware/auth");
 
 const router = express.Router();
@@ -11,24 +12,24 @@ router.get("/", articleControl.getArticles);
 router.get("/feed", articleControl.getFeedArticles);
 
 // 获取文章
-router.get("/:slug", articleControl.getArticle);
+router.get("/:articleId", articleValidator.getArticle, articleControl.getArticle);
 
 // 创建文章
-router.put("/", articleControl.createArticle);
+router.post("/", auth, articleValidator.createArticle, articleControl.createArticle);
 
 // 更新文章
-router.put("/:slug", articleControl.updateArticle);
+router.put("/:articleId", auth, articleControl.updateArticle);
 
 // 删除文章
-router.delete("/:slug", articleControl.deleteArticle);
+router.delete("/:articleId", auth, articleControl.deleteArticle);
 
 // 添加评论
-router.post("/:slug/comments", articleControl.createArticleComment);
+router.post("/:articleId/comments", articleControl.createArticleComment);
 
 // 获取评论列表
-router.get("/:slug/comments", articleControl.getArticleComments);
+router.get("/:articleId/comments", articleControl.getArticleComments);
 
 // 删除评论
-router.delete("/:slug/comments/:id", articleControl.deleteArticleComments);
+router.delete("/:articleId/comments/:id", articleControl.deleteArticleComments);
 
 module.exports = router;
