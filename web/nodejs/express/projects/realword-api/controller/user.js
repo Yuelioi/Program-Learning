@@ -1,13 +1,28 @@
 const { User } = require("../model");
+const { jwtSecret } = require("../config/config.default");
+const jwt = require("../util/jwt");
 
 // 用户登录
 exports.login = async (req, res, next) => {
     try {
         // 1. 数据验证
         // 2. 生成token
+        // # user 是 validate 里传递的
+        const user = req.user.toJSON();
+
+        delete user.password;
+        const token = await jwt.sign(
+            {
+                userId: user._id,
+            },
+            jwtSecret,
+            {
+                expiresIn: 60,
+            }
+        );
         // 3. 发送成功响应
 
-        res.send("Post User Login");
+        res.status(200).json({ ...user, token });
     } catch (err) {
         next(err);
     }
@@ -43,9 +58,7 @@ exports.register = async (req, res, next) => {
 // 获取用户
 exports.getCurrentUser = async (req, res, next) => {
     try {
-        const a = JSON.parse(1 / 0);
-        console.log(a);
-        res.send("GET User");
+        res.status(200).json({ user: req.user });
     } catch (err) {
         next(err);
     }

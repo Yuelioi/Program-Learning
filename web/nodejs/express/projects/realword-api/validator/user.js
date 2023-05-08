@@ -46,8 +46,8 @@ exports.login = [
     ]),
     validate([
         body("user.email").custom(async (email, { req }) => {
-            // 需要 select 一下, 因为在 model 里, password 设置的禁止select ( 其他信息可以传数组获取)
-            const user = await User.findOne({ email }).select("password");
+            // 需要 select 一下, 因为在 model 里, password 设置的禁止select ( 其他信息可以传数组获取) +代表追加, -代表去掉
+            const user = await User.findOne({ email }).select("+password -email");
             if (!user) {
                 return Promise.reject("用户不存在");
             }
