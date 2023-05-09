@@ -1,4 +1,4 @@
-const { Article } = require("../model");
+const { Article, User } = require("../model");
 const { jwtSecret } = require("../config/config.default");
 const jwt = require("../util/jwt");
 
@@ -6,11 +6,31 @@ const jwt = require("../util/jwt");
 // * https://www.realworld.how/docs/specs/backend-specs/endpoints#get-articles
 exports.getArticles = async (req, res, next) => {
     try {
-        const articles = await Article.find();
+        const { limit = 5, offset = 0, tag, author } = req.query;
+
+        const filter = {};
+
+        if (tag) {
+            // 需要与模型中的名称一致
+            filter.tagList = tag;
+        }
+        if (author) {
+            const user = await User.findOne({ username: author });
+            filter.author = user ? user._id : null;
+        }
+
+        const articles = await Article.find(filter)
+            .skip(offset) // 跳过多少条
+            .limit(limit) // 取多少条
+            .sort({
+                // 1: 升序 -1: 降序
+                createAt: -1,
+            });
         const articlesCount = await Article.countDocuments();
+
         res.status(200).json({
             articles,
-            articleCount,
+            articlesCount,
         });
     } catch (err) {
         next(err);
@@ -69,7 +89,20 @@ exports.createArticle = async (req, res, next) => {
 // 更新文章
 exports.updateArticle = async (req, res, next) => {
     try {
-        res.send("Post User Login");
+        const { article } = req;
+        const bodyArticle = req.body.article;
+
+        Object.assign(article, {
+            title: bodyArticle.title ?? article.title,
+            description: bodyArticle.description ?? article.description,
+            body: bodyArticle.body ?? article.body,
+        });
+
+        await article.save();
+
+        res.status(200).json({
+            article,
+        });
     } catch (err) {
         next(err);
     }
