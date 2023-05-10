@@ -1,0 +1,16 @@
+{
+    "name": "template",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "nodemon app.js"
+    },
+    "keywords": [],
+    "author": "yueli <yuelioi1210@gmail.com> (https://github.com/yuelioi)",
+    "license": "MIT",
+    "dependencies": {
+        "art-template": "^4.13.2",
+        "express-art-template": "^1.0.1"
+    }
+}
