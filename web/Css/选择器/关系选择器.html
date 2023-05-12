@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            http-equiv="X-UA-Compatible"
+            content="IE=edge" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <style>
+            /* 后代 */
+            div p {
+                color: red;
+            }
+
+            /* 子代元素 */
+            article > p {
+                color: red;
+            }
+            /* 相邻兄弟选择器 */
+            /* 选择紧挨A元素后面的第一个B元素(同父级) */
+            /* 如果有4个div 会匹配第2和第3 */
+            div + div {
+                color: aliceblue;
+            }
+
+            /* 通用兄弟选择器 */
+            /* 选择紧挨A元素后面的所有B元素(同父级) */
+            /* 如果有4个div 会匹配第2~第3 */
+            div ~ div {
+                color: red;
+            }
+        </style>
+    </body>
+</html>
