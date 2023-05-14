@@ -1,3 +1,10 @@
+"""
+* DESCRIPTION: 爬取之家的漫画, 并转为pdf
+* AUTHOR: 月离
+* TODO: 删除爬后的文件 
+* REQUIREMENTS: playwright pillow aiofiles PyPDF2
+"""
+
 import os
 from pathlib import Path
 from playwright.async_api import async_playwright
@@ -6,9 +13,13 @@ import aiohttp
 from PIL import Image, ImageFile
 import asyncio
 import PyPDF2
-
+import logging
 
 pdfs = []
+
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 
 async def download_image(img_url, filename):
@@ -17,13 +28,13 @@ async def download_image(img_url, filename):
     pdfs.append(f'{os.path.splitext(filename)[0]}.pdf')
 
     if Path(filename).is_file():
-        print(f'{filename}已存在, 跳过')
+        logger.info(f'{filename}已存在, 跳过')
         return
 
     async with aiohttp.ClientSession() as session:
         async with session.get(img_url) as response:
             if response.status != 200:
-                print(f'下载 {img_url} 失败，错误码：{response.status}')
+                logger.warning(f'下载 {img_url} 失败，错误码：{response.status}')
                 return
 
             image = await response.content.read()
@@ -33,7 +44,6 @@ async def download_image(img_url, filename):
 
 async def get_images(page, page_url, title):
     """Get image url and download"""
-
     await page.goto(page_url)
 
     options = await page.query_selector_all("#page_select > option")
@@ -55,13 +65,12 @@ async def get_images(page, page_url, title):
     await asyncio.gather(*tasks2)
 
 
-async def down_anime():
-    host = "https://manhua.dmzj.com"
-    url = "https://manhua.dmzj.com/huyuli/"
+async def down_anime(host, main_url):
+
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=False)
         page = await browser.new_page()
-        await page.goto(url)
+        await page.goto(main_url)
 
         # 查找所有章节
         await page.wait_for_selector(".cartoon_online_border > ul > li", timeout=5000)
@@ -69,7 +78,7 @@ async def down_anime():
 
         # 获取每个章节的URL和标题
         chapter_urls, chapter_titles = [], []
-        for chapter in chapters[:2]:
+        for chapter in chapters:
             chapter_url = f'{host}{await chapter.get_attribute("href")}'
             chapter_titles.append(await chapter.get_attribute("title"))
             chapter_urls.append(chapter_url)
@@ -99,12 +108,15 @@ async def merge_pdf(pdfs):
             mergeFile.append(PyPDF2.PdfFileReader(
                 pdf, 'rb'), outline_item=pdf)
         else:
-            print(f'未找到{pdf}')
+            logger.warning(f'未找到{pdf}')
     mergeFile.write("合并文件.pdf")
 
 
 async def main():
-    await down_anime()
+    host = "https://manhua.dmzj.com"
+    main_url = "https://manhua.dmzj.com/huyuli/"
+
+    await down_anime(host, main_url)
     await merge_pdf(pdfs)
 
     ...

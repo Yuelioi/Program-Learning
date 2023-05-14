@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            http-equiv="X-UA-Compatible"
+            content="IE=edge" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <!--  -->
+
+        <style>
+            article :first-child {
+                background-color: pink;
+            }
+            article :first-of-type {
+                /* background-color: pink; */
+            }
+        </style>
+        <article>
+            <div>This `div` is first!</div>
+            <div>This `div` is first!</div>
+            <div>
+                This
+                <span>nested `span` is first</span>
+                !
+            </div>
+            <div>
+                This
+                <em>nested `em` is first</em>
+                , but this
+                <em>nested `em` is last</em>
+                !
+            </div>
+            <div>
+                This
+                <span>nested `span` gets styled</span>
+                !
+            </div>
+            <p>This `p` qualifies!</p>
+            <p>This `p` qualifies!</p>
+            <div>This is the final `div`.</div>
+            <div>This is the final `div`.</div>
+        </article>
+        <!-- 链接类 -->
+        <!-- 
+
+         -->
+        <style>
+            a:link {
+                color: blue;
+            } /* 未访问链接 */
+            a:visited {
+                color: purple;
+            } /* 已访问链接 */
+            a:hover {
+                background: yellow;
+            } /* 用户鼠标悬停 */
+            a:active {
+                color: red;
+            } /* 激活链接 */
+        </style>
+
+        <!-- 表单类 -->
+
+        <!-- 
+        in-range 输入框允许范围内
+        -->
+
+        <!-- 选择类 -->
+        <!-- 
+            first-child: 一组兄弟元素中的第一个元素
+            first-of-type: 一组兄弟元素中其类型的第一个元素
+        -->
+    </body>
+</html>

@@ -2,7 +2,7 @@
 # 函数 callable
 # 本质是函数作为参数传递的语法糖
 
-# https://www.bilibili.com/video/BV1Gu411Q7JV?t=78.2
+# [【python】装饰器超详细教学，用尽毕生所学给你解释清楚，以后再也不迷茫了！](https://www.bilibili.com/video/BV1Gu411Q7JV/)
 
 
 import time
@@ -120,12 +120,14 @@ def timeit(it):
             return ref
         return warpper
     return inner
+
+
 @timeit(1000)
 def double(x):
-  return x*2
+    return x*2
+
 
 # 等价于
 inner = timeit(1000)
 double = inner(double)
 print(double(10))
-
