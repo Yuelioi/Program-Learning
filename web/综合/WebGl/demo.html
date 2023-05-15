@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            http-equiv="X-UA-Compatible"
+            content="IE=edge" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+
+    <body>
+        <canvas
+            id="canvas"
+            width="300"
+            height="400">
+            不支持canvas
+        </canvas>
+    </body>
+    <script>
+        function initShader(gl, VERTEX_SHADER_SOURCE, FRAGMENT_SHADER_SOURCE) {
+            const vertexShader = gl.createShader(gl.VERTEX_SHADER);
+
+            const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+
+            gl.shaderSource(vertexShader, VERTEX_SHADER_SOURCE);
+            gl.shaderSource(fragmentShader, FRAGMENT_SHADER_SOURCE);
+
+            //编译着色器
+            gl.compileShader(vertexShader);
+            gl.compileShader(fragmentShader);
+
+            //创建程序对象
+            const program = gl.createProgram();
+
+            gl.attachShader(program, vertexShader);
+            gl.attachShader(program, fragmentShader);
+
+            gl.linkProgram(program);
+            gl.useProgram(program);
+
+            return program;
+        }
+    </script>
+    <script>
+        const canvas = document.getElementById("canvas");
+        const gl = canvas.getContext("webgl");
+
+        const VERTEX_SHADER_SOURCE = `
+            precision mediump float;
+            attribute vec2 a_Position;
+            attribute vec2 a_Screen_Size;
+            void main(){
+            vec2 position = (a_Position / a_Screen_Size) * 2.0 - 1.0; 
+            position = position * vec2(1.0, -1.0);
+            gl_Position = vec4(position, 0, 1);
+            gl_PointSize = 10.0;
+            }  
+        `;
+        const FRAGMENT_SHADER_SOURCE = `
+        precision mediump float;
+        uniform vec4 u_Color;
+        void main() {
+            vec4 color = u_Color / vec4(255, 255, 255, 1);
+            gl_FragColor = color; 
+        }
+        `;
+        //前置工作，着色器可以渲染了！
+        const program = initShader(gl, VERTEX_SHADER_SOURCE, FRAGMENT_SHADER_SOURCE);
+
+        //获取glsl的变量对应的属性做修改
+        var a_Position = gl.getAttribLocation(program, "a_Position");
+        var a_Screen_Size = gl.getAttribLocation(program, "a_Screen_Size");
+        var u_Color = gl.getUniformLocation(program, "u_Color");
+        gl.vertexAttrib2f(a_Screen_Size, canvas.width, canvas.height); //给glsl的属性赋值两个浮点数
+
+        //给个默认背景颜色
+        gl.clearColor(0, 0, 0, 1.0);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+
+        //存储点击位置的数组。
+        var points = [];
+        canvas.addEventListener("click", (e) => {
+            var x = e.pageX;
+            var y = e.pageY;
+            var color = { r: Math.floor(Math.random() * 256), g: Math.floor(Math.random() * 256), b: Math.floor(Math.random() * 256), a: 1 };
+            points.push({ x: x, y: y, color: color });
+
+            gl.clearColor(0, 0, 0, 1.0);
+            gl.clear(gl.COLOR_BUFFER_BIT);
+
+            for (let i = 0; i < points.length; i++) {
+                var color = points[i].color;
+                gl.uniform4f(u_Color, color.r, color.g, color.b, color.a);
+                gl.vertexAttrib2f(a_Position, points[i].x, points[i].y);
+                gl.drawArrays(gl.POINTS, 0, 1);
+            }
+        });
+    </script>
+</html>

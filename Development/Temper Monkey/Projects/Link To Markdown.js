@@ -23,7 +23,7 @@
             document.title.replace("_哔哩哔哩_bilibili", "_B站") + "_" + document.querySelector('meta[name="author"]').getAttribute("content"),
         "space.bilibili.com": () => document.title.replace("_哔哩哔哩_bilibili", "_B站"),
         "blog.csdn.net": () => $("#articleContentId").text(),
-        "juejin.cn": () => $(".article-title").text().trim(),
+        "juejin.cn": () => $(".article-title").text().trim() + "_掘金",
         "github.com": () => document.title.split(":")[0],
         "jianshu.com": () => document.title.split(" - 简书")[0],
         "cloud.tencent.com": () => document.title.split(" - 云+社区 - 腾讯云")[0],
