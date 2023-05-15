@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Link To Markdown
 // @namespace    https://www.yuelili.com/
-// @version      0.0.2
+// @version      0.0.3
 // @description  网站链接转 Markdown 格式
 // @author       Yueli
 // @match        *://*/*
@@ -59,7 +59,7 @@
     button.onclick = function () {
         const link = window.location.href;
         const { host } = window.location;
-        const title = hostMap[host]() || document.title;
+        const title = hostMap[host] ? hostMap[host]() : document.title;
         const markdownLink = `[${title}](${link})`;
         GM_setClipboard(markdownLink, "text");
     };
