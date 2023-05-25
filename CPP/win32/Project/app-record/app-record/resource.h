@@ -9,6 +9,7 @@
 #define IDR_MAINFRAME                   128
 #define IDI_APPICON                     11
 #define RUN_BUTTON                      1001
+#define CLEAR_BUTTON                    1002
 #define IDC_STATIC                      -1
 
 // Next default values for new objects

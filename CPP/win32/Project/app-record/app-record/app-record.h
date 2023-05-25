@@ -11,9 +11,12 @@
 
 
 #define ID_LISTVIEW 100
-#define RUN_BUTTON 101
 #define WINDOW_WIDTH 460
 
 void StartRecording();
 void StopRecording();
 void UpdateListView();
+void UpdateListViewItem(int index, const std::chrono::steady_clock::duration& duration);
+int FindListViewItem(const std::wstring& appName);
+void InsertListViewItem(const std::wstring& appName, const std::chrono::steady_clock::duration& duration);
+
