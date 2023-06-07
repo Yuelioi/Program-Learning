@@ -1,0 +1,29 @@
+https://blog.csdn.net/qq_36840228/article/details/121038844
+https://blog.csdn.net/qq1010830256/article/details/127212671
+
+sudo yum update
+sudo yum install certbot
+
+创建通配符整数
+sudo certbot certonly -d "*.yuelili.com" --manual --preferred-challenges dns-01  --server https://acme-v02.api.letsencrypt.org/directory
+
+certbot certonly -w /etc/letsencrypt/live/www.yuelili.com -d yuelili.com -d www.yuelili.com --manual --preferred-challenges dns-01  --server https://acme-v02.api.letsencrypt.org/directory
+
+然后添加DNS记录
+
+位置: /etc/letsencrypt/live/yuelili.com
+
+配置nginx
+ssl_certificate /etc/letsencrypt/live/yuelili.com/fullchain.pem;
+ssl_certificate_key /etc/letsencrypt/live/yuelili.com/privkey.pem;
+
+检测
+certbot renew
+
+定时检测
+sudo crontab -e
+0 0 * * * certbot renew --quiet
+
+证书管理
+查看 sudo certbot certificates
+删除 sudo certbot delete --cert-name yuelili.com
