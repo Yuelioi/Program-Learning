@@ -8,6 +8,29 @@ sudo yum install supervisor
 sudo /usr/bin/supervisord -c /etc/supervisord.conf
 ```
 
+## 配置文件
+
+/etc/systemd/system/supervisor.service
+
+```plaintext
+[Unit]
+Description=Supervisor process control system
+Documentation=http://supervisord.org
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/supervisord -c /etc/supervisor/supervisord.conf
+ExecStop=/usr/bin/supervisorctl $OPTIONS shutdown
+ExecReload=/usr/bin/supervisorctl $OPTIONS reload
+KillMode=process
+Restart=on-failure
+RestartSec=50s
+
+[Install]
+WantedBy=multi-user.target
+
+```
+
 ## 用 systemctl 管理
 
 ```cmd
