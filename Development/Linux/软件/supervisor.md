@@ -1,3 +1,5 @@
+https://www.cnblogs.com/gaozejie/p/16577561.html
+
 ## 初始化
 
 ```cmd
@@ -12,6 +14,8 @@ sudo /usr/bin/supervisord -c /etc/supervisord.conf
 
 /etc/systemd/system/supervisor.service
 
+记得看下配置文件 /etc/supervisord.conf 路径对不对
+
 ```plaintext
 [Unit]
 Description=Supervisor process control system
@@ -19,7 +23,7 @@ Documentation=http://supervisord.org
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/supervisord -c /etc/supervisor/supervisord.conf
+ExecStart=/usr/bin/supervisord -c /etc/supervisord.conf
 ExecStop=/usr/bin/supervisorctl $OPTIONS shutdown
 ExecReload=/usr/bin/supervisorctl $OPTIONS reload
 KillMode=process
@@ -66,7 +70,7 @@ sudo supervisorctl status
 ## 开机时自动启动
 
 ```cmd
-# 需要创建.service文件
+# 见配置文件 需要创建.service文件
 sudo nano / etc/systemd/system/supervisor.service
 
 # 重新加载systemd服务，使新的supervisor服务单元生效
