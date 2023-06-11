@@ -1,1 +1,1 @@
-netstat -ntu | awk '{split($5, a, ":"); print a[1]}' | sort
+netstat -ntu | awk '{split($5, a, ":"); print a[1]}' | sort -u
