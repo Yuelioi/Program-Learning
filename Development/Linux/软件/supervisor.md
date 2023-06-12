@@ -24,7 +24,7 @@ sudo supervisorctl update
 
 # 启动
 sudo systemctl start supervisor
-sudo service supervisord start
+sudo service supervisord start(旧版)
 
 # 停止
 sudo systemctl stop supervisor
@@ -40,7 +40,7 @@ sudo supervisorctl restart process_name | all (在项目ini配置里)
 
 # 查看进程状态
 sudo supervisorctl status
-sudo service supervisord status
+sudo service supervisord status(旧版)
 
 
 ```
@@ -48,8 +48,12 @@ sudo service supervisord status
 ## 开机时自动启动
 
 ```cmd
+sudo chkconfig supervisord on(旧版)
+
+
 # 见配置文件 需要创建.service文件
-sudo nano / etc/systemd/system/supervisor.service
+sudo nano /etc/systemd/system/supervisor.service
+
 
 # 重新加载systemd服务，使新的supervisor服务单元生效
 sudo systemctl daemon-reload
