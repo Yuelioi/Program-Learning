@@ -1,19 +1,24 @@
 编辑 /etc/environment 文件并添加以下行：
 
 
-LC_ALL=en_US.UTF-8
-LANG=en_US.UTF-8
+LC_ALL=es_US.utf8
+LANG=es_US.utf8
 
 
 编辑 /etc/locale.conf 文件并添加以下行：
 
-makefile
-Copy code
-LANG=en_US.UTF-8
+
+LANG=es_US.utf8
 
 
 执行以下命令来生成所需的区域设置：
 
 
-sudo locale-gen en_US.UTF-8
-sudo localectl set-locale LANG=en_US.UTF-8
+sudo locale-gen es_US.utf8
+sudo localectl set-locale LANG=es_US.utf8
+
+
+## 1
+source /etc/environment
+source /etc/locale.conf
+
