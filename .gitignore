@@ -12,6 +12,9 @@ test
 
 Python/.venv/
 Python/.idea/
+Python/Lib/
+Python/include/
+Python/Scripts/
 pyvenv.cfg
 data
 secret.*
@@ -28,3 +31,4 @@ Adobe/dist
 
 .lock
 target
+
