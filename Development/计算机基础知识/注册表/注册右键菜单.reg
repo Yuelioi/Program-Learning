@@ -1,0 +1,11 @@
+; https://blog.csdn.net/qq_44697303/article/details/124358923
+
+
+在路径中找到对应的项
+计算机\HKEY_CLASSES_ROOT\.mp4
+
+文件夹
+HKEY_CLASSES_ROOT\Directory\shell\xx功能
+
+文件
+HKEY_CLASSES_ROOT\*\shell\xx功能
