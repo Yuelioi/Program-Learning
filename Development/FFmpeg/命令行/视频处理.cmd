@@ -24,3 +24,14 @@ ffmpeg -i input.mp4 -an -c:v copy output.mp4
 ffmpeg -i input.mp4 -vn -c:a copy output.aac # 提取aac
 ffmpeg -i input.mp4 -vn output.mp3 # 不管 直接转mp3
 ffmpeg -i input.mp4 -vn -c:a libmp3lame -q:a 0 output.mp3 # 转mp3, 质量设置最高
+
+@REM 合并视频1
+ffmpeg -i 11.mp4 -i 22.mp4 -filter_complex "[0:v] [0:a] [1:v] [1:a]\
+concat=n=2:v=1:a=1 [v] [a]" -map "[v]" -map "[a]" output.mp4
+
+@REM 合并视频2
+@REM # filelist.txt
+@REM file '11.mp4'
+@REM file '22.mp4'
+ffmpeg -f concat -safe 0 -i filelist.txt -y output.mp4
+

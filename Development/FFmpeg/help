@@ -1,0 +1,98 @@
+打印帮助/信息/功能：
+-L              显示许可证
+-h              topic 显示帮助
+-?              topic 显示帮助
+-help           topic 显示帮助
+--help          topic 显示帮助
+-version         显示版本
+-buildconf      显示构建配置
+-formats        显示可用格式
+-muxers         显示可用的混流器
+-demuxers       显示可用的解混流器
+-devices        显示可用设备
+-codecs         显示可用编解码器
+-decoders       显示可用解码器
+-encoders       显示可用编码器
+-bsfs           显示可用比特流过滤器
+-protocols      显示可用协议
+-filters         显示可用滤镜
+-pix_fmts       显示可用像素格式
+-layouts        显示标准声道布局
+-sample_fmts 显示可用的音频采样格式
+-colors         显示可用颜色名称
+-sources device 列出输入设备的源
+-sinks device 列出输出设备的目标
+-hwaccels   显示可用的硬件加速方法
+
+全局选项（影响整个程序而不仅仅是一个文件）：
+-loglevel loglevel 设置日志级别
+-v loglevel 设置日志级别
+-report 生成报告
+-max_alloc bytes 设置单个分配块的最大大小
+-y 覆盖输出文件
+-n 永不覆盖输出文件
+-ignore_unknown 忽略未知的流类型
+-filter_threads 非复杂滤镜线程的数量
+-filter_complex_threads -filter_complex 的线程数
+-stats 在编码过程中打印进度报告
+-max_error_rate maximum error rate 失败错误率的比例（0.0：没有错误，1.0：100%错误），高于此比例 ffmpeg 将返回错误而不是成功。
+-bits_per_raw_sample number 设置每个原始样本的比特数
+-vol volume 更改音频音量（256=正常）
+
+每个文件的主要选项：
+-f fmt 强制指定格式
+-c codec 编解码器名称
+-codec codec 编解码器名称
+-pre preset 预设名称
+-map_metadata outfile[,metadata]:infile[,metadata] 从输入文件中设置输出文件的元数据信息
+-t duration 录制或转码 "duration" 秒的音频/视频
+-to time_stop 录制或转码停止时间
+-fs limit_size 设置文件大小限制（以字节为单位）
+-ss time_off 设置起始时间偏移
+-sseof time_off 相对于文件结尾设置起始时间偏移
+-seek_timestamp 启用/禁用使用 -ss 进行时间戳搜索
+-timestamp time 设置录制时间戳（'now' 设置为当前时间）
+-metadata string=string 添加元数据
+-program title=string:st=number... 添加具有指定流的节目
+-target type 指定目标文件类型（"vcd"、"svcd"、"dvd"、"dv" 或 "dv50"，可选前缀 "pal-"、"ntsc-" 或 "film-"）
+-apad 音频补充
+-frames number 设置要输出的帧数
+-filter filter_graph 设置流滤镜图
+-filter_script filename 从文件中读取流滤镜图描述
+-reinit_filter 在输入参数更改时重新初始化滤镜图
+-discard 丢弃
+-disposition 位置
+
+视频选项：
+-vframes number 设置要输出的视频帧数
+-r rate 设置帧率（以 Hz 值、分数或缩写表示）
+-s size 设置帧大小（WxH 或缩写）
+-aspect aspect 设置宽高比（4:3、16:9 或 1.3333、1.7777）
+-bits_per_raw_sample number 设置每个原始样本的比特数
+-vn 禁用视频
+-vcodec -codec:v -c:v 强制视频编解码器（'copy' 以复制流）
+-timecode hh:mm:ss[:;.]ff 设置初始时间码值。
+-pass n 选择传递编号（1 到 3）
+-vf filter_graph 设置视频滤镜
+-ab bitrate 音频比特率（请使用 -b:a）
+-b bitrate 视频比特率（请使用 -b:v）
+-dn 禁用数据
+
+音频选项：
+-aframes number 设置要输出的音频帧数
+-aq quality 设置音频质量（编解码器特定）
+-ar rate 设置音频采样率（以 Hz 为单位）
+-ac channels 设置音频通道数
+-an 禁用音频
+-acodec -codec:a -c:a 强制音频编解码器（'copy' 以复制流）
+-vol volume 更改音频音量（256=正常）
+-af filter_graph 设置音频滤镜
+
+字幕选项：
+-s size 设置字幕帧大小（WxH 或缩写）
+-sn 禁用字幕
+-scodec -codec:s -c:s 强制字幕编解码器（'copy' 以复制流）
+-stag fourcc/tag 强制字幕标签/fourcc
+-fix_sub_duration 修复字幕持续时间
+-canvas_size size 设置画布大小（WxH 或缩写）
+-spre preset 将字幕选项设置为指定的预设值

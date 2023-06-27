@@ -1,0 +1,8 @@
+第一个输入流
+Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'Tor_Animation_en.mp4':
+
+可以查看信息 分别是视频 音频 和字幕
+Stream mapping:
+  Stream #0:0 -> #0:0 (h264 (native) -> h264 (libx264))
+  Stream #0:1 -> #0:1 (copy)
+  Stream #1:0 -> #0:2 (subrip (srt) -> ass (native))
