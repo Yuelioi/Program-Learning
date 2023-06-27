@@ -9,11 +9,9 @@ test
 
 
 
-Python/**/Include
-Python/**/Lib
-Python/**/__pycache__
-Python/**/Scripts
-Python/**/.idea
+
+Python/.venv/
+Python/.idea/
 pyvenv.cfg
 data
 secret.*

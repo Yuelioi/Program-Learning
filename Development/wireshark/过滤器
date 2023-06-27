@@ -1,0 +1,9 @@
+tcp.flags.ack == 0
+
+连接请求: SYN=1 ACK=0 SEQ=X
+连接请求确认: SYN=1 ACK=1 SEQ=y, ack=x+1
+确认: ACK=1 SEQ=X+1 ACK=Y+1
+
+tcp
+arp
+icmp

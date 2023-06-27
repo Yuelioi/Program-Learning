@@ -4,8 +4,4 @@ long_text = (
     "CCCCCCCC"
 )
 
-"""
-123
-124
-125
-"""
+print(long_text)  # AAABBBBBCCCCCCCC

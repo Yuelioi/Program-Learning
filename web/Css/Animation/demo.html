@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+
+    <body>
+        <main></main>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                width: 100vw;
+                height: 100vh;
+                background: rgb(12, 20, 39);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            main {
+                width: 100px;
+                height: 100px;
+                background: white;
+                animation-name: ani02;
+                animation-duration: 2s;
+            }
+
+            @keyframes ani01 {
+                from {
+                    background: #000;
+                }
+                to {
+                    background: red;
+                }
+            }
+            @keyframes ani02 {
+                0% {
+                    background: #000;
+                }
+                25% {
+                    transform: scale(2);
+                }
+                100% {
+                    background: red;
+                }
+            }
+        </style>
+    </body>
+</html>
