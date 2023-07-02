@@ -10,7 +10,7 @@ create table tb1(
   --  默认值
 ) default charset = utf8;
 
-insert into tb1 (name,age) value("AA",18);
+insert into tb1 (name,age) values("AA",18);
 
 -- 查
 desc tb1 

@@ -8,13 +8,13 @@ app = Flask(__name__)
 
 
 def userExist(cursor,username):
-  cursor.execute("SELECT * FROM user WHERE username='%s'"% username)
-  result = cursor.fetchone()
+    cursor.execute("SELECT * FROM user WHERE username='%s'"% username)
+    result = cursor.fetchone()
 
-  # If the result is None, then the user does not exist
-  if result is None:
-      return False
-  return True
+    # If the result is None, then the user does not exist
+    if result is None:
+        return False
+    return True
 
 
 def tableExist(cursor):

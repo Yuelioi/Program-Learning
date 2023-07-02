@@ -1,5 +1,6 @@
 import pydash
 
+# 普通展平
 def flatten_list1(nested_list):
     flattened = []
     for item in nested_list:
@@ -9,14 +10,14 @@ def flatten_list1(nested_list):
             flattened.append(item)
     return flattened
 
-
+# 一行
 def flatten_list(nested_list):
     return sum(map(flatten_list, nested_list), []) if isinstance(nested_list, list) else [nested_list]
 
 # 第三方库
 pydash.flatten_deep([1, 2, [3, [4, 5, [6, 7]]]])
 
-
+# 返回迭代器
 def iterflatten(array, depth=-1):
     """Iteratively flatten a list shallowly or deeply."""
     for item in array:
