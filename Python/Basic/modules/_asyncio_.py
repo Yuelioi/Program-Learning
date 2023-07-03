@@ -53,7 +53,7 @@ async def demo_test():
 
 """￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣
 await
-1. 告诉event loop 执行完 await 后面的内容之后, 再执行我这个 task
+1. 告诉 event loop 执行完 await 后面的内容之后, 再执行我这个 task
 2. 会 yield 出去
 3. 会把 await 后面的内容的返回值保存
 """

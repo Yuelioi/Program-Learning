@@ -10,13 +10,12 @@ https://www.gairuo.com/p/python-zip
 
 
 # 无传入
-import itertools
-z = zip()
-z  # <zip at 0x7fe33d1ac440>
-list(z)
-# []
+
 
 # 传入一个
+import itertools
+
+
 z = zip([1, 2, 3])
 list(z)
 # [(1,), (2,), (3,)]
@@ -26,7 +25,7 @@ z = zip([1, 2, 3], [3, 4, 5])
 list(z)
 # [(1, 3), (2, 4), (3, 5)]
 
-# 不同长度
+# 不同长度(取最短)
 z = zip([1, 2], [3, 4, 5])
 list(z)
 # [(1, 3), (2, 4)]
