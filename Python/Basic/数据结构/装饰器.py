@@ -2,7 +2,7 @@
 # 函数 callable
 # 本质是函数作为参数传递的语法糖
 
-# [【python】装饰器超详细教学，用尽毕生所学给你解释清楚，以后再也不迷茫了！](https://www.bilibili.com/video/BV1Gu411Q7JV/)
+# [【python】超详细教学，用尽毕生所学给你解释清楚，以后再也不迷茫了！](https://www.bilibili.com/video/BV1Gu411Q7JV/)
 
 
 import time

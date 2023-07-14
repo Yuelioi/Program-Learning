@@ -6,26 +6,9 @@ abs(-1)  # =>1
 
 a = 114124
 # TODO aiter() # 3.10+
-
-# all 列表全真或者空迭代对象(如列表) 则=>True
-all([])  # True
-all([True, False])  # False
-
-# any 任意元素为真则=>True 空迭代对象(如列表)返回False
-any([])  # False
-any({"a": 1})  # True
-
 # TODO anext 3.10+
-
-
-# bool(x=False) => True/False False值/对象见 逻辑值与布尔
-bool([])  # False (傻逼js)
-
 # TODO breakpoint() 3.7+
-
 # bytearray(source, encoding, errors) # 可变序列(参考列表)
-
-
 # callable() #
 
 
