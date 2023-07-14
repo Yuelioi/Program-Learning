@@ -6,3 +6,7 @@ print(print.__doc__)
 print(dir(print))
 
 
+import inspect
+inspect.getmembers("")
+
+
