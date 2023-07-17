@@ -19,7 +19,7 @@ os.chdir(script_dir)
 
 
 def main():
-    url = "https://www.youtube.com/watch?v=xUmMHgZ9YfI&t=4s&ab_channel=JakeInMotion"
+    url = "https://www.youtube.com/playlist?list=PL0n2FoJqwC_N7P5VSv4I8lC1Y5QfLN8u0"
     if PLAYLIST_ID := get_playlistId_by_link(url):
         urls = get_urls_by_playlistId(PLAYLIST_ID)
     else:
@@ -27,12 +27,14 @@ def main():
 
     for idx, url in tqdm(enumerate(urls)):
         print(f"{idx}/{len(urls)}")
+        if idx < 4:
+            continue
         if currentPath := yt_dlp_download(
                 url=url,
                 output_path=script_dir / "output",
                 # down_sub=True,
                 down_video=True,
-                # down_thumbnail=True,
+                down_thumbnail=True,
         ):
 
             if vtt_subs := glob.glob(f"{currentPath}*.vtt"):
@@ -56,7 +58,6 @@ def main():
                 tran_sub.save(f"{currentPath}.zh.srt")
 
 
-currentPath = r"output/Getting Started with PowerShell 3.0- (09) Introducing scripting and toolmaking - Microsoft Learn"
 
 
 def srt2ass(currentPath):
@@ -69,10 +70,6 @@ def srt2ass(currentPath):
     en_subs.save(f'{currentPath}1.ass', format_="ass")
 
 
-# ss = pysubs2.load(f'{currentPath}.ass')
-# srt2ass(currentPath)
-
-# pysubs2.SSAStyle(fontname='思源黑体 Regular', fontsize=48)
 
 
 def autoTranslate(currentPath):

@@ -2,7 +2,6 @@ from pathlib import Path
 import pysrt
 import youtube_dl
 from youtube_transcript_api import YouTubeTranscriptApi
-from pytube import YouTube
 from yt_dlp import YoutubeDL
 import os
 
@@ -76,15 +75,15 @@ def ytb_dl_download(url: str, out_path: str):
     return v_path, t_path
 
 
-def yt_dlp_download(url: str, output_path: Path, down_video: bool = False, down_sub: bool = False, down_thumbnail: bool = False):
+def yt_dlp_download(url: str, output_path: Path, down_video: bool = False, down_sub: bool = False, down_thumbnail: bool = False,prefix:str=""):
     # update: python -m pip install --force-reinstall https://github.com/yt-dlp/yt-dlp/archive/master.tar.gz
 
     # todo: file name filter
     ydl_opts = {
-        # 'outtmpl': f'{output_path}/%(title)s.%(ext)s',
+        'outtmpl': f'{output_path}/{prefix}%(title)s.%(ext)s',
         'writethumbnail': True,
-        'external_downloader': 'aria2c',
-        'external_downloader_args': '-c -j 8 -s 8 -x 8 -k 1M',
+        # 'external_downloader': "D:/Program/aria2c.exe",
+        # 'external_downloader_args': ['-j', '16', '-s', '16', '-x', '16', '-k', '2M', '-x', '16', '-k', '2M'],
         'proxy': '127.0.0.1:10809',
         'format': 'bestvideo+bestaudio',
         'nocheckcertificate': True,
@@ -124,9 +123,10 @@ def yt_dlp_download(url: str, output_path: Path, down_video: bool = False, down_
     return None
 
 
-def pytube_download(url, output_path):
+def pytube_download(url, output_path: Path, down_video: bool = False, down_sub: bool = False, down_thumbnail: bool = False,prefix:str=""):
     import socks
     import socket
+    from pytube import YouTube
     proxy_ip = "127.0.0.1"  # fill in your proxy ip
     proxy_port = 10809
 
@@ -134,10 +134,13 @@ def pytube_download(url, output_path):
     socket.socket = socks.socksocket
 
     youtubeObject = YouTube(url)
+    
     youtubeObject = youtubeObject.streams.get_highest_resolution()
     try:
         if youtubeObject:
-            youtubeObject.download()
+            title = youtubeObject.title
+            file_name = f"{prefix}{title}.mp4"
+            youtubeObject.download(output_path=str(output_path),filename=file_name)
     except:
         print("An error has occurred")
     print("Download is completed successfully")
@@ -185,23 +188,8 @@ if __name__ == '__main__':
 
     script_dir = Path(__file__).resolve().parent
     os.chdir(script_dir)
-    url = "https://www.youtube.com/watch?v=-IWSJamdVp4"
+    url = "https://www.youtube.com/watch?v=K266suxguVE"
+    # print(script_dir)
+    yt_dlp_download(url=url, output_path=script_dir / "output", down_sub=True,down_video=True,down_thumbnail=True,prefix="1_")
 
-    yt_dlp_download(url=url, output_path=script_dir / "output", down_sub=True)
-
-    # SAVE_PATH = ""
-    # print("start download")
-    # try:
-
-    #     yt = YouTube(url)
-
-    #     if h := yt.streams.filter(progressive=True).order_by(
-    #             'resolution'):
-    #         # h.download(SAVE_PATH)
-    #         print(h)
-    #         print('Video Downloaded!')
-    # except Exception as e:
-    #     print("Error occurred!\n", e)
-    # print()
-   # ffmpeg_convert(
-   #     "H:\Snippets\Program-Learning\Python\Snippets\sub_progress\How to Color Your Animation and Comic⧸Webtoon Like a PRO (Cel Shading Tutorial)")
+    # pytube_download(url=url,output_path=script_dir,prefix="1_")

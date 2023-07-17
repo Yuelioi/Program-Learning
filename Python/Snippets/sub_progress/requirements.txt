@@ -1,0 +1,9 @@
+youtube_dl
+youtube_transcript_api
+pytube
+yt_dlp
+pydantic
+pysrt
+jsonpath
+nnsplit
+srt
