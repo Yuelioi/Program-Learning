@@ -80,13 +80,13 @@ def yt_dlp_download(url: str, output_path: Path, down_video: bool = False, down_
 
     # todo: file name filter
     ydl_opts = {
-        'outtmpl': f'{output_path}/{prefix}%(title)s.%(ext)s',
         'writethumbnail': True,
         # 'external_downloader': "D:/Program/aria2c.exe",
         # 'external_downloader_args': ['-j', '16', '-s', '16', '-x', '16', '-k', '2M', '-x', '16', '-k', '2M'],
         'proxy': '127.0.0.1:10809',
         'format': 'bestvideo+bestaudio',
         'nocheckcertificate': True,
+        'cookiefile':"cookie.txt"
     }
     if down_sub:
         ydl_opts['writesubtitles'] = True
@@ -105,7 +105,7 @@ def yt_dlp_download(url: str, output_path: Path, down_video: bool = False, down_
             video_title = title_rename(video_title)
             video_id = video_info.get("id", "NoID")
 
-            current_path = f"{str(output_path)}/{video_title} {video_id}"
+            current_path = f"{str(output_path)}/{prefix}{video_title} {video_id}"
 
             ydl.params["outtmpl"]['default'] = f"{current_path}.%(ext)s"
 
@@ -189,7 +189,6 @@ if __name__ == '__main__':
     script_dir = Path(__file__).resolve().parent
     os.chdir(script_dir)
     url = "https://www.youtube.com/watch?v=K266suxguVE"
-    # print(script_dir)
     yt_dlp_download(url=url, output_path=script_dir / "output", down_sub=True,down_video=True,down_thumbnail=True,prefix="1_")
 
     # pytube_download(url=url,output_path=script_dir,prefix="1_")

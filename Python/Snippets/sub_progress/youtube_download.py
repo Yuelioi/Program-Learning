@@ -27,8 +27,8 @@ def main():
 
     for idx, url in tqdm(enumerate(urls)):
         print(f"{idx}/{len(urls)}")
-        if idx < 4:
-            continue
+        # if idx < 4:
+        #     continue
         if currentPath := yt_dlp_download(
                 url=url,
                 output_path=script_dir / "output",
