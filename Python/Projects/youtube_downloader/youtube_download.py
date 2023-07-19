@@ -15,8 +15,8 @@ script_dir = Path(__file__).resolve().parent
 os.chdir(script_dir)
 
 
-def main():
-    url = "https://www.youtube.com/playlist?list=PL0n2FoJqwC_N7P5VSv4I8lC1Y5QfLN8u0"
+def main(url):
+    
     if PLAYLIST_ID := get_playlistId_by_link(url):
         urls = get_urls_by_playlistId(PLAYLIST_ID)
     else:
@@ -42,14 +42,6 @@ def main():
             continue
 
 
-def srt2ass(currentPath):
-
-    # 加载英文字幕文件
-    en_subs = pysubs2.load(f'{currentPath}.en.srt')
-
-    # 加载中文字幕文件
-    zh_subs = pysubs2.load(f'{currentPath}.zh.srt')
-    en_subs.save(f'{currentPath}1.ass', format_="ass")
 
 
 def vtt2srt(currentPath):
@@ -80,8 +72,14 @@ def vtt2srt(currentPath):
         else:
             srt_sub = pysubs2.load(vtt)
             srt_sub.save(vtt .replace(".vtt", ".en.srt"))
-
-
+            
+def srtClean(currentPath):
+    if srt_subs := glob.glob(f"{currentPath}*.en.srt"):
+        srt = srt_subs[0]
+        sub = pysubs2.load(srt)
+        for i in range(len(sub)):
+            print(sub[i].text)
+        
 def srt2zh(currentPath):
     if srt_subs := glob.glob(f"{currentPath}*.en.srt"):
         srt = srt_subs[0]
@@ -97,10 +95,22 @@ def srt2zh(currentPath):
         # 保存
         tran_sub.save(srt.replace("en", "zh"))
 
+def srt2ass(currentPath):
+
+    # 加载英文字幕文件
+    en_subs = pysubs2.load(f'{currentPath}.en.srt')
+
+    # 加载中文字幕文件
+    zh_subs = pysubs2.load(f'{currentPath}.zh.srt')
+    en_subs.save(f'{currentPath}1.ass', format_="ass")
 
 if __name__ == "__main__":
-
+    
+    os.chdir(os.path.dirname(__file__))
+    url = "https://www.youtube.com/playlist?list=PL0n2FoJqwC_N7P5VSv4I8lC1Y5QfLN8u0"
+    url = "https://www.youtube.com/shorts/QmuZmRf2IH4"
+    main(url)
     # currentPath = r"E:\Scripting\Program-Learning\Python\Projects\youtube_downloader\1"
     # main()
-    vtt2srt(r'E:\Scripting\Program-Learning\Python\Projects\youtube_downloader\1\\')
-    srt2zh(r'E:\Scripting\Program-Learning\Python\Projects\youtube_downloader\1\\')
+    # srtClean(r'E:\Project\Program-Learning\Python\Projects\1\\')
+

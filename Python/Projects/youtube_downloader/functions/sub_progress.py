@@ -1,4 +1,5 @@
 import itertools
+import os
 from nnsplit import NNSplit
 import srt
 # coding:utf-8
@@ -113,8 +114,10 @@ def sub_comb(s1, t1, lang='en'):
 
 def get_sbd(list):
     """  获取句子边界 并添加|   """
+    model = os.path.join(os.path.dirname(__file__), "models/en/model.onnx")
+    
 
-    splitter = NNSplit("models/en/model.onnx")
+    splitter = NNSplit(model)
     temp_content = '---'.join(list)
     splits = splitter.split([temp_content])
     res = ''.join(f"{str(sentence)}|" for sentence in splits[0])
@@ -125,7 +128,7 @@ def sub_slc(sublist):
     """  句根据术语 给字幕列表添加 |   """
     sublist2 = sublist[:]
     glossary = []
-    with open(r'glossarys\glossary_base.txt', encoding='utf-8') as f:
+    with open(os.path.join(os.path.dirname(__file__),'glossarys/glossary_base.txt'), encoding='utf-8') as f:
         glossary.extend(line.split('\t')[0] for line in f)
     glossary = glossary[1:]  # 用于第一行注释
 
@@ -221,7 +224,7 @@ def split_time(sublist, splitlist, timelist):
 
 def sub_foward(sublist, timelist):
     """  句尾的单词 比如so/if，会并入下一句   """
-    with open(r'glossarys\sub_foward.txt', encoding='utf-8') as f:
+    with open(os.path.join(os.path.dirname(__file__),'glossarys/sub_foward.txt'), encoding='utf-8') as f:
         txt = f.readlines()
         forward_list = [i.split('\n')[0] for i in txt]
         forward_listL = [len(i.split('\n')[0]) for i in txt]
@@ -255,6 +258,7 @@ def sub_foward(sublist, timelist):
 def sub_tooshort(subb, timm):
     """ 字幕精细处理 比如and断句提前"""
     # 如果出现 not all arguments converted during string formatting ，需要再加判断
+    
     with open(r'glossarys\sentence_foward.txt', encoding='utf-8') as f:
         txt = f.readlines()
 
@@ -398,17 +402,22 @@ def sub_tichun_en(subb):
 
 
 if __name__ == '__main__':
+    os.chdir(os.path.dirname(__file__))
+
+    
     s1 = ["Hi I'm marcela to also known as credibility three D", ". I'm a freelance three D. Art director,", "I'm born and living in Barcelona and I love to", 'work with light texas and animation and things like this', '. Yeah. Mhm. Three yeah. No you', "know what? No. Mhm. I've started to", 'dive into the design world through graphic design using mainly', 'illustrator and Photoshop. Soon I realized that these were', 'awesome tools but I was depending a bit too much', 'an external images to create photo compositions and with illustrator', "I couldn't create photo realistic images. At that time", 'I discovered three D. And it was the solution', 'to all these problems. I started to learn about', 'it through tutorials and courses on the internet and working', 'on personal projects by myself From there. The first', 'time projects came shortly after that and thanks to three', 'D. I had the opportunity to work with amazing', 'studios and international brands, enjoying every step of the', 'process on this course. I would like to share', "with you some of the techniques and learnings that I've", 'been collecting along this design journey. Yeah. Hi', "I'm Gemma master freelance motion designer from America but currently", 'based in Barcelona and I do things like this.', 'Hey. Okay. Yeah. Mhm. Yeah.', 'Yeah. Okay. Yeah. Okay. Mhm.', 'I studied advertising but I was always attracted to cinema', 'and audiovisual in general. I discovered motion design while', 'working on an advertising agency and I realized soon that', 'that was way more interesting than anything I did by', 'then. So I opened after ethics and from there',
           'I explore it for months to understand it juggling with', 'it to create some simple animations. After college I', 'developed my animation skills in my time in an animation', 'studio. And after more than two years there I', "finally became a freelance motion designer from them. I've", 'been lucky to work with different animation studios, advertising', 'agencies and brands that allowed me to gain tons of', 'experience tips and advice that I would like to share', 'with you. In this course we met each other', "in our time in college and from there we've had", "parallel careers in motion design industry. We've been talking", "about creating something together for years but we didn't find", 'the right moment to doing. It was really when', 'the lockdown started in spain that we felt that it', 'was a perfect moment to finally do something together.', 'We decided to combine the pure motion design language with', "the three D. World. And that's how we", 'ended up doing this project called Between Two and three', '. We wanted to explore new techniques, mixing styles', 'and trying new work clothes. And this was the', 'result of this experiment boy. What? Wait what', '? What? Mm hmm. What? Mm hmm', '. In this course we will go through all the', 'process involved in the creation of this project, dividing', 'it in different sections such as style frames selecting vectorized', 'principles of animation to the animation with after ethics set', 'up an export for cinema four D. Three D', '. Modeling and animation through the lighting and shading,', 'rendering, compositing sound design and final conclusion. So']
     t1 = [[0.04, 4.269, 6.059, 8.47, 13.64, 39.369, 48.119, 51.609, 55.28, 57.899, 60.869, 64.25, 67.81, 70.48, 72.23, 75.549, 79.93, 82.549, 86.2, 89.37, 90.87, 96.4, 100.189, 105.439, 135.039, 167.039, 171.46, 173.96, 178.36, 180.46, 184.58, 187.77, 190.25900000000001, 194.65, 196.379, 201.22899999999998, 203.99, 208.53, 210.789, 216.939, 218.349, 222.82999999999998, 226.039, 227.27, 231.28, 233.539, 237.889, 239.71, 242.24, 245.09, 248.629, 260.939, 284.639, 286.86, 288.81, 294.519, 298.379, 300.689, 302.79], [4.259, 6.059,
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        8.47, 13.06, 39.369, 48.119, 51.6, 55.27, 57.899, 60.869, 64.239, 67.81, 70.48, 72.23, 75.549, 79.93, 82.549, 86.189, 89.37, 90.85900000000001, 96.39, 100.189, 104.35900000000001, 119.14, 159.55, 171.46, 173.96, 178.349, 180.449, 184.569, 187.77, 190.25900000000001, 194.65, 196.379, 201.22899999999998, 203.99, 208.53, 210.789, 216.939, 218.34, 222.82999999999998, 226.039, 227.27, 231.28, 233.15, 237.889, 239.71, 241.759, 245.09, 248.629, 256.56, 283.15999999999997, 286.86, 288.81, 294.509, 298.379, 300.689, 302.779, 309.48]]
-    s_temp = get_sbd(s1)
-    for i in range(len(s1)):
-        print(s1[i] + "\n" + s_temp[i])
-        print()
-    s_temp = sub_slc(s_temp)
-    # print(s_temp)
+    
+    # print(sub_tooshort(s1,t1))
+    # s_temp = get_sbd(s1)
+    # for i in range(len(s1)):
+    #     print(s1[i] + "\n" + s_temp[i])
+    #     print()
+    # s_temp = sub_slc(s_temp)
+    # # print(s_temp)
 
-    s1, t1 = split_time(s1, s_temp, t1)
+    # s1, t1 = split_time(s1, s_temp, t1)
 
-    print(s1, t1)
+    # print(s1, t1)

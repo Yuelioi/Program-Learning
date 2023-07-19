@@ -1,0 +1,3 @@
+trap code	Trapcode
+lair	layer
+camp	comp

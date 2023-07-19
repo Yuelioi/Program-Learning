@@ -1,0 +1,29 @@
+and	3
+,	19
+.	20
+also	4
+and then	8
+as always	9
+because	7
+but	3
+first of all	12
+go to	5
+here we are	11
+hold down	9
+I am	4
+I will	6
+if we	5
+if you	6
+I'm going	9
+in my case	10
+in this tutorial	16
+it is	5
+let it	6
+let's	5
+not only	8
+now	3
+please	6
+press	5
+secondly	8
+select	6
+so	2

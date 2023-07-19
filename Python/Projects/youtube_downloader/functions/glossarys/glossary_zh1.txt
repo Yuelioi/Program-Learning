@@ -1,0 +1,390 @@
+3d cylinder	3d圆柱体
+3d sphere	3d球体
+acceleration	加速度
+activate	激活
+active camera	活动相机
+advanced lightening	高级闪电
+After Effects	AE
+after-effects	AE
+alternate version	替代版本
+animator	动画器
+at the same time	同时
+axis system	轴系统
+banner	横幅
+base layer of noise	基层噪波
+basic copy	基础副本
+box emitter	盒型发射器
+brush	画笔
+bulge	凸起
+cache	缓存
+call this	称之为
+camera	摄像机
+CC sphere	CC球体
+certain areas	某些区域
+channel	通道
+color graph	颜色图表
+comp	合成
+complexity	复杂度
+composition	合成
+conductivity States	传导状态
+configuration	配置
+constant	常数
+core drain	核心消耗
+correction	校正
+cylinder	圆柱体
+designer	设计器
+detail	细节
+dimension	维度
+disk	圆盘
+displacement map	置换图
+distortion	扭曲
+double-click	双击
+draft	草图
+dramatic	剧烈
+drawing	绘图
+dynamic reflections	动态反射
+effects control	效果控件
+element	元素
+emitter controls	发射器控制
+emitter intensity	发射器强度
+end frame	结束帧
+end period	结束时间
+evolution	演变
+explorer	资源管理器
+expression	表达式
+extra copy	额外副本
+face the camera	面对摄像机
+factor	因素
+falling	坠落
+feather	羽化
+feature	功能
+fit	适应
+fractal noise	分形噪波
+frame size	帧大小
+fringe	边缘
+front view	前视图
+generator	生成器
+grid pattern	网格模式
+handle	手柄
+imager	成像器
+inheritance	继承
+interactive	交互式
+interface	界面
+interpolation	插值
+layer emitter	图层发射器
+layer switch	层开关
+level	级别
+light	灯光
+light emitter	灯光发射器
+light type	灯光类型
+expressions	表达式
+linear wipe	线性擦除
+list	列表
+loading	加载
+lock	锁定
+loop	循环
+lower third	字幕条
+main particular	主粒子
+mask	蒙版
+mask path	蒙版路径
+material	材质
+mesh	网格
+mirror	镜像
+Mosaic	马赛克
+multiplier	倍增器
+natural areas	自然区域
+noise	噪波
+object	对象
+offset effect	偏移效果
+opacity	不透明度
+orient to motion	朝向运动
+other options	其他选项
+outside bevel	外斜面
+over time	随着时间
+overload	过载
+paint style	绘画样式
+parents tab	父标签
+particle color	粒子颜色
+particle generator	粒子生成器
+particle size	粒子大小
+particle trail	粒子跟踪
+particular	粒子
+pattern	模式
+pen tool	钢笔工具
+pivot point	轴心位置
+plane	平面
+play	播放
+plug-in	插件
+pre comp	预合成
+pre compose	预合成
+pre-comp	预合成
+preview area	预览区域
+programming language	编程语言
+randomized	随机
+Ratio	比率
+ray traced	光线跟踪
+real time	实时
+rectangle	矩形
+red giant	红巨星
+reflect offset	反射偏移
+register	注册
+reset	重置
+resistance	阻力
+resolution	分辨率
+Safe Guides	安全框
+sample	采样
+scale	缩放
+scrub	滑动
+section	节
+segment	片段
+shortcut	快捷方式
+side view	侧视图
+skew	倾斜
+slider	滑块
+sliding	滑动
+smoke	烟雾
+snap	对齐
+solar flare	太阳耀斑
+solid	纯色层
+source material	源材质
+specular sharpness	镜面锐度
+sphere	球体
+spherical particles	球状粒子
+spin	自旋
+spread	扩展
+square	正方形
+stock	库存
+stopwatch	秒表
+stretch	拉伸
+subtract	相减
+suite	套件
+tab	选项卡
+take the tint	采用色调
+text layer	文本图层
+texture	纹理
+textured polygon	纹理多边形
+this case	这种情况
+threshold	阈值
+thumbnail	缩略图
+topic	主题
+toward the camera	朝向相机
+transfer	传输
+transfer modes	传输模式
+transform	变换
+trapcode particular	trapcode粒子
+trim path	修剪路径
+turbulence displacement	湍流置换
+uniform direction	均匀方向
+uniform scaling	统一缩放
+vector	矢量
+video format	视频格式
+view	视角
+visibility	可见性
+with the animation	随动画
+work area	工作区
+workflow	工作流
+XYZ individual	XYZ独立
+3D Chanel Extract	3D 通道提取
+cryptomatte	cryptomatte
+Depth Matte	深度遮罩
+Depth Of Field	场深度
+EXtractoR	提取器
+Id Matte	ID遮罩
+Identifier	标识符
+Backwards	倒放
+Bass Treble	低音和高音
+Flange Chorus	变调与合声
+High Low Pass	高通/低通
+Parametric Eq	参数均衡
+Stero Mixer	立体声混合器
+Tone	音调
+Bilateral Blur	双向模糊
+Camera Lens Blur	摄像机镜头模糊
+Camera Shake Deblur	摄像机抖动去模糊
+Fast Box Blur	快速方框模糊
+Unsharp Mask	钝化蒙版
+Calculations	计算
+CC Composite	CC合成
+Channel Combiner	通道合成器
+Compound Arithmetic	复合运算
+Invert	反转
+Remove Color Matting	移除颜色遮罩
+Set Channels	设置通道
+Shift Channels	转换通道
+Solid Composite	固态层合成
+Auto Color	自动颜色
+Auto Contrast	自动对比度
+Auto Levels	自动色阶
+Black White	黑色和白色
+Brightness Contrast	亮度和对比度
+CC Color Neutralizer	CC颜色中和剂
+CC Color Offset	CC颜色偏移
+CC Kernel	CC颜色内核
+CC Toner	CC调色器
+Change Color	更改颜色
+Change To Color	更改为颜色
+Channel Mixer	通道混合器
+Color Balance	颜色平衡
+Color Balance(HLS)	颜色平衡（HLS）
+Color Stabilizer	颜色稳定器
+Colorama	色光
+Equalize	色调均化
+Exposure	曝光度
+Gamma/Pedestal/Gain	灰度系数/基值/增益
+Hue/Saturation	色相/饱和度
+Leave Color	保留颜色
+Levels	色阶
+Levels(Individual Controls)	色阶（单独控件）
+Lumetri Color	Lumetri颜色
+Ps Arbitrary Map	PS任意映射
+Selective Color	可选颜色
+Tint	色调
+Tritone	三色调
+Vibrance	自然饱和度
+Video Limiter	视频限幅器
+Bezier Warp	贝赛尔曲线变形
+Bulge	凸出
+CC Bender	CC扭弯
+CC Blobbylize	CC斑点化
+CC Griddler	CC网格变型
+CC Page Turn	CC翻页
+CC Power Pin	CC强力定位
+CC Ripple Pulse	CC扩散波纹变形
+CC Smear	CC涂抹
+CC Split2	CC分割2
+CC Tiler	CC电视墙
+Corner Pin	边角定位
+Detail preserving Upscale	保留细节放大
+Displacement Map	置换图
+Mesh Warp	网格变形
+Mirror	镜像
+Offset	偏移
+Reshap	改变形状
+Rolling Shutter Repair	果冻效应修复
+Smear	旋涡条纹
+Spherize	球面化
+Transform	变换
+Turbulent Displace	湍流置换
+Twirl	旋转扭曲
+Warp	变形
+Warp Stabilizer VFX	变形稳定器VFX
+Wave Warp	波形变形
+Angel Control	角度控制
+Color Control	颜色控制
+4 color Gradient	四色渐变
+Advanced Lightning	高级闪电
+CC Light Burst 2	CC光线爆发2
+CC Light Rays	CC光线放射
+Cell Pattern	单元格图案
+Circle	圆形
+Eyedropper Fill	吸管填充
+Fill	填充
+Gradient Ramp	梯度渐变
+Grid	网格
+Scribble	涂写
+Stroke	描边
+Vegas	勾画
+Write On	写入
+VR DeNoise	VR降噪
+VR Digital Glitch	VR数字故障
+VR Fractal Noise	VR分形杂色
+VR Plane To Sphere	VR平面到球面
+VR Rotate Sphere	VR旋转球面
+VR Shphere To Plane	VR球面到平面
+Advanced Spill Suppressor	高级溢出抑制器
+CC Simple Wire Removal	CC简单移除
+Color Difference Key	颜色差值键
+Difference Matte	差值遮罩
+Extrac	提取
+Inner/Outer Key	内部/外部键
+Key Cleaner	抠像清除器
+Keylight	Keylight
+Linear Color Key	线性颜色键
+Matte Choker	遮罩阻塞工具
+Refine Hard Matte	调整实边遮罩
+Refine Soft Matte	调整柔和遮罩
+Simple Chocker	简单阻塞工具
+Add Grain	添加颗粒
+Dust Scratches	蒙尘与划痕
+Fractal Noise	分形杂色
+Median	中间值
+Median(Legacy)	中间值（旧版）
+Noise	杂色
+Noise Alpha	杂色Alpha
+Noise Hls	杂色HLS
+Noise Hls Auto	杂色HLS 自动
+Remove Grain	移除颗粒
+Turbulent Noise	湍流杂色
+basic 3D	基本3D
+Lightning	闪光
+Path Text	路径文本
+Reduce Interlace Flicker	减少交错闪烁
+Spill Suppressor	溢出抑制
+3D Camera Tracker	3D摄像机追踪器
+Bevel Alpha	斜面Alpha
+Bevel Edges	边缘斜面
+CC Cylinder	CC圆柱体
+CC Spotlight	CC点光源
+Drop Shadow	投影
+Card Dance	卡片动画
+CC Ball Action	CC滚珠
+CC Drizzle	CC细雨滴
+CC Hair	CC毛发
+CC Mr.Mercury	CC水银滴落
+CC Pixel Polly	CC像素多边形
+CC Rainfall	CC下雨
+CC Scatterize	CC散射
+Particle Playground	粒子运动场
+Shatter	碎片
+Wave World	波形环境
+Brush Storkes	画笔描边
+Cartoon	卡通
+CC Block Load	CC块加载
+CC Burn Film	CC胶片电影
+CC Hextile	CC蜂巢
+CC Mr.Smoothie	CC像素溶解
+CC Threshold Rgb	CC阈值RGB
+CC Vignette	CC暗角
+Find Edges	查找边缘
+Glow	发光
+Mosaic	马赛克
+Motion Tile	动态拼贴
+Posterize	色调分离
+Roughen Edges	毛边
+Scatter	散布
+Strobe Light	闪光灯
+Threshold	阈值
+Nnubers	编号
+CC Force Motion Blur	CC强力运动模糊
+CC Wide Time	CC放慢
+Echo	残影
+Posterize Time	色调分离时间
+Time Difference	时差
+Time Displacement	时间置换
+Card Wipe	卡片擦除
+CC Glass Wipe	CC玻璃擦除
+CC Grid Wipe	CC网格擦除
+CC Jaws	CC锯齿状过渡
+CC Light Wipe	CC照明擦除
+CC Radial Scalewipe	CC径向擦除
+CC Scale Wipe	CC缩放擦除
+CC Twister	CC扭曲器
+CC Warpomatic	CC自动翘曲过渡
+Gradient Wipe	渐变擦除
+Iris Wipe	光圈擦除
+Linear Wipe	渐变擦除
+Radial Wipe	径向擦除
+Venetian Blinds	百叶窗
+Apply Color LUT	应用颜色 LUT
+CC Overbrights	CC过亮
+Cineon Converter	Cineon 转换器
+Color Profile Converter	颜色配置文件转换器
+Grow Bound	范围扩散
+HDR Compander	HDR 压缩扩展器
+HDR Highlight Compression	HDR 高光压缩
+drag	拖拽
+tweak	调整
+take	选择
+shrink	缩小
+characters	角色
+character	角色
