@@ -20,3 +20,11 @@ string.punctuation
 
 string.whitespace
 # 空格、制表、换行、回车、进纸和纵向制表符
+
+
+'{2}, {1}, {0}'.format(*'abc')
+# 'c, b, a'
+
+coord = (3, 5)  # {0: 3, 1: 5}
+'X: {0[0]};  Y: {0[1]}'.format(coord)
+# 'X: 3;  Y: 5'

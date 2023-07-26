@@ -1,25 +1,26 @@
 import textwrap
 import itertools
-# 占位符
+# 占位符 所有连续空格替换为单个空格 并折叠
 textwrap.shorten("Hello  world!", width=12)  # 'Hello world!'
 textwrap.shorten("Hello  world!", width=11)  # 'Hello [...]'
 textwrap.shorten("Hello world", width=10, placeholder="...")  # 'Hello...'
 
+# 自动换行。 返回由输出行组成的列表，行尾不带换行符。
+textwrap.wrap("012345678901234567890\n", 4)
+# ['0123', '4567', '8901', '2345', '6789', '0']
 
-out = textwrap.wrap("这个不知道，应该不会,涨吧.这个不知道，应该不会涨吧", width=12)
-print(out)
-
-
-s = ['01234567890123456789',  '123', "4", "555"]
-
-
-def split_arr(arr, lens):
-    return [subele for ele in arr for subele in textwrap.wrap(ele, width=lens)]
+# 同上, 只不过列表换成了 "\n".join(结果)
+textwrap.fill("012345678901234567890\n", 4)
 
 
-def split_arr2(arr, lens):
-    return [subele for ele in arr for subele in ([ele[i:i+lens] for i in range(0, len(ele), lens)] if len(ele) >= lens else [ele])]
+# 移除 text 中每一行的任何相同前缀空白符。
+s = '''\
+    hello
+      world
+    '''
+print(repr(s))          # prints '    hello\n      world\n    '
+print(repr(textwrap.dedent(s)))  # prints 'hello\n  world\n'
 
-
-out = split_arr(s, 5)
-print(out)
+# 将 prefix 添加到行的开头。
+s = 'hello\n\n \nworld'
+textwrap.indent(s, '  ')
