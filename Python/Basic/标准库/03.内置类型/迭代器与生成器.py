@@ -54,3 +54,15 @@ async def async_generator():
     for i in range(5):
         yield i
         await asyncio.sleep(1)
+
+
+def gen():
+
+    x = yield 5
+    print(x)
+    yield 50
+
+
+g = gen()
+print(next(g))  # 5, 需要先用next启动 相当于send(None)
+print(g.send(25))  # 50

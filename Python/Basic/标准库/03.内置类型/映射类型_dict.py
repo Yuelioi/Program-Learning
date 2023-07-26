@@ -24,8 +24,11 @@ d2 = scores.fromkeys(scores.keys(), 100)
 # 删
 scores.pop("地理")  # 删除某键
 scores.popitem()  # 删除一组
-scores.clear()  # 清空 {}
+# scores.clear()  # 清空 {}
 
 # 示例 同时使用键与值
 for k, v in scores.items():
     print(k, v)
+
+for item in iter(scores):  # = scores.keys()
+    print(item)

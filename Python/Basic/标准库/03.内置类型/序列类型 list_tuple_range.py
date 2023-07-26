@@ -1,5 +1,8 @@
 # https://docs.python.org/zh-cn/3.9/library/stdtypes.html#iterator-types
-# list, tuple, range
+# list 可变序列
+# tuple 不可变序列
+# range 不可变数字序列
+# 文本 不可变序列
 
 
 L1 = [1, 2, 3]

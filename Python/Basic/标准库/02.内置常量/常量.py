@@ -1,3 +1,7 @@
-
-def _():
-    Ellipsis  # <==> ...
+"""
+常用常量
+False
+True
+None
+Ellipsis
+"""
