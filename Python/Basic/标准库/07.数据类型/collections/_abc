@@ -1,0 +1,27 @@
+collections.abc是Python标准库中的一个模块，为各种集合类型提供抽象基类（ABC）。抽象基类是定义具体类（子类）期望实现的公共接口和方法集的类。它们有助于在不同类别之间强制执行一定程度的一致性和行为。
+
+该collections.abc模块专门为序列、映射、集合等集合提供 ABC。它允许开发人员创建遵循这些数据结构的预期行为的自定义集合类。该模块中一些值得注意的 ABCcollections.abc包括：
+
+Iterable：支持迭代的对象的 ABC。子类应该实现__iter__().
+
+容器in：支持容器测试（和）的对象的 ABC not in。子类应该实现__contains__().
+
+Sized：具有已知大小的对象的 ABC。子类应该实现__len__().
+
+序列：支持索引和切片的有序集合的 ABC。子类应该实现__getitem__()和__len__()。
+
+MutableSequence：Sequence 的子 ABC，添加了可变序列的方法。子类应该实现额外的插入和删除方法。
+
+映射：集合的 ABC，表示键到值的映射。子类应该实现__getitem__()、__iter__()和__len__()。
+
+MutableMapping：映射的子 ABC，添加了可变映射的方法。子类应该实现额外的插入、删除和更新方法。
+
+Set：代表一组唯一元素的集合的 ABC。子类应该实现__contains__()和__iter__()。
+
+MutableSet：Set 的子 ABC，添加了可变集的方法。子类应该实现添加和删除元素的附加方法。
+
+通过对这些 ABC 进行子类化，开发人员可以利用内置函数（如len()迭代、包含测试等）创建无缝融入现有 Python 代码的自定义集合类。
+
+例如，如果您想要创建一个行为类似于列表的自定义集合，您可以子类化collections.abc.MutableSequence并实现所需的方法，例如__getitem__、__setitem__、__delitem__和__len__。
+
+使用 ABCcollections.abc可以确保您的自定义类遵循预期的接口和行为，从而使它们可以与内置集合类型互换，从而生成更健壮且可维护的代码。

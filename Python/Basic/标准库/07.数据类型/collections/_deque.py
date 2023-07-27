@@ -58,3 +58,21 @@ cq.enqueue(7)
 
 # 输出队列的元素
 print(cq)  # 输出 [3, 4, 5, 6, 7]
+
+
+if __name__ == "__main__":
+
+    import asyncio
+
+    async def test(t):
+        print(t)
+        await asyncio.sleep(t)
+
+    async def main():
+        d = deque()
+        d.append(test(2))
+        d.append(test(3))
+        d.append(test(1))
+        await asyncio.gather(*d)
+
+    asyncio.run(main())
