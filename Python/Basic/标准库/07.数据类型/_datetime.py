@@ -159,4 +159,5 @@ def _time():
 if __name__ == "__main__":
     # _date()
     # _datetime()
-    _time()
+    # _time()
+    datetime.timedelta()

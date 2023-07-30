@@ -1,4 +1,6 @@
 # 获取帮助信息
+import random
+import inspect
 help(print)
 print(print.__doc__)
 
@@ -6,7 +8,6 @@ print(print.__doc__)
 print(dir(print))
 
 
-import inspect
 inspect.getmembers("")
 
-
+print("\n".join([ele for ele in dir(random) if not ele.startswith("_")]))
