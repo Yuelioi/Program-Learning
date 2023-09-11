@@ -9,6 +9,7 @@ test
 Python\share
 
 cache/
+work
 
 Python/.venv/
 Python/.idea/
