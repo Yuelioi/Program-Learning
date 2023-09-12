@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            body {
+                /* background-image: url("bg2.png"); */
+                background-size: cover;
+                background-position: center center;
+                background-attachment: fixed;
+                font-family: Arial, sans-serif;
+                color: white;
+                filter: drop-shadow(1px 1px 5px rgb(150, 150, 150));
+                background: #4b3535;
+            }
+
+            * {
+                box-sizing: border-box;
+                border: 0;
+                padding: 0;
+            }
+
+            .flex {
+                display: flex;
+            }
+            .column {
+                flex-direction: column;
+            }
+            .center {
+                align-items: center;
+            }
+            .reverse {
+                flex-direction: row-reverse;
+            }
+
+            .text-small {
+                font-size: 0.8em;
+            }
+            .space-between {
+                justify-content: space-between;
+            }
+            .border {
+                border: 1px solid #ddd;
+                box-shadow: rgba(99, 99, 99, 0.2) 1px 1px 1px 0px;
+            }
+
+            .pad-m {
+                padding: 8px;
+            }
+
+            .text-center {
+                text-align: center;
+            }
+
+            .main {
+                margin: 20px;
+
+                height: calc(100vh - 40px);
+            }
+            .info {
+                flex: 3;
+            }
+
+            .attribute {
+                border: 1px solid #ddd;
+                flex: 1;
+            }
+
+            .pk {
+                width: 270px;
+            }
+            .avatar {
+                position: relative;
+                width: 200px;
+            }
+            .avatar img {
+                flex: 3;
+                max-width: 250px;
+            }
+            .avatar img,
+            .pk img {
+                max-width: 100%;
+                height: auto;
+                display: block;
+                margin: 0 auto;
+            }
+            img.small {
+                width: 32px;
+            }
+            .health-bar {
+                width: 100%;
+                height: 32px;
+                background-color: #ddd;
+
+                position: relative;
+                padding: 2px;
+            }
+
+            .current-health {
+                height: 100%;
+                background-color: #4caf50;
+            }
+
+            .health-text {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #fff;
+                font-weight: bold;
+            }
+
+            .round {
+                display: flex;
+                align-items: stretch;
+                text-align: center;
+            }
+            .left,
+            .right {
+                flex: 5;
+            }
+            .blank {
+                flex: 0.2;
+            }
+            .round-log {
+                flex: 5;
+            }
+
+            .round-number {
+                position: relative;
+                width: 50px;
+            }
+
+            .mid {
+                position: absolute;
+                width: 50px;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .skill {
+                font-weight: 700;
+                color: #ffd380;
+            }
+            .buff {
+                color: #ffa5e3;
+            }
+            .magical-damage {
+                font-weight: 700;
+                color: #afe8ff;
+            }
+            .physical-damage {
+                font-weight: 700;
+                color: #ff8383;
+            }
+
+            .attacker {
+                text-align: left;
+                margin: 5px;
+                flex: 5;
+            }
+
+            .defender {
+                text-align: right;
+                margin: 5px;
+                flex: 5;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="main">
+            <div class="user-info flex text-small">
+                <div class="attacker flex space-between">
+                    <div class="avatar flex column border center">
+                        <div class="health-bar">
+                            <div
+                                class="current-health"
+                                style="width: calc({{ attacker.current_health }} / {{ attacker.max_health }} * 100%)"></div>
+                            <div class="health-text">{{ attacker.current_health }} / {{ attacker.max_health }}</div>
+                        </div>
+                        <img
+                            src="{{ attacker.avatar_src }}"
+                            alt="" />
+                    </div>
+
+                    <div class="info border flex column space-between">
+                        <div class="flex center attribute">
+                            <img
+                                class="small"
+                                src="name.png"
+                                alt="" />
+                            <span><span class="username">{{ attacker.name }}</span></span>
+                        </div>
+                        <div class="flex center attribute">
+                            <img
+                                class="small"
+                                src="profession.png"
+                                alt="" />
+                            <span>{{ attacker.profession }}</span>
+                        </div>
+                        <div class="flex center attribute">
+                            <img
+                                class="small"
+                                src="race.png"
+                                alt="" />
+                            <span>{{ attacker.race }}</span>
+                        </div>
+                        <div class="flex center attribute">
+                            <img
+                                class="small"
+                                src="power.png"
+                                alt="" />
+                            <span>{{ attacker.power }}</span>
+                        </div>
+                        <div class="flex center attribute">
+                            <img
+                                class="small"
+                                src="sword.png"
+                                alt="" />
+                            <span>{{ attacker.physical_attack }}</span>
+                        </div>
+
+                        <div class="flex center attribute">
+                            <img
+                                class="small"
+                                src="wand.png"
+                                alt="" />
+                            <span>{{ attacker.magical_attack }}</span>
+                        </div>
+
+                        <div class="flex center attribute">
+                            <img
+                                class="small"
+                                src="physical-shield.png"
+                                alt="" />
+                            <span>{{ attacker.physical_shield }}</span>
+                        </div>
+                        <div class="flex center attribute">
+                            <img
+                                class="small"
+                                src="magical-shield.png"
+                                alt="" />
+                            <span>{{ attacker.magical_shield }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pk flex">
+                    <img
+                        src="vs.png"
+                        alt="" />
+                </div>
+                <div class="defender flex space-between">
+                    <div class="avatar flex column border center">
+                        <div class="health-bar">
+                            <div
+                                class="current-health"
+                                style="width: calc({{ defender.current_health }} / {{ defender.max_health }} * 100%)"></div>
+                            <div class="health-text">{{ defender.current_health }} / {{ defender.max_health }}</div>
+                        </div>
+                        <img
+                            src="{{ defender.avatar_src }}"
+                            alt="" />
+                    </div>
+
+                    <div class="info border flex column space-between">
+                        <div class="flex center attribute">
+                            <img
+                                class="small"
+                                src="name.png"
+                                alt="" />
+                            <span><span class="username">{{ defender.name }}</span></span>
+                        </div>
+                        <div class="flex center attribute">
+                            <img
+                                class="small"
+                                src="profession.png"
+                                alt="" />
+                            <span>{{ defender.profession }}</span>
+                        </div>
+                        <div class="flex center attribute">
+                            <img
+                                class="small"
+                                src="race.png"
+                                alt="" />
+                            <span>{{ defender.race }}</span>
+                        </div>
+                        <div class="flex center attribute">
+                            <img
+                                class="small"
+                                src="power.png"
+                                alt="" />
+                            <span>{{ defender.power }}</span>
+                        </div>
+                        <div class="flex center attribute">
+                            <img
+                                class="small"
+                                src="sword.png"
+                                alt="" />
+                            <span>{{ defender.physical_attack }}</span>
+                        </div>
+
+                        <div class="flex center attribute">
+                            <img
+                                class="small"
+                                src="wand.png"
+                                alt="" />
+                            <span>{{ defender.magical_attack }}</span>
+                        </div>
+
+                        <div class="flex center attribute">
+                            <img
+                                class="small"
+                                src="physical-shield.png"
+                                alt="" />
+                            <span>{{ defender.physical_shield }}</span>
+                        </div>
+                        <div class="flex center attribute">
+                            <img
+                                class="small"
+                                src="magical-shield.png"
+                                alt="" />
+                            <span>{{ defender.magical_shield }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="text-center">战斗日志</h2>
+
+            <div class="battle">
+                <div class="environment text-center border">{{ battle.environment }}</div>
+                <div class="battle-log flex">
+                    <div class="left flex column">
+                        {% for round in rounds %}
+                        <div class="round-number border"><span class="mid">Rd{{ round.round_number }}</span></div>
+                        <div class="round-log border">
+                            <div class="attacker">
+                                <span class="username">{{ round.attacker.username }}</span>
+                                使用
+                                <span class="skill">{{ round.attacker.skill }}</span>
+                                {% if round.attacker.critical %} 造成
+                                <span class="critical-damage">{{ round.attacker.damage }}</span>
+                                {% else %} 造成
+                                <span class="damage">{{ round.attacker.damage }}</span>
+                                {% endif %} {{ round.damage_type }}伤害
+                            </div>
+                            <div class="defender">
+                                {{ round.defender.username }}使用
+                                <span class="skill">{{ round.defender.skill }}</span>
+                                {% if round.defender.critical %} 造成
+                                <span class="critical-damage">{{ round.defender.damage }}</span>
+                                {% else %} 造成
+                                <span class="damage">{{ round.defender.damage }}</span>
+                                {% endif %} {{ round.damage_type }}伤害
+                            </div>
+                        </div>
+
+                        {% endfor %}
+                    </div>
+
+                    <div class="blank"></div>
+
+                    <div class="right flex column">
+                        {% for round in rounds %}
+                        <div class="round-number border"><span class="mid">Rd{{ round.round_number }}</span></div>
+                        <div class="round-log border">
+                            <div class="attacker">
+                                <span class="username">{{ round.attacker.username }}</span>
+                                使用
+                                <span class="skill">{{ round.attacker.skill }}</span>
+                                {% if round.attacker.critical %} 造成
+                                <span class="critical-damage">{{ round.attacker.damage }}</span>
+                                {% else %} 造成
+                                <span class="damage">{{ round.attacker.damage }}</span>
+                                {% endif %} {{ round.damage_type }}伤害
+                            </div>
+                            <div class="defender">
+                                {{ round.defender.username }}使用
+                                <span class="skill">{{ round.defender.skill }}</span>
+                                {% if round.defender.critical %} 造成
+                                <span class="critical-damage">{{ round.defender.damage }}</span>
+                                {% else %} 造成
+                                <span class="damage">{{ round.defender.damage }}</span>
+                                {% endif %} {{ round.damage_type }}伤害
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="battle-result border pad-m">
+                <div>
+                    <span class="username">winner.username</span>
+                    获胜
+                </div>
+                <div>获得金币{{ winner.gold }}, 经验{{ winner.experience }}</div>
+            </div>
+        </div>
+    </body>
+</html>
