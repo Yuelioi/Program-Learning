@@ -69,6 +69,13 @@
                 border: 1px solid #ddd;
                 flex: 1;
             }
+            .attribute img {
+                margin: 2px 5px;
+            }
+
+            .attribute span {
+                margin: 0 8px;
+            }
 
             .pk {
                 width: 270px;
@@ -91,10 +98,13 @@
             img.small {
                 width: 32px;
             }
+            .environment {
+                padding: 8px;
+            }
             .health-bar {
                 width: 100%;
-                height: 32px;
-                background-color: #ddd;
+                height: 24px;
+                background-color: #9d9d9d;
 
                 position: relative;
                 padding: 2px;
@@ -132,6 +142,7 @@
             }
             .round-log {
                 flex: 5;
+                min-height: 50px;
             }
 
             .round-number {
@@ -341,58 +352,54 @@
             <div class="battle">
                 <div class="environment text-center border">{{ battle.environment }}</div>
                 <div class="battle-log flex">
+                    {% set index = (battle.rounds|length // 2) %}
                     <div class="left flex column">
-                        {% for round in rounds %}
-                        <div class="round-number border"><span class="mid">Rd{{ round.round_number }}</span></div>
-                        <div class="round-log border">
-                            <div class="attacker">
-                                <span class="username">{{ round.attacker.username }}</span>
-                                使用
-                                <span class="skill">{{ round.attacker.skill }}</span>
-                                {% if round.attacker.critical %} 造成
-                                <span class="critical-damage">{{ round.attacker.damage }}</span>
-                                {% else %} 造成
-                                <span class="damage">{{ round.attacker.damage }}</span>
-                                {% endif %} {{ round.damage_type }}伤害
-                            </div>
-                            <div class="defender">
-                                {{ round.defender.username }}使用
-                                <span class="skill">{{ round.defender.skill }}</span>
-                                {% if round.defender.critical %} 造成
-                                <span class="critical-damage">{{ round.defender.damage }}</span>
-                                {% else %} 造成
-                                <span class="damage">{{ round.defender.damage }}</span>
-                                {% endif %} {{ round.damage_type }}伤害
+                        {% for round in battle.rounds[:index +1] %}
+                        <div class="round">
+                            <div class="round-number border"><span class="mid">Rd{{ round.round_number }}</span></div>
+                            <div class="round-log border">
+                                {% for action in round.actions %}
+                                <div class="{{ action.character }}">
+                                    {% if action.extra %}
+                                    <span>{{action.extra}}</span>
+                                    {% else %}
+                                    <span class="username">{{ action.username }}</span>
+                                    使用
+                                    <span class="skill">{{ action.skill }}</span>
+                                    {% if action.critical %}
+                                    <span>{{ action.critical }}倍暴击</span>
+                                    {% endif %} 造成
+                                    <span class="{{ action.damage_type }}-damage">{{ action.damage }}</span>
+                                    伤害 {% endif %}
+                                </div>
+                                {% endfor %}
                             </div>
                         </div>
-
                         {% endfor %}
                     </div>
 
                     <div class="blank"></div>
 
                     <div class="right flex column">
-                        {% for round in rounds %}
-                        <div class="round-number border"><span class="mid">Rd{{ round.round_number }}</span></div>
-                        <div class="round-log border">
-                            <div class="attacker">
-                                <span class="username">{{ round.attacker.username }}</span>
-                                使用
-                                <span class="skill">{{ round.attacker.skill }}</span>
-                                {% if round.attacker.critical %} 造成
-                                <span class="critical-damage">{{ round.attacker.damage }}</span>
-                                {% else %} 造成
-                                <span class="damage">{{ round.attacker.damage }}</span>
-                                {% endif %} {{ round.damage_type }}伤害
-                            </div>
-                            <div class="defender">
-                                {{ round.defender.username }}使用
-                                <span class="skill">{{ round.defender.skill }}</span>
-                                {% if round.defender.critical %} 造成
-                                <span class="critical-damage">{{ round.defender.damage }}</span>
-                                {% else %} 造成
-                                <span class="damage">{{ round.defender.damage }}</span>
-                                {% endif %} {{ round.damage_type }}伤害
+                        {% for round in battle.rounds[index+1:] %}
+                        <div class="round">
+                            <div class="round-number border"><span class="mid">Rd{{ round.round_number }}</span></div>
+                            <div class="round-log border">
+                                {% for action in round.actions %}
+                                <div class="{{ action.character }}">
+                                    {% if action.extra %}
+                                    <span>{{action.extra}}</span>
+                                    {% else %}
+                                    <span class="username">{{ action.username }}</span>
+                                    使用
+                                    <span class="skill">{{ action.skill }}</span>
+                                    {% if action.critical %}
+                                    <span>{{ action.critical }}倍暴击</span>
+                                    {% endif %} 造成
+                                    <span class="{{ action.damage_type }}-damage">{{ action.damage }}</span>
+                                    伤害 {% endif %}
+                                </div>
+                                {% endfor %}
                             </div>
                         </div>
                         {% endfor %}
@@ -401,10 +408,10 @@
             </div>
             <div class="battle-result border pad-m">
                 <div>
-                    <span class="username">winner.username</span>
+                    <span class="username">{{ battle.winner.username }}</span>
                     获胜
                 </div>
-                <div>获得金币{{ winner.gold }}, 经验{{ winner.experience }}</div>
+                <div>你获得金币{{ battle.winner.gold }}, 经验{{ battle.winner.experience }}</div>
             </div>
         </div>
     </body>
