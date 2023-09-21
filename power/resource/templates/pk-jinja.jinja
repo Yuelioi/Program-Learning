@@ -57,8 +57,7 @@
             }
 
             .main {
-                margin: 20px;
-
+                margin: 25px 20px;
                 height: calc(100vh - 40px);
             }
             .info {
@@ -82,7 +81,7 @@
             }
             .avatar {
                 position: relative;
-                width: 200px;
+                width: 225px;
             }
             .avatar img {
                 flex: 3;
@@ -200,7 +199,7 @@
                             <div class="health-text">{{ attacker.current_health }} / {{ attacker.max_health }}</div>
                         </div>
                         <img
-                            src="{{ attacker.avatar_src }}"
+                            src="../character/{{ attacker.avatar_src }}"
                             alt="" />
                     </div>
 
@@ -208,35 +207,35 @@
                         <div class="flex center attribute">
                             <img
                                 class="small"
-                                src="name.png"
+                                src="../icons/name.png"
                                 alt="" />
-                            <span><span class="username">{{ attacker.name }}</span></span>
+                            <span class="username">{{ attacker.name }}</span>
                         </div>
                         <div class="flex center attribute">
                             <img
                                 class="small"
-                                src="profession.png"
+                                src="../icons/profession.png"
                                 alt="" />
                             <span>{{ attacker.profession }}</span>
                         </div>
                         <div class="flex center attribute">
                             <img
                                 class="small"
-                                src="race.png"
+                                src="../icons/race.png"
                                 alt="" />
                             <span>{{ attacker.race }}</span>
                         </div>
                         <div class="flex center attribute">
                             <img
                                 class="small"
-                                src="power.png"
+                                src="../icons/power.png"
                                 alt="" />
                             <span>{{ attacker.power }}</span>
                         </div>
                         <div class="flex center attribute">
                             <img
                                 class="small"
-                                src="sword.png"
+                                src="../icons/sword.png"
                                 alt="" />
                             <span>{{ attacker.physical_attack }}</span>
                         </div>
@@ -244,7 +243,7 @@
                         <div class="flex center attribute">
                             <img
                                 class="small"
-                                src="wand.png"
+                                src="../icons/wand.png"
                                 alt="" />
                             <span>{{ attacker.magical_attack }}</span>
                         </div>
@@ -252,14 +251,14 @@
                         <div class="flex center attribute">
                             <img
                                 class="small"
-                                src="physical-shield.png"
+                                src="../icons/physical-shield.png"
                                 alt="" />
                             <span>{{ attacker.physical_shield }}</span>
                         </div>
                         <div class="flex center attribute">
                             <img
                                 class="small"
-                                src="magical-shield.png"
+                                src="../icons/magical-shield.png"
                                 alt="" />
                             <span>{{ attacker.magical_shield }}</span>
                         </div>
@@ -268,7 +267,7 @@
 
                 <div class="pk flex">
                     <img
-                        src="vs.png"
+                        src="../icons/vs.png"
                         alt="" />
                 </div>
                 <div class="defender flex space-between">
@@ -280,7 +279,7 @@
                             <div class="health-text">{{ defender.current_health }} / {{ defender.max_health }}</div>
                         </div>
                         <img
-                            src="{{ defender.avatar_src }}"
+                            src="../character/{{ defender.avatar_src }}"
                             alt="" />
                     </div>
 
@@ -288,35 +287,35 @@
                         <div class="flex center attribute">
                             <img
                                 class="small"
-                                src="name.png"
+                                src="../icons/name.png"
                                 alt="" />
-                            <span><span class="username">{{ defender.name }}</span></span>
+                            <span class="username">{{ defender.name }}</span>
                         </div>
                         <div class="flex center attribute">
                             <img
                                 class="small"
-                                src="profession.png"
+                                src="../icons/profession.png"
                                 alt="" />
                             <span>{{ defender.profession }}</span>
                         </div>
                         <div class="flex center attribute">
                             <img
                                 class="small"
-                                src="race.png"
+                                src="../icons/race.png"
                                 alt="" />
                             <span>{{ defender.race }}</span>
                         </div>
                         <div class="flex center attribute">
                             <img
                                 class="small"
-                                src="power.png"
+                                src="../icons/power.png"
                                 alt="" />
                             <span>{{ defender.power }}</span>
                         </div>
                         <div class="flex center attribute">
                             <img
                                 class="small"
-                                src="sword.png"
+                                src="../icons/sword.png"
                                 alt="" />
                             <span>{{ defender.physical_attack }}</span>
                         </div>
@@ -324,7 +323,7 @@
                         <div class="flex center attribute">
                             <img
                                 class="small"
-                                src="wand.png"
+                                src="../icons/wand.png"
                                 alt="" />
                             <span>{{ defender.magical_attack }}</span>
                         </div>
@@ -332,14 +331,14 @@
                         <div class="flex center attribute">
                             <img
                                 class="small"
-                                src="physical-shield.png"
+                                src="../icons/physical-shield.png"
                                 alt="" />
                             <span>{{ defender.physical_shield }}</span>
                         </div>
                         <div class="flex center attribute">
                             <img
                                 class="small"
-                                src="magical-shield.png"
+                                src="../icons/magical-shield.png"
                                 alt="" />
                             <span>{{ defender.magical_shield }}</span>
                         </div>
@@ -350,11 +349,11 @@
             <h2 class="text-center">战斗日志</h2>
 
             <div class="battle">
-                <div class="environment text-center border">{{ battle.environment }}</div>
+                <div class="environment text-center border">{{ weather }}</div>
                 <div class="battle-log flex">
-                    {% set index = (battle.rounds|length // 2) %}
+                    {% set index = (rounds|length // 2) %}
                     <div class="left flex column">
-                        {% for round in battle.rounds[:index +1] %}
+                        {% for round in rounds[:index +1] %}
                         <div class="round">
                             <div class="round-number border"><span class="mid">Rd{{ round.round_number }}</span></div>
                             <div class="round-log border">
@@ -380,8 +379,8 @@
 
                     <div class="blank"></div>
 
-                    <div class="right flex column">
-                        {% for round in battle.rounds[index+1:] %}
+                    <div class="right flex column border">
+                        {% for round in rounds[index+1:] %}
                         <div class="round">
                             <div class="round-number border"><span class="mid">Rd{{ round.round_number }}</span></div>
                             <div class="round-log border">
@@ -408,11 +407,12 @@
             </div>
             <div class="battle-result border pad-m">
                 <div>
-                    <span class="username">{{ battle.winner.username }}</span>
+                    <span class="username">{{ winner.username }}</span>
                     获胜
                 </div>
-                <div>你获得金币{{ battle.winner.gold }}, 经验{{ battle.winner.experience }}</div>
+                <div>你获得金币{{ winner.gold }}, 经验{{ winner.experience }}</div>
             </div>
+            <div style="margin-top: 20px; color: transparent">---------</div>
         </div>
     </body>
 </html>
