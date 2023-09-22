@@ -196,9 +196,9 @@ context2 = {
 
 # 定义模板
 template = Template(
-    open("./power/resource/templates/pk.jinja", encoding="utf-8").read())
+    open("./power/resource/templates/info.jinja", encoding="utf-8").read())
 
-rendered_html = template.render(context1)
+rendered_html = template.render(context2)
 
 # 66
 output_file_path = f"./power/resource/templates/test.html"
