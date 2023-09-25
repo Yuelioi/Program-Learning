@@ -9,25 +9,40 @@
 </head>
 
 <body>
+    <div class="bg flex">
+        <img src="../icons/bg.png" alt="" />
+    </div>
     <div class="main">
-        <div class="bg flex">
-            <img src="../icons/bg3.png" alt="" />
-            <img src="../icons/bg3.png" alt="" />
+        <div class="panel">我的信息</div>
+        <div class="top flex">
+            <div class="health-bar">
+                <div class="current-health"
+                    style="width: calc({{ attacker.current_health }} / {{ attacker.max_health }} * 100%)"></div>
+                <div class="health-text">{{ attacker.current_health }} / {{ attacker.max_health }}</div>
+            </div>
+            <div class="level bg-secondary">Lv{{ attacker.level }}</div>
         </div>
-
-        <div class="user-info flex text-small">
-            <div class="flex column center user-info-left left">
-                <div class="top flex">
-                    <div class="health-bar">
-                        <div class="current-health"
-                            style="width: calc({{ attacker.current_health }} / {{ attacker.max_health }} * 100%)"></div>
-                        <div class="health-text">{{ attacker.current_health }} / {{ attacker.max_health }}</div>
-                    </div>
-                    <div class="level bg-secondary">Lv99</div>
-                </div>
+        <div class="user-info flex text-icon-md">
+            <div class="flex column center left">
                 <div class="count flex space-between">
-                    <img class="small" src="../icons/gamble.png" alt="" />
-                    <img class="small" src="../icons/pk.png" alt="" />
+                    <div class="gamble flex">
+                        {% if attacker.gamble_times %}
+                        {% for index in range(attacker.gamble_times) %}
+                        <img class="icon-sm" src="../icons/gamble.png" alt="" />
+                        {% endfor %}
+                        {% else %}
+                        <img class="icon-sm grayscale" src="../icons/gamble.png" alt="" />
+                        {% endif %}
+                    </div>
+                    <div class="pk flex">
+                        {% if attacker.pk_times %}
+                        {% for index in range(attacker.pk_times) %}
+                        <img class="icon-sm" src="../icons/pk.png" alt="" />
+                        {% endfor %}
+                        {% else %}
+                        <img class="icon-sm grayscale" src="../icons/pk.png" alt="" />
+                        {% endif %}
+                    </div>
                 </div>
                 <div class="middle">
                     <div class="avatar flex"><img src="../character/{{ attacker.avatar_src }}" alt="" /></div>
@@ -36,11 +51,11 @@
                 <div class="bottom">
                     <div class="flex space-between name" style="width: 100%;">
                         <div class="flex center">
-                            <img class="small" src="../icons/name.png" alt="" />
+                            <img class="icon-sm" src="../icons/name.png" alt="" />
                             <span class="username">{{ attacker.name }}</span>
                         </div>
                         <div class="flex center">
-                            <img class="small" src="../icons/profession.png" alt="" />
+                            <img class="icon-sm" src="../icons/profession.png" alt="" />
                             <span>{{ attacker.profession }}</span>
                         </div>
                     </div>
@@ -49,83 +64,67 @@
 
             </div>
 
-            <div class="info flex column space-between">
+            <div class="info space-between right flex">
 
-                <div class="attribute-group flex">
+                <div class="attribute-group flex column">
                     <div class="flex center attribute">
-                        <img class="small" src="../icons/power.png" alt="" />
+                        <img class="icon-md" src="../icons/power.png" alt="" />
                         <span>{{ attacker.power }}</span>
                     </div>
                     <div class="flex center attribute">
-                        <img class="small" src="../icons/gold.png" alt="" />
-                        <span>{{ attacker.gold }}</span>
-                    </div>
-                </div>
-
-
-                <div class="attribute-group flex">
-                    <div class="flex center attribute">
-                        <img class="small" src="../icons/sword.png" alt="" />
+                        <img class="icon-md" src="../icons/sword.png" alt="" />
                         <span>{{ attacker.physical_attack }}</span>
                     </div>
-
                     <div class="flex center attribute">
-                        <img class="small" src="../icons/wand.png" alt="" />
-                        <span>{{ attacker.magical_attack }}</span>
-                    </div>
-                </div>
-
-
-                <div class="attribute-group flex">
-                    <div class="flex center attribute">
-                        <img class="small" src="../icons/physical-shield.png" alt="" />
-                        <span>{{ attacker.physical_shield }}</span>
+                        <img class="icon-md" src="../icons/physical-defense.png" alt="" />
+                        <span>{{ attacker.physical_defense }}</span>
                     </div>
                     <div class="flex center attribute">
-                        <img class="small" src="../icons/magical-shield.png" alt="" />
-                        <span>{{ attacker.magical_shield }}</span>
-                    </div>
-                </div>
-
-
-                <div class="attribute-group flex">
-                    <div class="flex center attribute">
-                        <img class="small" src="../icons/physical_critical_chance.png" alt="" />
+                        <img class="icon-md" src="../icons/physical_critical_chance.png" alt="" />
                         <span>{{ attacker.physical_critical_chance }}</span>
                     </div>
                     <div class="flex center attribute">
-                        <img class="small" src="../icons/physical_critical_damage.png" alt="" />
-                        <span>{{ attacker.physical_critical_damage }}</span>
-                    </div>
-                </div>
-
-                <div class="attribute-group flex">
-                    <div class="flex center attribute">
-                        <img class="small" src="../icons/magical_critical_chance.png" alt="" />
+                        <img class="icon-md" src="../icons/magical_critical_chance.png" alt="" />
                         <span>{{ attacker.magical_critical_chance }}</span>
                     </div>
                     <div class="flex center attribute">
-                        <img class="small" src="../icons/magical_critical_damage.png" alt="" />
-                        <span>{{ attacker.magical_critical_damage }}</span>
-                    </div>
-                </div>
-                <div class="attribute-group flex">
-                    <div class="flex center attribute">
-                        <img class="small" src="../icons/speed.png" alt="" />
+                        <img class="icon-md" src="../icons/speed.png" alt="" />
                         <span>{{ attacker.speed }}</span>
                     </div>
                     <div class="flex center attribute">
-                        <img class="small" src="../icons/luck.png" alt="" />
-                        <span>{{ attacker.luck }}</span>
-                    </div>
-                </div>
-                <div class="attribute-group flex">
-                    <div class="flex center attribute">
-                        <img class="small" src="../icons/accuracy.png" alt="" />
+                        <img class="icon-md" src="../icons/accuracy.png" alt="" />
                         <span>{{ attacker.accuracy }}</span>
                     </div>
+                </div>
+
+
+                <div class="attribute-group flex column">
                     <div class="flex center attribute">
-                        <img class="small" src="../icons/evasion.png" alt="" />
+                        <img class="icon-md" src="../icons/gold.png" alt="" />
+                        <span>{{ attacker.gold }}</span>
+                    </div>
+                    <div class="flex center attribute">
+                        <img class="icon-md" src="../icons/wand.png" alt="" />
+                        <span>{{ attacker.magical_attack }}</span>
+                    </div>
+                    <div class="flex center attribute">
+                        <img class="icon-md" src="../icons/magical-defense.png" alt="" />
+                        <span>{{ attacker.magical_defense }}</span>
+                    </div>
+                    <div class="flex center attribute">
+                        <img class="icon-md" src="../icons/physical_critical_damage.png" alt="" />
+                        <span>{{ attacker.physical_critical_damage }}</span>
+                    </div>
+                    <div class="flex center attribute">
+                        <img class="icon-md" src="../icons/magical_critical_damage.png" alt="" />
+                        <span>{{ attacker.magical_critical_damage }}</span>
+                    </div>
+                    <div class="flex center attribute">
+                        <img class="icon-md" src="../icons/luck.png" alt="" />
+                        <span>{{ attacker.luck }}</span>
+                    </div>
+                    <div class="flex center attribute">
+                        <img class="icon-md" src="../icons/evasion.png" alt="" />
                         <span>{{ attacker.evasion }}</span>
                     </div>
                 </div>
