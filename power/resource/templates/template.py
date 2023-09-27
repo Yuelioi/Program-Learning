@@ -175,14 +175,15 @@ context2 = {
         "max_health": 2560,
         "avatar_src": "灵-女.png",
         "name": "月灵",
+        "level": "15",
         "profession": "幻影剑客",
         "race": "人族",
         "power": 1587,
         "gold": 1587,
         "physical_attack": 221,
         "magical_attack": 185,
-        "physical_shield": 85,
-        "magical_shield": 85,
+        "physical_defense": 85,
+        "magical_defense": 85,
         "physical_critical_chance": 18,
         "magical_critical_chance": 15,
         "physical_critical_damage": 190,
@@ -196,11 +197,11 @@ context2 = {
 
 # 定义模板
 template = Template(
-    open("./power/resource/templates/info.jinja", encoding="utf-8").read())
+    open("./power/resource/templates/item.jinja", encoding="utf-8").read())
 
 rendered_html = template.render(context2)
 
-# 66
+
 output_file_path = f"./power/resource/templates/test.html"
 # 打开文件并写入渲染后的HTML内容
 with open(output_file_path, 'w', encoding='utf-8') as output_file:
