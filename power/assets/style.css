@@ -1,0 +1,171 @@
+.userinfo {
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+.userinfo .overlap-group-wrapper {
+    overflow-x: hidden;
+    width: 1080px;
+    height: 750px;
+}
+
+.userinfo .overlap-group {
+    position: relative;
+    height: 750px;
+}
+
+.userinfo .background-panel {
+    display: flex;
+    flex-direction: column;
+    width: 1080px;
+    height: 750px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 25px 0px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.userinfo .userinfo-background {
+    position: relative;
+    width: 1080px;
+    height: 750px;
+    margin-top: -25px;
+    margin-bottom: -25px;
+    object-fit: cover;
+}
+
+.userinfo .property-panel {
+    display: flex;
+    width: 350px;
+    height: 250px;
+    align-items: center;
+    justify-content: center;
+    gap: 75px;
+    position: absolute;
+    top: 355px;
+    left: 165px;
+}
+
+.userinfo .div {
+    display: flex;
+    flex-direction: column;
+    width: 125px;
+    height: 225px;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 5px;
+    position: relative;
+}
+
+.userinfo .property-group {
+    position: relative;
+    width: 100px;
+    height: 32px;
+    margin-top: -1px;
+}
+
+.userinfo .img {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+}
+
+.userinfo .property-value {
+    position: absolute;
+    top: 8px;
+    left: 52px;
+    font-family: "Inter-Regular", Helvetica;
+    font-weight: 400;
+    color: #000000;
+    font-size: 12px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.userinfo .property-group-2 {
+    position: relative;
+    width: 100px;
+    height: 32px;
+}
+
+.userinfo .property-group-3 {
+    margin-bottom: -1px;
+    position: relative;
+    width: 100px;
+    height: 32px;
+}
+
+.userinfo .character-panel {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    position: absolute;
+    top: 100px;
+    left: 210px;
+}
+
+.userinfo .avatar {
+    position: relative;
+    width: 200px;
+    height: 211px;
+    object-fit: cover;
+}
+
+.userinfo .text-wrapper {
+    top: 91px;
+    left: 490px;
+    font-family: "Inter-Regular", Helvetica;
+    font-weight: 400;
+    color: #ffffff;
+    font-size: 12px;
+    position: absolute;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.userinfo .LV {
+    position: absolute;
+    top: 533px;
+    left: 91px;
+    font-family: "Inter-Regular", Helvetica;
+    font-weight: 400;
+    color: #ffffff;
+    font-size: 12px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.userinfo .text-wrapper-2 {
+    top: 326px;
+    left: 192px;
+    font-family: "Inter-Regular", Helvetica;
+    font-weight: 400;
+    color: #000000;
+    font-size: 18px;
+    position: absolute;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.userinfo .text-wrapper-3 {
+    top: 217px;
+    left: 83px;
+    font-family: "Inter-Medium", Helvetica;
+    font-weight: 500;
+    color: #393939;
+    font-size: 32px;
+    position: absolute;
+    letter-spacing: 0;
+    line-height: normal;
+}

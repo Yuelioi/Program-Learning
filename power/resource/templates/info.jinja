@@ -10,17 +10,24 @@
 
 <body>
     <div class="bg flex">
-        <img src="../icons/bg.png" alt="" />
+        <img src="../icons/bg2.jpg" alt="" />
     </div>
     <div class="main">
         <div class="panel">我的信息</div>
+
+        <div class="userinfo">
+            <div class="level bg-secondary">Lv{{ attacker.level }}</div>
+
+        </div>
+
+
         <div class="top flex">
             <div class="health-bar">
                 <div class="current-health"
                     style="width: calc({{ attacker.current_health }} / {{ attacker.max_health }} * 100%)"></div>
                 <div class="health-text">{{ attacker.current_health }} / {{ attacker.max_health }}</div>
             </div>
-            <div class="level bg-secondary">Lv{{ attacker.level }}</div>
+
         </div>
         <div class="user-info flex text-icon-md">
             <div class="flex column center left">
