@@ -1,145 +1,139 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="../css/info.css">
+    <link rel="stylesheet" href="../css/globals.css" />
+    <link rel="stylesheet" href="../css/info.css" />
 </head>
 
 <body>
-    <div class="bg flex">
-        <img src="../icons/bg2.jpg" alt="" />
-    </div>
-    <div class="main">
-        <div class="panel">我的信息</div>
-
-        <div class="userinfo">
-            <div class="level bg-secondary">Lv{{ attacker.level }}</div>
-
-        </div>
-
-
-        <div class="top flex">
-            <div class="health-bar">
-                <div class="current-health"
-                    style="width: calc({{ attacker.current_health }} / {{ attacker.max_health }} * 100%)"></div>
-                <div class="health-text">{{ attacker.current_health }} / {{ attacker.max_health }}</div>
-            </div>
-
-        </div>
-        <div class="user-info flex text-icon-md">
-            <div class="flex column center left">
-                <div class="count flex space-between">
-                    <div class="gamble flex">
-                        {% if attacker.gamble_times %}
-                        {% for index in range(attacker.gamble_times) %}
-                        <img class="icon-sm" src="../icons/gamble.png" alt="" />
-                        {% endfor %}
-                        {% else %}
-                        <img class="icon-sm grayscale" src="../icons/gamble.png" alt="" />
-                        {% endif %}
-                    </div>
-                    <div class="pk flex">
-                        {% if attacker.pk_times %}
-                        {% for index in range(attacker.pk_times) %}
-                        <img class="icon-sm" src="../icons/pk.png" alt="" />
-                        {% endfor %}
-                        {% else %}
-                        <img class="icon-sm grayscale" src="../icons/pk.png" alt="" />
-                        {% endif %}
-                    </div>
+    <div class="userinfo">
+        <div class="overlap-group-wrapper">
+            <div class="overlap-group">
+                <div class="background-panel">
+                    <img class="userinfo-background" src="../icons/userinfo-background.png" />
                 </div>
-                <div class="middle">
-                    <div class="avatar flex"><img src="../character/{{ attacker.avatar_src }}" alt="" /></div>
-                </div>
-
-                <div class="bottom">
-                    <div class="flex space-between name" style="width: 100%;">
-                        <div class="flex center">
-                            <img class="icon-sm" src="../icons/name.png" alt="" />
-                            <span class="username">{{ attacker.name }}</span>
+                <div class="property-panel">
+                    <div class="property-panel-left">
+                        <div class="property-group">
+                            <img class="img" src="../icons/power.png" />
+                            <div class="property-value">{{user_info.power}}</div>
                         </div>
-                        <div class="flex center">
-                            <img class="icon-sm" src="../icons/profession.png" alt="" />
-                            <span>{{ attacker.profession }}</span>
+                        <div class="property-group">
+                            <img class="img" src="../icons/sword.png" />
+                            <div class="property-value">{{user_info.physical_attack}}</div>
+                        </div>
+                        <div class="property-group">
+                            <img class="img" src="../icons/physical-defense.png" />
+                            <div class="property-value">{{user_info.physical_defense}}</div>
+                        </div>
+                        <div class="property-group">
+                            <img class="img" src="../icons/physical-critical-chance.png" />
+                            <div class="property-value">{{user_info.physical_critical_chance}}</div>
+                        </div>
+                        <div class="property-group">
+                            <img class="img" src="../icons/magical-critical-chance.png" />
+                            <div class="property-value">{{user_info.magical_critical_chance}}</div>
+                        </div>
+                        <div class="property-group">
+                            <img class="img" src="../icons/speed.png" />
+                            <div class="property-value">{{user_info.speed}}</div>
+                        </div>
+                        <div class="property-group">
+                            <img class="img" src="../icons/accuracy.png" />
+                            <div class="property-value">{{user_info.accuracy}}</div>
                         </div>
                     </div>
+                    <div class="property-panel-right">
+                        <div class="property-group">
+                            <img class="img" src="../icons/gold.png" />
+                            <div class="property-value">{{user_info.gold}}</div>
+                        </div>
+                        <div class="property-group">
+                            <img class="img" src="../icons/wand.png" />
+                            <div class="property-value">{{user_info.magical_attack}}</div>
+                        </div>
+                        <div class="property-group">
+                            <img class="img" src="../icons/magical-defense.png" />
+                            <div class="property-value">{{user_info.magical_defense}}</div>
+                        </div>
+
+                        <div class="property-group">
+                            <img class="img" src="../icons/magical-critical-damage.png" />
+                            <div class="property-value">{{user_info.magical_critical_damage}}</div>
+                        </div>
+
+                        <div class="property-group">
+                            <img class="img" src="../icons/physical-critical-damage.png" />
+                            <div class="property-value">{{user_info.physical_critical_damage}}</div>
+                        </div>
+                        <div class="property-group">
+                            <img class="img" src="../icons/luck.png" />
+                            <div class="property-value">{{user_info.luck}}</div>
+                        </div>
+                        <div class="property-group">
+                            <img class="img" src="../icons/evasion.png" />
+                            <div class="property-value">{{user_info.evasion}}</div>
+                        </div>
+                    </div>
                 </div>
-
-
+                <div class="gamble-panel">
+                    {% if user_info.gamble_times %}
+                    {% for index in range(user_info.gamble_times) %}
+                    <img class="gamble-image" src="../icons/gamble.png" alt="" />
+                    {% endfor %}
+                    {% else %}
+                    <img class="gamble-image grayscale" src="../icons/gamble.png" alt="" />
+                    {% endif %}
+                </div>
+                <div class="pk-panel">
+                    {% if user_info.pk_times %}
+                    {% for index in range(user_info.pk_times) %}
+                    <img class="pk-image" src="../icons/pk.png" alt="" />
+                    {% endfor %}
+                    {% else %}
+                    <img class="pk-image grayscale" src="../icons/pk.png" alt="" />
+                    {% endif %}
+                </div>
+                <div class="equipment-panel">
+                    {% if equipments %}
+                    {% for equipment in equipments %}
+                    <img class="img-2" src="../icons/{{ equipment.resource }}" />
+                    {% endfor %}
+                    {% else %}
+                    <span>该角色暂未使用任何装备</span>
+                    {% endif %}
+                </div>
+                <div class="character-panel">
+                    <img class="avatar" src="../character/{{user_info.avatar_src}}" />
+                </div>
+                <div class="skill-panel">
+                    {% if skillss %}
+                    {%for skill in skills %}
+                    <div class="skill-group">
+                        <img class="skill-image" src="../icons/{{skill.resource}}" />
+                        <div class="skill-description">{{skill.description}}</div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <div class="skill-group">
+                        <span>该角色暂未领悟任何技能</span>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="introduce-panel">
+                    <div class="text-wrapper">{{ user_info.user_description}}</div>
+                </div>
+                <div class="title">角色面板</div>
+                <div class="level">
+                    LV
+                    <br />
+                    {{ user_info.level }}
+                </div>
+                <div class="honor">{{ user_info.honor }}</div>
+                <div class="name">{{ user_info.name }}</div>
             </div>
-
-            <div class="info space-between right flex">
-
-                <div class="attribute-group flex column">
-                    <div class="flex center attribute">
-                        <img class="icon-md" src="../icons/power.png" alt="" />
-                        <span>{{ attacker.power }}</span>
-                    </div>
-                    <div class="flex center attribute">
-                        <img class="icon-md" src="../icons/sword.png" alt="" />
-                        <span>{{ attacker.physical_attack }}</span>
-                    </div>
-                    <div class="flex center attribute">
-                        <img class="icon-md" src="../icons/physical-defense.png" alt="" />
-                        <span>{{ attacker.physical_defense }}</span>
-                    </div>
-                    <div class="flex center attribute">
-                        <img class="icon-md" src="../icons/physical_critical_chance.png" alt="" />
-                        <span>{{ attacker.physical_critical_chance }}</span>
-                    </div>
-                    <div class="flex center attribute">
-                        <img class="icon-md" src="../icons/magical_critical_chance.png" alt="" />
-                        <span>{{ attacker.magical_critical_chance }}</span>
-                    </div>
-                    <div class="flex center attribute">
-                        <img class="icon-md" src="../icons/speed.png" alt="" />
-                        <span>{{ attacker.speed }}</span>
-                    </div>
-                    <div class="flex center attribute">
-                        <img class="icon-md" src="../icons/accuracy.png" alt="" />
-                        <span>{{ attacker.accuracy }}</span>
-                    </div>
-                </div>
-
-
-                <div class="attribute-group flex column">
-                    <div class="flex center attribute">
-                        <img class="icon-md" src="../icons/gold.png" alt="" />
-                        <span>{{ attacker.gold }}</span>
-                    </div>
-                    <div class="flex center attribute">
-                        <img class="icon-md" src="../icons/wand.png" alt="" />
-                        <span>{{ attacker.magical_attack }}</span>
-                    </div>
-                    <div class="flex center attribute">
-                        <img class="icon-md" src="../icons/magical-defense.png" alt="" />
-                        <span>{{ attacker.magical_defense }}</span>
-                    </div>
-                    <div class="flex center attribute">
-                        <img class="icon-md" src="../icons/physical_critical_damage.png" alt="" />
-                        <span>{{ attacker.physical_critical_damage }}</span>
-                    </div>
-                    <div class="flex center attribute">
-                        <img class="icon-md" src="../icons/magical_critical_damage.png" alt="" />
-                        <span>{{ attacker.magical_critical_damage }}</span>
-                    </div>
-                    <div class="flex center attribute">
-                        <img class="icon-md" src="../icons/luck.png" alt="" />
-                        <span>{{ attacker.luck }}</span>
-                    </div>
-                    <div class="flex center attribute">
-                        <img class="icon-md" src="../icons/evasion.png" alt="" />
-                        <span>{{ attacker.evasion }}</span>
-                    </div>
-                </div>
-
-            </div>
-
         </div>
-
     </div>
 </body>
 

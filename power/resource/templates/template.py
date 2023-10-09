@@ -170,7 +170,7 @@ context1 = {
 
 
 context2 = {
-    "attacker": {
+    "user_info": {
         "level": 1,
         "gamble_times": 3,
         "pk_times": 0,
@@ -195,7 +195,12 @@ context2 = {
         "luck": 130,
         "accuracy": 130,
         "evasion": 130,
-    }}
+
+    },
+    "equipments": [
+        {"resource": "./test/1.jpg"}
+    ]
+}
 
 
 # 定义模板

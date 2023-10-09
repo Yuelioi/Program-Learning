@@ -1,0 +1,17 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.skill-description {
+    word-wrap: break-word;
+}
+
+.grayscale {
+    filter: grayscale(1);
+}
+
+.user-info .level {
+    top: 536px !important;
+}
