@@ -1,25 +1,29 @@
-import torch
-from transformers import AutoTokenizer, AutoModelForTokenClassification
+# coding:utf-8
 import itertools
 import os
 from nnsplit import NNSplit
 
+from pysubs2 import SSAFile
 import pysubs2
-# coding:utf-8
+
+from typing import List
 
 
-def srt2list(srt_file: str):
 
+def srt2list(srt_file: SSAFile):
+    """将字幕对象转为字幕/时间列表
+    Args:
+        srt_file (SSAFile): _description_
+    Returns:
+        _type_: _description_
+    """
     Timecode = [[], []]
     Subcode = []
 
-    s = pysubs2.load(srt_file)
-
-    for i in s:
-
-        Timecode[0].append(i.start / 1000)
-        Timecode[1].append(i.end / 1000)
-        Subcode.append(i.text.replace("\n", " ").replace("  ", " "))
+    for sub in srt_file:
+        Timecode[0].append(sub.start / 1000)
+        Timecode[1].append(sub.end / 1000)
+        Subcode.append(sub.text.replace("\n", " ").replace("  ", " "))
 
     return Subcode, Timecode
 
@@ -38,14 +42,14 @@ def find_all(content: str, sub: str):
     return index_list or False
 
 
-def sub_comb(s1, t1, lang='en'):
+def sub_comb(s1, t1, language='en'):
     ''' 用于合并短句
     :param s1,t1
     :return:s1,t1
     '''
     # 合并:把短字幕移至上一行 或者上两行
     print(' ----- 短句合并 sub_combine ----- ')
-    if lang == 'en':
+    if language == 'en':
         min_jug = 20
         max_jug = 150
         jug_sign = ' '
@@ -100,7 +104,7 @@ def sub_comb(s1, t1, lang='en'):
 
 def get_sbd(list):
     """  获取句子边界 并添加|   """
-    model = "models/en/model.onnx"
+    model = "functions/models/en/model.onnx"
 
     splitter = NNSplit(model)
     temp_content = '---'.join(list)
@@ -109,31 +113,40 @@ def get_sbd(list):
     return res.split("---")
 
 
-def sub_slc(sublist):
-    """  句根据术语 给字幕列表添加 |   """
-    sublist2 = sublist[:]
-    glossary = []
-    with open('glossarys/glossary_base.txt', encoding='utf-8') as f:
-        glossary.extend(line.split('\t')[0] for line in f)
-    glossary = glossary[1:]  # 用于第一行注释
+def sub_slc(sublist: List[str]):
+    """  句根据术语 给字幕列表添加 | """
+    sublist_new = sublist[:]
+    
+    with open('functions/glossarys/glossary_base.txt', encoding='utf-8') as f:
+        # 第一行用于注释
+        glossary = [line.split('\t')[0] for line in f][1:]
 
-    for i in range(len(sublist2)):
-        sub = sublist2[i]
+
+    for index,sub in enumerate(sublist_new):
         jug = 0
         pos_list = []
-        for sp in glossary:
-            t = f' {sub} '.find(f" {sp} ")
+        
+        for word in glossary:
+            
+            # 获得该字典中单词的位置
+            pos = f' {sub} '.find(f" {word} ")
+            
+            # 如果有临近位置 就跳过
             for k in pos_list:
-                if k < t < k + 10:
-                    t = -1
-            if jug == 3 or sp == glossary[-1]:
-                sublist2[i] = sub
+                if k < pos < k + 10:
+                    pos = -1
+                    
+            # 遍历完就结束
+            if jug == 3 or word == glossary[-1]:
+                sublist_new[index] = sub
                 break
-            elif t + 1:
-                pos_list.append(t)
+            
+            # 设置新的断点
+            elif pos + 1:
+                pos_list.append(pos)
                 jug += 1
-                sub = f"{sub[:t]}|{sub[t:]}"
-    return sublist2
+                sub = f"{sub[:pos]}|{sub[pos:]}"
+    return sublist_new
 
 
 def split_time(sublist, splitlist, timelist):
@@ -209,7 +222,7 @@ def split_time(sublist, splitlist, timelist):
 
 def sub_foward(sublist, timelist):
     """  句尾的单词 比如so/if，会并入下一句   """
-    with open('glossarys/sub_foward.txt', encoding='utf-8') as f:
+    with open('functions/glossarys/sub_foward.txt', encoding='utf-8') as f:
         txt = f.readlines()
         forward_list = [i.split('\n')[0] for i in txt]
         forward_listL = [len(i.split('\n')[0]) for i in txt]
@@ -244,7 +257,7 @@ def sub_tooshort(subb, timm):
     """ 字幕精细处理 比如and断句提前"""
     # 如果出现 not all arguments converted during string formatting ，需要再加判断
 
-    with open(r'glossarys\sentence_foward.txt', encoding='utf-8') as f:
+    with open(r'functions/glossarys/sentence_foward.txt', encoding='utf-8') as f:
         txt = f.readlines()
 
     forward_list = [i.split('\n')[0] for i in txt]
@@ -300,18 +313,18 @@ def sub_tooshort(subb, timm):
                 TIM[1][i-1] = TIM[1][i]
                 SUB[i-1] = f'{SUB[i - 1]} {subL}'
 
-                _extracted_from_sub_tooshort_61(TIM, i, SUB)
+                _extracted_tooshort(TIM, i, SUB)
             else:
                 TIM[0][i+1] = TIM[0][i]
                 SUB[i+1] = f'{subL} {SUB[i + 1]}'
 
-                _extracted_from_sub_tooshort_61(TIM, i, SUB)
+                _extracted_tooshort(TIM, i, SUB)
                 link = 1
     return SUB, TIM
 
 
 # TODO Rename this here and in `sub_tooshort`
-def _extracted_from_sub_tooshort_61(TIM, i, SUB):
+def _extracted_tooshort(TIM, i, SUB):
     TIM[0][i] = ''
     TIM[1][i] = ''
     SUB[i] = ''
@@ -330,20 +343,20 @@ def clear_blank(s, t):
     return S, T
 
 
-def sub_toolong(subb, timm, limit):
+def sub_toolong(subb, timm, limit=150):
 
     glossary = []
-    with open(r'glossarys\too_long.txt', encoding='utf-8') as f:
+    with open(r'functions/glossarys/too_long.txt', encoding='utf-8') as f:
         glossary.extend(line.split('\t')[0] for line in f)
     glossary = glossary[1:]  # 用于第一行注释
 
-    long = int(limit)
+
     SS = []
     TT = [[], []]
     for i in range(len(subb)):
         subLen = len(subb[i])
         mid = 0
-        if subLen > long:
+        if subLen > limit:
             for sp in glossary:
                 mid_temp = (subb[i]).find(f" {sp} ")
                 if subLen*1/4 < mid_temp < subLen*3/4:
@@ -374,7 +387,7 @@ def sub_tichun_en(subb):
 
     glossary = []
     glossaryL = []
-    with open(r'glossarys\en_error.txt', encoding='utf-8') as f:
+    with open(r'functions/glossarys/en_error.txt', encoding='utf-8') as f:
         for line in f:
             glossary.append(line.split('\t')[0])
             glossaryL.append(line.split('\t')[1].split('\n')[0])
@@ -386,32 +399,38 @@ def sub_tichun_en(subb):
     return subb
 
 
+def progress(srt:SSAFile):
+    s_original, t_original = srt2list(srt)
+    s_temp = get_sbd(s_original)
+    s_temp = sub_slc(s_temp)
+    
+    s1, t1 = split_time(s_original, s_temp, t_original)
+    s2,t2 = sub_foward(s1, t1)
+    s3,t3 =sub_toolong(s2,t2,150)
+    s3,t3 =sub_toolong(s3,t3,150)
+    return s3,t3
+
+def generate_sub(s,t):
+    ssFile = SSAFile()
+    
+    for i in range(len(s)):
+        ssFile.append(pysubs2.SSAEvent(start=t[0][i]*1000, end=t[1][i]*1000, text=s[i]))
+    ssFile.save("TEST.ASS")
+    
+    
 if __name__ == '__main__':
     os.chdir(os.path.dirname(__file__))
 
-    srt_file = r"../1\1_Shape Layer TRANSITIONS in Adobe After Effects Tutorial YDc23KCZ0y0.en.srt"
-
-    s_original, t_original = srt2list(srt_file)
-
-    # sub_tooshort()
-
-    # print(sub_tooshort(s1,t1))
+    srt = pysubs2.load(r"E:\Project\Program-Learning\Python\Projects\youtube_downloader\output\1_CRAZY After Effects Technique The Power Pin Sandwich OPzXwJENZUg.en.srt")
+    s_original, t_original = srt2list(srt)
     s_temp = get_sbd(s_original)
-    # for i in range(len(s1)):
-    #     print(s1[i] + "\n" + s_temp[i])
-    #     print()
-
-    # print(s_temp)
     s_temp = sub_slc(s_temp)
-    # print(s_temp)
-
     s1, t1 = split_time(s_original, s_temp, t_original)
+    s2,t2 = sub_foward(s1, t1)
+    s3,t3 =sub_toolong(s2,t2,150)
+    s3,t3 =sub_toolong(s3,t3,150)
+  
+    generate_sub(s3,t3)
 
-    for i in range(len(s1)):
-        # print(t1[0][i], s1[i])
-        ...
+    
 
-    # print(s1, t1)
-
-    text = "這是第一個句子。這是第二個句子。這是第三個句子。"
-    text = "in this tutorial you'll learn how to create this powerful shape layer transition using just one  effect and four keyframes i say it's powerful because it can be used in any infographic you can easily change the angle of the transition  procedurally"

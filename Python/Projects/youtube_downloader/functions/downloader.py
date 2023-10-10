@@ -84,6 +84,7 @@ def yt_dlp_download(url: str, output_path: str, down_video: bool = False, down_s
         # 'external_downloader': "D:/Program/aria2c.exe",
         # 'external_downloader_args': ['-j', '16', '-s', '16', '-x', '16', '-k', '2M', '-x', '16', '-k', '2M'],
         'proxy': '127.0.0.1:10809',
+        'legacy-server-connect':True,
         'format': 'bestvideo+bestaudio',
         'nocheckcertificate': True,
         'cookiefile': "cookie.txt"

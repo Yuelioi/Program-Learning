@@ -1,0 +1,41 @@
+注释	左边为术语，右边为优先级
+in this tutorial	16
+as you can see	14
+first of all	12
+here we are	11
+in my case	10
+as always	9
+I'm going	9
+all right	9
+and then	8
+not only	8
+secondly	8
+because	7
+and if	7
+I will	6
+I'll	6
+we'll	6
+we're	6
+if you	6
+if you're	6
+let it	6
+please	6
+select	6
+go to	5
+if we	5
+it is	5
+let's	5
+press	5
+so if	5
+maybe	5
+also	4
+I am	4
+and	3
+but	3
+now	3
+if	2
+then	2
+which	2
+so	5
+or	5
+you can	5
