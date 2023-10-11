@@ -9,7 +9,6 @@ import pysubs2
 from typing import List
 
 
-
 def srt2list(srt_file: SSAFile):
     """将字幕对象转为字幕/时间列表
     Args:
@@ -116,31 +115,30 @@ def get_sbd(list):
 def sub_slc(sublist: List[str]):
     """  句根据术语 给字幕列表添加 | """
     sublist_new = sublist[:]
-    
+
     with open('functions/glossarys/glossary_base.txt', encoding='utf-8') as f:
         # 第一行用于注释
         glossary = [line.split('\t')[0] for line in f][1:]
 
-
-    for index,sub in enumerate(sublist_new):
+    for index, sub in enumerate(sublist_new):
         jug = 0
         pos_list = []
-        
+
         for word in glossary:
-            
+
             # 获得该字典中单词的位置
             pos = f' {sub} '.find(f" {word} ")
-            
+
             # 如果有临近位置 就跳过
             for k in pos_list:
                 if k < pos < k + 10:
                     pos = -1
-                    
+
             # 遍历完就结束
             if jug == 3 or word == glossary[-1]:
                 sublist_new[index] = sub
                 break
-            
+
             # 设置新的断点
             elif pos + 1:
                 pos_list.append(pos)
@@ -239,16 +237,16 @@ def sub_foward(sublist, timelist):
                 tim_move = (timelist[1][i] - timelist[0][i]) * \
                     len(forward_listL[j]) / len(sublist[i])
                 timelist[1][i] = timelist[1][i] - tim_move
-                timelist[0][i+1] = timelist[0][i+1] + tim_move
+                timelist[0][i + 1] = timelist[0][i + 1] + tim_move
             except:
                 pass
-            if sublist[i].endswith(' all') and sublist[i+1].startswith('right '):
+            if sublist[i].endswith(' all') and sublist[i + 1].startswith('right '):
                 sublist[i] = sublist[i][:-3]
                 sublist[i + 1] = f'all {sublist[i + 1]}'
                 tim_move = (timelist[1][i] - timelist[0]
                             [i]) * 3 / len(sublist[i])
                 timelist[1][i] = timelist[1][i] - tim_move
-                timelist[0][i+1] = timelist[0][i+1] + tim_move
+                timelist[0][i + 1] = timelist[0][i + 1] + tim_move
 
     return sublist, timelist
 
@@ -274,23 +272,23 @@ def sub_tooshort(subb, timm):
             continue
         if len(subL) < jug:
             if i < len(subb) - 3:
-                for bb in subb[i:i+3]:
+                for bb in subb[i:i + 3]:
                     if len(bb) >= jug:
                         break
-                    SUB[i+link] = ''
-                    TIM[0][i+link] = ''
-                    TIM[1][i+link] = ''
+                    SUB[i + link] = ''
+                    TIM[0][i + link] = ''
+                    TIM[1][i + link] = ''
                     link += 1
                 if subL.lower().split(' ')[0] in forward_list:
                     check = True
 
-                if check or i == 0 or (subb[i+1].split(' ')[0]):
+                if check or i == 0 or (subb[i + 1].split(' ')[0]):
                     if len(SUB[i + link]) < jug:
-                        SUB[i + link-1] = ' '.join(subb[i:i+link])
-                        TIM[0][i + link-1] = timm[0][i]
-                        TIM[1][i + link-1] = timm[1][i + link-1]
+                        SUB[i + link - 1] = ' '.join(subb[i:i + link])
+                        TIM[0][i + link - 1] = timm[0][i]
+                        TIM[1][i + link - 1] = timm[1][i + link - 1]
                     else:
-                        SUB[i + link] = ' '.join(subb[i:i+link+1])
+                        SUB[i + link] = ' '.join(subb[i:i + link + 1])
                         TIM[0][i + link] = timm[0][i]
                         link += 1
 
@@ -301,22 +299,22 @@ def sub_tooshort(subb, timm):
                     TIM[1][i - 1] = timm[1][i]
 
                     if len(SUB[i + link]) < jug:
-                        SUB[i + link-1] = ' '.join(subb[i+1:i+link])
-                        TIM[0][i + link-1] = timm[0][i+1]
-                        TIM[1][i + link-1] = timm[1][i + link-1]
+                        SUB[i + link - 1] = ' '.join(subb[i + 1:i + link])
+                        TIM[0][i + link - 1] = timm[0][i + 1]
+                        TIM[1][i + link - 1] = timm[1][i + link - 1]
                     else:
-                        SUB[i + link] = ' '.join(subb[i+1:i+link+1])
-                        TIM[0][i + link] = timm[0][i+1]
+                        SUB[i + link] = ' '.join(subb[i + 1:i + link + 1])
+                        TIM[0][i + link] = timm[0][i + 1]
                         link += 1
                 link -= 1
             elif i == len(subb) - 1:
-                TIM[1][i-1] = TIM[1][i]
-                SUB[i-1] = f'{SUB[i - 1]} {subL}'
+                TIM[1][i - 1] = TIM[1][i]
+                SUB[i - 1] = f'{SUB[i - 1]} {subL}'
 
                 _extracted_tooshort(TIM, i, SUB)
             else:
-                TIM[0][i+1] = TIM[0][i]
-                SUB[i+1] = f'{subL} {SUB[i + 1]}'
+                TIM[0][i + 1] = TIM[0][i]
+                SUB[i + 1] = f'{subL} {SUB[i + 1]}'
 
                 _extracted_tooshort(TIM, i, SUB)
                 link = 1
@@ -343,13 +341,16 @@ def clear_blank(s, t):
     return S, T
 
 
-def sub_toolong(subb, timm, limit=150):
+def sub_toolong(subb, timm, limit=150, force_remove=True):
 
-    glossary = []
     with open(r'functions/glossarys/too_long.txt', encoding='utf-8') as f:
-        glossary.extend(line.split('\t')[0] for line in f)
-    glossary = glossary[1:]  # 用于第一行注释
 
+        lines = f.readlines()
+
+    glossary = [line.split('\t')[0] for line in lines[1:]]
+    glossaryLevel = [int(line.split('\t')[1]) for line in lines[1:]]
+
+    gl_max = 0
 
     SS = []
     TT = [[], []]
@@ -357,13 +358,15 @@ def sub_toolong(subb, timm, limit=150):
         subLen = len(subb[i])
         mid = 0
         if subLen > limit:
-            for sp in glossary:
-                mid_temp = (subb[i]).find(f" {sp} ")
-                if subLen*1/4 < mid_temp < subLen*3/4:
-                    mid = mid_temp
-                    break
-            if not mid:
-                print(f"这些句子因为过长被吃掉(分割)了：{subb[i]}")
+            for widx, word in enumerate(glossary):
+                mid_temp = (subb[i]).find(f" {word} ")
+                if subLen * 1 / 6 < mid_temp < subLen * 5 / 6:
+                    if gl_max < glossaryLevel[widx]:
+                        gl_max = glossaryLevel[widx]
+                        mid = mid_temp
+
+            if not mid and force_remove:
+                # print(f"这些句子因为过长被吃掉(分割)了：{subb[i]}")
                 mid = subb[i].find(" ", round(subLen / 2))
 
             midTime = timm[0][i] + mid / subLen * (timm[1][i] - timm[0][i])
@@ -399,38 +402,40 @@ def sub_tichun_en(subb):
     return subb
 
 
-def progress(srt:SSAFile):
+def progress(srt: SSAFile):
     s_original, t_original = srt2list(srt)
     s_temp = get_sbd(s_original)
     s_temp = sub_slc(s_temp)
-    
-    s1, t1 = split_time(s_original, s_temp, t_original)
-    s2,t2 = sub_foward(s1, t1)
-    s3,t3 =sub_toolong(s2,t2,150)
-    s3,t3 =sub_toolong(s3,t3,150)
-    return s3,t3
 
-def generate_sub(s,t):
+    s1, t1 = split_time(s_original, s_temp, t_original)
+    s2, t2 = sub_foward(s1, t1)
+    s3, t3 = sub_toolong(s2, t2, 150, force_remove=False)
+    s3, t3 = sub_toolong(s3, t3, 150)
+    # s3, t3 = sub_tooshort(s3, t3)
+
+    return s3, t3
+
+
+def generate_sub(s, t):
     ssFile = SSAFile()
-    
+
     for i in range(len(s)):
-        ssFile.append(pysubs2.SSAEvent(start=t[0][i]*1000, end=t[1][i]*1000, text=s[i]))
+        ssFile.append(pysubs2.SSAEvent(
+            start=t[0][i] * 1000, end=t[1][i] * 1000, text=s[i]))
     ssFile.save("TEST.ASS")
-    
-    
+
+
 if __name__ == '__main__':
     os.chdir(os.path.dirname(__file__))
 
-    srt = pysubs2.load(r"E:\Project\Program-Learning\Python\Projects\youtube_downloader\output\1_CRAZY After Effects Technique The Power Pin Sandwich OPzXwJENZUg.en.srt")
+    srt = pysubs2.load(
+        r"E:\Project\Program-Learning\Python\Projects\youtube_downloader\output\1_CRAZY After Effects Technique The Power Pin Sandwich OPzXwJENZUg.en.srt")
     s_original, t_original = srt2list(srt)
     s_temp = get_sbd(s_original)
     s_temp = sub_slc(s_temp)
     s1, t1 = split_time(s_original, s_temp, t_original)
-    s2,t2 = sub_foward(s1, t1)
-    s3,t3 =sub_toolong(s2,t2,150)
-    s3,t3 =sub_toolong(s3,t3,150)
-  
-    generate_sub(s3,t3)
+    s2, t2 = sub_foward(s1, t1)
+    s3, t3 = sub_toolong(s2, t2, 150)
+    s3, t3 = sub_toolong(s3, t3, 150)
 
-    
-
+    generate_sub(s3, t3)

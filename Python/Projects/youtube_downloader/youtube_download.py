@@ -1,11 +1,11 @@
 import re
 from tqdm import tqdm
 
-from functions.util import (get_playlistId_by_link,                             get_urls_by_playlistId,
+from functions.util import (get_playlistId_by_link, get_urls_by_playlistId,
                             is_old_sub
                             )
 
-from functions.sub_progress import  progress
+from functions.sub_progress import progress
 from functions.translator import tran_deepl_pro_auto
 from functions.downloader import yt_dlp_download
 import pysubs2
@@ -48,34 +48,31 @@ def srt_progress(currentPath):
     if srt_subs := glob.glob(f"{currentPath}*.srt"):
         srt = srt_subs[0]
         ssFile_old = pysubs2.load(srt)
-        s,t = progress(ssFile_old)
+        s, t = progress(ssFile_old)
         ssFile_new = pysubs2.SSAFile()
         for i in range(len(s)):
-            ssFile_new.append(pysubs2.SSAEvent(start=t[0][i]*1000, end=t[1][i]*1000, text=s[i]))
+            ssFile_new.append(pysubs2.SSAEvent(
+                start=t[0][i] * 1000, end=t[1][i] * 1000, text=s[i]))
         ssFile_new.save(srt)
-        
-        
-        
+
 
 def vtt2srt(currentPath):
     if vtt_subs := glob.glob(f"{currentPath}*.vtt"):
         vtt = vtt_subs[0]
         line = None
-        
+
         if is_old_sub(vtt):
             new_sub = pysubs2.SSAFile()
             srt_sub = pysubs2.load(vtt)
 
             for idx, sub in enumerate(srt_sub):
-                if idx % 3 == 0:
-                    if line:
-                        line = pysubs2.SSAEvent(start=line.end, end=sub.end, text="")
-                    else:
-                        line = pysubs2.SSAEvent(start=sub.start, end=sub.end, text="")
-                elif idx % 3 == 1:
-                    line.text = sub.text
+                if idx % 2 == 0:
+                    line = pysubs2.SSAEvent(
+                        start=sub.start, end=sub.end, text="")
                 else:
+                    line.text = sub.text
                     new_sub.append(line)
+
             srt_sub = new_sub
         else:
             srt_sub = pysubs2.load(vtt)
@@ -137,13 +134,12 @@ if __name__ == "__main__":
     os.chdir(os.path.dirname(__file__))
     url = "https://www.youtube.com/playlist?list=PL0n2FoJqwC_N7P5VSv4I8lC1Y5QfLN8u0"
     url = "https://www.youtube.com/watch?v=OPzXwJENZUg&ab_channel=JakeInMotion"
-    main(url)
-    
-    
-    currentPath = r"E:\Project\Program-Learning\Python\Projects\youtube_downloader\output\1_CRAZY After Effects Technique The Power Pin Sandwich OPzXwJENZUg.en"
-    
+    # main(url)
+
+    currentPath = r"E:\Scripting\Program-Learning\Python\Projects\youtube_downloader\output\1_CRAZY After Effects Technique The Power Pin Sandwich OPzXwJENZUg"
+
     # srtClean(r'E:\Project\Program-Learning\Python\Projects\1\\')
     # sub_clean(currentPath=currentPath)
     # vtt2srt(currentPath=currentPath)
-    # srt_progress(currentPath=currentPath)
+    srt_progress(currentPath=currentPath)
     # srt2zh(currentPath=currentPath)
