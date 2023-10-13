@@ -20,8 +20,10 @@ os.chdir(os.path.dirname(__file__))
 def main(url):
     if PLAYLIST_ID := get_playlistId_by_link(url):
         urls = get_urls_by_playlistId(PLAYLIST_ID)
+        prefix = True
     else:
         urls = [url]
+        prefix = False
 
     for idx, url in tqdm(enumerate(urls)):
         print(f"{idx +1}/{len(urls)}")
@@ -33,7 +35,7 @@ def main(url):
                     down_sub=True,
                     down_video=True,
                     down_thumbnail=True,
-                    prefix=f"{idx+1}_"
+                    prefix=f"{idx+1}_" if prefix else ""
             ):
 
                 vtt2srt(currentPath)
@@ -51,8 +53,9 @@ def srt_progress(currentPath):
         s, t = progress(ssFile_old)
         ssFile_new = pysubs2.SSAFile()
         for i in range(len(s)):
-            ssFile_new.append(pysubs2.SSAEvent(
-                start=t[0][i] * 1000, end=t[1][i] * 1000, text=s[i]))
+            if s[i] !="":
+                ssFile_new.append(pysubs2.SSAEvent(
+                    start=t[0][i] * 1000, end=t[1][i] * 1000, text=s[i]))
         ssFile_new.save(srt)
 
 
@@ -133,13 +136,13 @@ if __name__ == "__main__":
 
     os.chdir(os.path.dirname(__file__))
     url = "https://www.youtube.com/playlist?list=PL0n2FoJqwC_N7P5VSv4I8lC1Y5QfLN8u0"
-    url = "https://www.youtube.com/watch?v=OPzXwJENZUg&ab_channel=JakeInMotion"
-    # main(url)
+    url = "https://www.youtube.com/watch?v=PerFI3xPXtI&ab_channel=JakeInMotion"
+    main(url)
 
-    currentPath = r"E:\Scripting\Program-Learning\Python\Projects\youtube_downloader\output\1_CRAZY After Effects Technique The Power Pin Sandwich OPzXwJENZUg"
+    currentPath = r"E:\Project\Program-Learning\Python\Projects\youtube_downloader\output\1_CRAZY After Effects Technique The Power Pin Sandwich OPzXwJENZUg"
 
     # srtClean(r'E:\Project\Program-Learning\Python\Projects\1\\')
     # sub_clean(currentPath=currentPath)
     # vtt2srt(currentPath=currentPath)
-    srt_progress(currentPath=currentPath)
+    # srt_progress(currentPath=currentPath)
     # srt2zh(currentPath=currentPath)
