@@ -1,10 +1,12 @@
 from PIL import Image
 
-bg = Image.open("./test/1.png")
+bg = Image.open("./test/0.png")
+
+bg = bg.convert('RGBA')
 
 user = Image.open("./test/1.jpg")
 
-target_size = 610
+target_size = 255
 
 target_width = max(target_size, min(
     target_size * user.width // user.height, user.width))
@@ -28,7 +30,7 @@ rotated_user = user_cropped_resized.rotate(
 
 
 result = Image.new('RGBA', bg.size, (0, 0, 0, 0))
-result.paste(rotated_user, (240, 325))
+result.paste(rotated_user, (55, 135))
 result.paste(bg, (0, 0), mask=bg.getchannel("A"))
 
 

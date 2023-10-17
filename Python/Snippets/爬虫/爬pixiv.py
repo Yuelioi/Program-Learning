@@ -9,6 +9,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 url = "https://api.lolicon.app/setu/v2?tag=loli"
+url = "https://api.lolicon.app/setu/v2"
 
 url_list = set()
 
