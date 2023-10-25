@@ -136,7 +136,7 @@ if __name__ == "__main__":
 
     os.chdir(os.path.dirname(__file__))
     url = "https://www.youtube.com/playlist?list=PL0n2FoJqwC_N7P5VSv4I8lC1Y5QfLN8u0"
-    url = "https://www.youtube.com/watch?v=PerFI3xPXtI&ab_channel=JakeInMotion"
+    url = "https://www.youtube.com/watch?v=2vjoMYD4oZM&ab_channel=KADOKAWAanime"
     main(url)
 
     currentPath = r"E:\Project\Program-Learning\Python\Projects\youtube_downloader\output\1_CRAZY After Effects Technique The Power Pin Sandwich OPzXwJENZUg"
