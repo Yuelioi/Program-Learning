@@ -6,7 +6,7 @@ x64
 node_modules
 _test
 test
-Python\share
+Python/share
 
 cache/
 work
@@ -32,4 +32,8 @@ Adobe/dist
 
 .lock
 target
+
+# CPP
+
+CPP/Web/Curl/curl-8.4.0
 

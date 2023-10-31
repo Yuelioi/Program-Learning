@@ -1,0 +1,3 @@
+安装:  https://llvm.org/builds/.  clang-format.exe can be found in C:\Program Files\LLVM\bin.
+vsc配置: "clang-format.executable": "C:/Program Files/LLVM/bin/clang-format.exe"
+文件配置  .clang-format

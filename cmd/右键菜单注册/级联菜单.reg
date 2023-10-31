@@ -1,0 +1,27 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\Directory\Background\Shell\Menu1]
+"MUIVerb"="Apps"
+"SubCommands"="notepad;calc;chrome"
+"icon"="explorer.exe"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\shell\notepad]
+@="Notepad"
+"icon"="notepad.exe"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\shell\notepad\command]
+@="notepad.exe"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\shell\calc]
+@="Calculator"
+"icon"="calc.exe"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\shell\calc\command]
+@="calc.exe"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\shell\chrome]
+@="Google Chrome"
+"icon"="C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\shell\chrome\command]
+@="C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
