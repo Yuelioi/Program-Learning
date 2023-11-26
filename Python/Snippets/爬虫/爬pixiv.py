@@ -52,7 +52,7 @@ async def get_url():
 
             file_names = get_file_names("./cache")
 
-            file_name = f"{pid} #{' #'.join(tags)}.jpg"
+            file_name = f"{pid}.jpg"
             file_name = filter_filename(file_name)
 
             if file_name in file_names:
