@@ -5,7 +5,7 @@ sudo yum update
 sudo yum install certbot
 
 创建通配符证书
-sudo certbot certonly -w /etc/letsencrypt/live/.yuelili.com -d "*.yuelili.com" --manual --preferred-challenges dns-01  --server https://acme-v02.api.letsencrypt.org/directory
+sudo certbot certonly -w /etc/letsencrypt/live/yuelili.com -d "*.yuelili.com" --manual --preferred-challenges dns-01  --server https://acme-v02.api.letsencrypt.org/directory
 
 certbot certonly -w /etc/letsencrypt/live/www.yuelili.com -d www.yuelili.com -d yuelili.com --manual --preferred-challenges dns-01  --server https://acme-v02.api.letsencrypt.org/directory
 

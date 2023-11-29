@@ -15,7 +15,7 @@ size_t HeaderCallback(void* contents, size_t size, size_t nmemb, std::string* ou
     return total_size;
 }
 
-int main2() {
+int main_curl() {
     // ≥ı ºªØ cURL
     CURL* curl = curl_easy_init();
     if (curl) {

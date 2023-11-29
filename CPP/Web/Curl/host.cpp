@@ -3,9 +3,10 @@
 
 #include <iostream>
 
+
 #pragma comment(lib, "ws2_32.lib")  // 链接到Winsock库
 
-int main() {
+int main_host() {
     // 初始化Winsock
     WSADATA wsaData;
     if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {

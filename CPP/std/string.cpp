@@ -4,14 +4,13 @@ using namespace std;
 
 // https://zh.cppreference.com/w/cpp/string/basic_string
 
-int main()
-{
+int main() {
     // 构造
     string foo = "hello";
     string str2 = "Hello 中国";
     string str3("Hello");
-    string str5(str2);       // 拷贝构造
-    string str6(str2, 2, 3); // 范围构造, 从[A,A+B]范围 => llo
+    string str5(str2);        // 拷贝构造
+    string str6(str2, 2, 3);  // 范围构造, 从[A,A+B]范围 => llo
 
     // 拼接
     // str6 + "xx";
@@ -45,7 +44,7 @@ int main()
     */
 
     // 比较 starts_with
-    if (foo.ends_with("11")) {
+    if (foo.starts_with("11")) {
         // do something
     }
 
