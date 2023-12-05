@@ -1,21 +1,33 @@
 1.数据库
-    www.yuelili.com
-    docs.yuelili.com
-    drive.yuelili.com
-    tool
-    pw
+www.yuelili.com
+docs.yuelili.com
+drive.yuelili.com
+tool
+pw
 
 2.网站内容
+...
+
+3.
+projects/
+api
+drive
+nobot1
+
 
 3.bot.yuelili.com
 
-    location /api/ {
-        proxy_pass http://127.0.0.1:9077;
+location / api / {
+    proxy_pass http://127.0.0.1:9077;
         proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X- Real - IP $remote_addr;
+        proxy_set_header X - Forwarded - For $proxy_add_x_forwarded_for;
+        proxy_set_header X - Forwarded - Proto $scheme;
     }
+
+
+projects
+
 
 4.drive
 反向代理 12104
@@ -25,6 +37,49 @@
 
 6.bot
 
+7.api
+
+location / {
+    proxy_pass http://127.0.0.1:12200;  # 这里填写你的FastAPI应用程序运行的地址和端口
+        proxy_set_header Host $host;
+    proxy_set_header X- Real - IP $remote_addr;
+    proxy_set_header X - Forwarded - For $proxy_add_x_forwarded_for;
+
+    # 添加以下配置以启用CORS
+    add_header 'Access-Control-Allow-Origin' '*';
+    add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+    add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+    add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+
+if ($request_method = 'OPTIONS') {
+        add_header 'Access-Control-Allow-Origin' '*';
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+        add_header 'Content-Type' 'text/plain charset=UTF-8';
+        add_header 'Content-Length' 0;
+    return 204;
+}
+}
+
 
 SSL
 certbot
+
+
+listen 443 ssl http2;
+    #HTTP_TO_HTTPS_END
+    ssl_certificate    /etc/letsencrypt/live/yuelili.com/fullchain.pem;
+    ssl_certificate_key    /etc/letsencrypt/live/yuelili.com/privkey.pem;
+    ssl_protocols TLSv1.1 TLSv1.2 TLSv1.3;
+    ssl_ciphers EECDH+CHACHA20:EECDH+CHACHA20-draft:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256:EECDH+3DES:RSA+3DES:!MD5;
+    ssl_prefer_server_ciphers on;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 10m;
+    add_header Strict-Transport-Security "max-age=31536000";
+    error_page 497  https://$host$request_uri;
+
+    #SSL-END
+
+
+
+/etc/supervisor/conf.d
+几个config
