@@ -7,7 +7,7 @@ sudo apt install certbot
 创建通配符证书
 sudo certbot certonly -w /etc/letsencrypt/live/yuelili.com -d "*.yuelili.com" --manual --preferred-challenges dns-01  --server https://acme-v02.api.letsencrypt.org/directory
 
-certbot certonly -w /etc/letsencrypt/live/www.yuelili.com -d www.yuelili.com -d yuelili.com --manual --preferred-challenges dns-01  --server https://acme-v02.api.letsencrypt.org/directory
+certbot certonly -w /etc/letsencrypt/live/yuelili -d yuelili.com --manual --preferred-challenges dns-01  --server https://acme-v02.api.letsencrypt.org/directory
 
 然后添加DNS记录
 
@@ -26,4 +26,4 @@ sudo crontab -e
 
 证书管理
 查看 sudo certbot certificates
-删除 sudo certbot delete --cert-name yuelili.com
+删除 sudo certbot delete --cert-name www.yuelili.com
