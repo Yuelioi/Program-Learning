@@ -1,6 +1,6 @@
 import aiohttp
 import asyncio
-from bs4 import BeautifulSoup
+# from bs4 import BeautifulSoup
 
 
 asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
@@ -27,5 +27,7 @@ async def main(url):
 
 
 loop = asyncio.get_event_loop()
+tasks = [loop.create_task(main("11"))]
+
 loop.run_until_complete(
     main('https://api.ixiaowai.cn/ylapi/index.php/?code=json'))
