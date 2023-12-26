@@ -4,6 +4,7 @@
 
 [WordPress Rest API 最细接口详解_瓜子三百克的博客-CSDN博客_wordpress调用api接口](https://blog.csdn.net/weixin_38633659/article/details/105924225)
 
+[投稿(Posts)｜WP-REST-APIリファレンス](https://wp-rest-api.mydocument.jp/reference/posts/)
 
 ```html
 filter
@@ -14,5 +15,3 @@ http://www.yuelili.com//wp-json/jwt-auth/v1/token?username=yueli&password=yuelil
 
 
 ```
-
-
