@@ -1,0 +1,233 @@
+{
+    "policy": {
+        "system": {
+            "statsOutboundUplink": true,
+            "statsOutboundDownlink": true
+        }
+    },
+    "log": {
+        "access": "",
+        "error": "",
+        "loglevel": "warning"
+    },
+    "inbounds": [
+        {
+            "tag": "socks",
+            "port": 10808,
+            "listen": "127.0.0.1",
+            "protocol": "socks",
+            "sniffing": {
+                "enabled": true,
+                "destOverride": ["http", "tls"]
+            },
+            "settings": {
+                "auth": "noauth",
+                "udp": true,
+                "allowTransparent": false
+            }
+        },
+        {
+            "tag": "http",
+            "port": 10809,
+            "listen": "127.0.0.1",
+            "protocol": "http",
+            "sniffing": {
+                "enabled": true,
+                "destOverride": ["http", "tls"]
+            },
+            "settings": {
+                "auth": "noauth",
+                "udp": true,
+                "allowTransparent": false
+            }
+        },
+        {
+            "tag": "socks2",
+            "port": 10810,
+            "listen": "0.0.0.0",
+            "protocol": "socks",
+            "sniffing": {
+                "enabled": true,
+                "destOverride": ["http", "tls"]
+            },
+            "settings": {
+                "auth": "password",
+                "udp": true,
+                "allowTransparent": false,
+                "accounts": [
+                    {
+                        "user": "root",
+                        "pass": "root"
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "http2",
+            "port": 10811,
+            "listen": "0.0.0.0",
+            "protocol": "http",
+            "sniffing": {
+                "enabled": true,
+                "destOverride": ["http", "tls"]
+            },
+            "settings": {
+                "auth": "password",
+                "udp": true,
+                "allowTransparent": false,
+                "accounts": [
+                    {
+                        "user": "root",
+                        "pass": "root"
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "api",
+            "port": 1143,
+            "listen": "127.0.0.1",
+            "protocol": "dokodemo-door",
+            "settings": {
+                "udp": false,
+                "address": "127.0.0.1",
+                "allowTransparent": false
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "tag": "proxy",
+            "protocol": "shadowsocks",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "g01xxx",
+                        "port": 483,
+                        "method": "aes-256-gcm",
+                        "password": "944b4478-a1e8xx",
+                        "ota": false
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "direct",
+            "protocol": "freedom",
+            "settings": {}
+        },
+        {
+            "tag": "block",
+            "protocol": "blackhole",
+            "settings": {
+                "response": {
+                    "type": "http"
+                }
+            }
+        }
+    ],
+    "stats": {},
+    "api": {
+        "tag": "api",
+        "services": ["StatsService"]
+    },
+    "routing": {
+        "domainStrategy": "IPIfNonMatch",
+        "domainMatcher": "linear",
+        "rules": [
+            {
+                "type": "field",
+                "inboundTag": ["api"],
+                "outboundTag": "api",
+                "enabled": true
+            },
+            {
+                "type": "field",
+                "inboundTag": [],
+                "outboundTag": "proxy",
+                "domain": [
+                    "domain:openai",
+                    "domain:translate.googleapis.com",
+                    "geosite:geolocation-!cn",
+                    "domain:unity3d",
+                    "geosite:apple",
+                    "geosite:bbc",
+                    "geosite:facebook",
+                    "geosite:github",
+                    "geosite:gitlab",
+                    "geosite:google",
+                    "geosite:microsoft",
+                    "geosite:netflix",
+                    "geosite:pixiv",
+                    "geosite:reddit",
+                    "geosite:steam",
+                    "geosite:telegram",
+                    "geosite:twitch",
+                    "geosite:twitter",
+                    "geosite:unity",
+                    "domain:vrchat.cloud",
+                    "domain:vrchat.com",
+                    "domain:daumcdn.net",
+                    "domain:api2.amplitude.com",
+                    "domain:lastpass.com",
+                    "domain:cdn.cookielaw.org",
+                    "domain:ingest.sentry.io"
+                ],
+                "enabled": true
+            },
+            {
+                "type": "field",
+                "inboundTag": [],
+                "outboundTag": "direct",
+                "domain": ["geosite:cn"],
+                "enabled": true
+            },
+            {
+                "type": "field",
+                "inboundTag": [],
+                "outboundTag": "direct",
+                "ip": ["geoip:cn", "geoip:private"],
+                "enabled": true
+            },
+            {
+                "type": "field",
+                "inboundTag": [],
+                "outboundTag": "direct",
+                "domain": [
+                    "domain:acglala.me",
+                    "domain:alicloudccp.com",
+                    "domain:aliyundrive.net",
+                    "domain:api.vrchat.cloud",
+                    "domain:bimiacg4.com",
+                    "domain:pkmp4.com",
+                    "domain:steamserver.net",
+                    "domain:steamstatic.com",
+                    "domain:volccdn.com",
+                    "domain:woyaochong101.cc",
+                    "domain:yuelili.com",
+                    "domain:api.tabnine.com",
+                    "geosite:cn",
+                    "//cdp.cloud.unity3d.com",
+                    "kookapp.cn",
+                    "kaiheila.cn",
+                    "zh.cppreference.com"
+                ],
+                "enabled": true
+            },
+            {
+                "type": "field",
+                "inboundTag": [],
+                "outboundTag": "direct",
+                "ip": ["1.116.109.232", "111.229.238.18"],
+                "enabled": true
+            },
+            {
+                "type": "field",
+                "port": "0-65535",
+                "inboundTag": [],
+                "outboundTag": "direct",
+                "enabled": true
+            }
+        ]
+    }
+}
