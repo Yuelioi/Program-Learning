@@ -12,47 +12,11 @@ a = 114124
 # callable() #
 
 
-def fun():
-    ...
 
 
-callable(fun)  # True
 
 
-class FUN:
-    def __call__(self):
-        ...
 
-
-callable(FUN())  # True
-
-
-# @classmethod 把一个方法封装成类方法。
-# 参见 https://www.cnblogs.com/baxianhua/p/10845620.html
-
-
-class C:
-    y = "类属性"
-
-    def __init__(self, x) -> None:
-        self.x = x
-
-    def test(self):
-        print(self.x)
-
-    @classmethod
-    def f(cls, arg1):
-        print(cls.y, arg1)
-
-
-# C("实例化对象属性").f(20) # 类属性 20
-# c = C("实例化对象属性").test() # 实例化对象属性
-
-# compile()
-# compile(source, filename, mode, flags=0, dont_inherit=False, optimize=- 1)
-# 将 source 编译成代码或 AST 对象
-
-# complex() # 复数
 
 # delattr()
 

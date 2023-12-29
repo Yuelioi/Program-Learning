@@ -23,3 +23,12 @@ chr(16515)  # 䂃
 
 # hex()
 hex(255)  # 十六进制 '0xff'
+
+
+
+# compile()
+# compile(source, filename, mode, flags=0, dont_inherit=False, optimize=- 1)
+# 将 source 编译成代码或 AST 对象
+
+# complex() # 复数
+
