@@ -12,12 +12,6 @@ a = 114124
 # callable() #
 
 
-
-
-
-
-
-
 # delattr()
 
 # dict() 字典
@@ -29,7 +23,7 @@ dir(__builtins__)  # 指定作用域
 divmod(10, 3)  # (3, 1)
 
 # enumerate()
-seasons = ['Spring', 'Summer', 'Fall', 'Winter']
+seasons = ["Spring", "Summer", "Fall", "Winter"]
 # [(0, 'Spring'), (1, 'Summer'), (2, 'Fall'), (3, 'Winter')]
 list(enumerate(seasons))
 # [(1, 'Spring'), (2, 'Summer'), (3, 'Fall'), (4, 'Winter')]
@@ -37,7 +31,7 @@ list(enumerate(seasons, start=1))
 
 
 # eval() 解析表达式=>结果 慎用
-eval('a+1')  # => a+1的结果
+eval("a+1")  # => a+1的结果
 
 # exec()
 # exec('print("hello")') # hello
@@ -55,8 +49,8 @@ a = float(10)  # 10.0
 
 
 # 使用字典
-person = {'name': 'John', 'age': 30}
-'My name is {0[name]} and I am {0[age]} years old.'.format(person)
+person = {"name": "John", "age": 30}
+"My name is {0[name]} and I am {0[age]} years old.".format(person)
 # Output: My name is John and I am 30 years old.
 
 # frozenset()
@@ -121,7 +115,7 @@ def add():
 
 # map() => 迭代器
 
-list(map(lambda x: x+1, numbers))  # [2, 3, 4, 5, 6, 7]
+list(map(lambda x: x + 1, numbers))  # [2, 3, 4, 5, 6, 7]
 
 
 # max()
