@@ -1,21 +1,16 @@
-
 import os
 from pathlib import Path
 
+dir_path = "Rust"
+# tag walk 每次迭代都是根目录/文件夹/文件
+for root, dirs, files in os.walk(dir_path):
+    for file in files:
+        print(file)
 
-def loop_folder(root_dir):
-    """
-    获取文件名称
-    root : 所在文件夹(完整路径)
-    dirs: 当前文件夹子文件夹列表
-    files: 当前文件夹子文件列表
-    """
-
-    for root, dirs, files in os.walk(root_dir + "\\final"):
-        for file in files:
-            print(file)
+print("---------------")
 
 
+# tag scandir 只遍历一次
 def loop_folder_new(folder_path):
     # 遍历文件夹中的所有文件和子文件夹
     for entry in os.scandir(folder_path):
@@ -26,4 +21,21 @@ def loop_folder_new(folder_path):
             ...
 
 
-root_dir = "E:\Project\docs_ue\测试"
+print("---------------")
+
+
+import glob
+
+directory_path = "./Python"
+image_files = glob.glob("Python/**/*.*", recursive=True)
+
+for image_path in image_files:
+    print(image_path)
+
+
+print("---------------")
+files = os.listdir(dir_path)
+
+for file in files:
+    file_path = os.path.join(dir_path, file)
+    # 处理文件或目录
