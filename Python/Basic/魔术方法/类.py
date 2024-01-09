@@ -4,7 +4,7 @@ from collections.abc import Iterable
 
 class Element(object):
     log = False
-    __slots__ = ["x", "data"]  # 实例属性白名单
+    __slots__ = ["x", "_data"]  # 实例属性白名单
 
     # tag 创建与销毁
     def __new__(cls, x):
@@ -16,8 +16,8 @@ class Element(object):
         # 创建object后 初始化
         print("__init__")
         self.x = x
+        self._data = x
 
-        self.data = "xx"
 
     def __del__(self):
         # 释放时(有点像析构), 跟del不一样, 不太可控
@@ -146,6 +146,24 @@ class Element(object):
         lst = super().__dir__()
         return [el for el in lst if not el.startswith("__")]
 
+    def __getitem__(self,key):
+        """使用 a[0]这种方式调用时"""
+        print("__getitem__",key)
+        return self._data[key]
+    
+    def __setitem__(self,key,value):
+        """使用 a[0]这种方式调用时"""
+        print("__setitem__",key)
+        self._data[key] = value
+    def __delitem__(self,key):
+        """使用 a[0]这种方式调用时"""
+        print("__delitem__",key)
+        self._data[key]  = self._data[:key] + self._data[key+1:]
+        
+    def __reverse__(self):
+        return Element(self.data[::-1])
+        
+
     def __class_getitem__(cls, item):
         """使用 A[0]这种方式调用时"""
         print("__class_getitem__", item)
@@ -155,6 +173,10 @@ class Element(object):
         """给给基类, 用子类instance of的时候可用"""
         print("__mro_entries__", bases)
         return (Element,)
+    
+    def __len__(self):
+        # 如果没有bool 会尝试调用len
+        ...
 
 
 class Parent:
