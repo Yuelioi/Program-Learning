@@ -1,2 +1,0 @@
-ufw allow 10809/tcp
-ufw allow 10808/tcp
