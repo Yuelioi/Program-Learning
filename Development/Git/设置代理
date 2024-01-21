@@ -1,0 +1,8 @@
+C:\Users\yl\.gitconfig
+
+忘了是哪个生效了
+
+[http]
+	proxy = socks5://127.0.0.1:10808
+[https]
+	proxy = https://127.0.0.1:10809
