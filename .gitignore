@@ -4,6 +4,8 @@ x64
 .vscode
 .obsidian
 node_modules
+dist
+build
 _test
 test
 Python/share
