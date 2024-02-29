@@ -1,6 +1,6 @@
 AI生成视频: https://app.runwayml.com/ 105秒免费
 
-AI图片 https://imgcreator.zmo.ai/ai-generato 1天10张
+AI图片 https://imgcreator.zmo.ai 1天10张
 
 https://deepai.org/ 免费
 
