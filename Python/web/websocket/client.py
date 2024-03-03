@@ -1,4 +1,3 @@
-import webbrowser
 from dataclasses import field, asdict, dataclass
 
 import socketio
@@ -17,16 +16,10 @@ class Message:
 
 
 sio = socketio.Client()
-
-
-@sio.event
-def on_event(data):
-    webbrowser.open(data)
-
-
-sio.on(f"ev_{event_name}", on_event)
 sio.connect("https://server.yuelili.com")
+
 msg = Message(owner="999", data={"raw": "是的"})
-sio.emit("message", asdict(msg))
+sio.emit(f"message", asdict(msg))
+
 
 sio.wait()
