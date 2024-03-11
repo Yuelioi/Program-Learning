@@ -26,4 +26,5 @@ sudo crontab -e
 
 证书管理
 查看 sudo certbot certificates
-删除 sudo certbot delete --cert-name www.yuelili.com
+删除 sudo certbot delete
+删除存档  /etc/letsencrypt/archive
