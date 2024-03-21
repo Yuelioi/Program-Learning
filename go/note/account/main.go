@@ -3,6 +3,7 @@ package main
 import (
 	// "context"
 	"fmt"
+	"os"
 	// "log"
 	// "net/http"
 	// "os"
@@ -19,15 +20,9 @@ func (m myInt) greet() {
 }
 
 func main() {
-	m := make(map[int]string)
-	m[0] = "1"
+	var d any = 100
 
-	fmt.Println(m)
-
-	var d myInt = 100
-	d.greet()
-
-	fmt.Println(d)
+	os.Open(name string).var name type	
 
 	// you could insert your favorite logger here for structured or leveled logging
 	// log.Println("Starting server...")
