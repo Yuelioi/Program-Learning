@@ -10,6 +10,8 @@ import (
 	"github.com/jacobsngoodwin/memrizr/account/model/apperrors"
 )
 
+const E = 1
+
 // Handler struct holds required services for handler to function
 type Handler struct {
 	UserService  model.UserService

@@ -1,9 +1,8 @@
 package main
 
 import (
-	// "context"
 	"fmt"
-	"os"
+	"hello/utils"
 	// "log"
 	// "net/http"
 	// "os"
@@ -13,16 +12,12 @@ import (
 	// "github.com/gin-gonic/gin"
 )
 
-type myInt int
-
-func (m myInt) greet() {
-	m = 20
-}
-
 func main() {
-	var d any = 100
-
-	os.Open(name string).var name type	
+	sum := utils.Add(1, 2)
+	fmt.Println(134)
+	fmt.Println(sum)
+	fmt.Println(sum)
+	fmt.Println(sum)
 
 	// you could insert your favorite logger here for structured or leveled logging
 	// log.Println("Starting server...")
