@@ -54,7 +54,3 @@ func scan() {
 	}
 
 }
-
-func main() {
-	scan()
-}

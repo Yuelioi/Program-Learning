@@ -1,3 +1,3 @@
-module biji
+module note
 
 go 1.22.1
