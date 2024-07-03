@@ -4,7 +4,8 @@ import itertools
 from typing import List
 
 import pysubs2
-from nnsplit import NNSplit
+
+# from nnsplit import NNSplit
 from pysubs2 import SSAFile
 
 
@@ -102,11 +103,11 @@ def get_sbd(list):
     """获取句子边界 并添加|"""
     model = "functions/models/en/model.onnx"
 
-    splitter = NNSplit(model)
-    temp_content = "---".join(list)
-    splits = splitter.split([temp_content])
-    res = "".join(f"{str(sentence)}|" for sentence in splits[0])
-    return res.split("---")
+    # splitter = NNSplit(model)
+    # temp_content = "---".join(list)
+    # splits = splitter.split([temp_content])
+    # res = "".join(f"{str(sentence)}|" for sentence in splits[0])
+    # return res.split("---")
 
 
 def sub_slc(sublist: List[str]):

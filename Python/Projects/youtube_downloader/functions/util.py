@@ -1,21 +1,22 @@
+# from nnsplit import NNSplit
+import os
 import re
-import requests
 import json
-from .secret import youtube_key as API_KEY
 from pathlib import Path
 
+import requests
 
-from nnsplit import NNSplit
-import os
+from .secret import youtube_key as API_KEY
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 os.chdir(script_dir)
 
 
 def split_long_sub(text):
-    splitter = NNSplit("models/en/model.onnx")
-    splits = splitter.split([text])
-    return [str(sentence).strip() for sentence in splits[0]]
+    # splitter = NNSplit("models/en/model.onnx")
+    # splits = splitter.split([text])
+    # return [str(sentence).strip() for sentence in splits[0]]
+    return []
 
 
 def is_old_sub(vtt: str):
@@ -24,12 +25,12 @@ def is_old_sub(vtt: str):
 
 
 def get_videoId_by_link(url: str):
-    if result := re.search('(?<=v=).+?(?=$|&)', url):
+    if result := re.search("(?<=v=).+?(?=$|&)", url):
         return result[0]
 
 
 def get_playlistId_by_link(url: str):
-    if result := re.search('(?<=list=).+?(?=$|&)', url):
+    if result := re.search("(?<=list=).+?(?=$|&)", url):
         return result[0]
 
 
@@ -41,12 +42,12 @@ def get_urls_by_playlistId(PLAYLIST_ID: str):
         [type]: url list
     """
     # Set up the API endpoint and request parameters
-    url = 'https://www.googleapis.com/youtube/v3/playlistItems'
+    url = "https://www.googleapis.com/youtube/v3/playlistItems"
     params = {
-        'part': 'snippet',
-        'playlistId': PLAYLIST_ID,
-        'maxResults': 50,
-        'key': API_KEY,
+        "part": "snippet",
+        "playlistId": PLAYLIST_ID,
+        "maxResults": 50,
+        "key": API_KEY,
     }
 
     # Send the API request and retrieve all playlist items
@@ -54,13 +55,12 @@ def get_urls_by_playlistId(PLAYLIST_ID: str):
     next_page_token = None
     while True:
         if next_page_token:
-            params['pageToken'] = next_page_token
+            params["pageToken"] = next_page_token
         response = requests.get(url, params=params)
         response_json = json.loads(response.text)
-        items = response_json.get('items', [])
-        video_urls += [
-            f"https://www.youtube.com/watch?v={item['snippet']['resourceId']['videoId']}" for item in items]
-        next_page_token = response_json.get('nextPageToken')
+        items = response_json.get("items", [])
+        video_urls += [f"https://www.youtube.com/watch?v={item['snippet']['resourceId']['videoId']}" for item in items]
+        next_page_token = response_json.get("nextPageToken")
         if not next_page_token:
             break
 

@@ -4,7 +4,8 @@ import glob
 
 import pysubs2
 from tqdm import tqdm
-from functions.sub_progress import progress
+
+# from functions.sub_progress import progress
 from functions.downloader import yt_dlp_download
 from functions.translator import tran_deepl_pro_auto
 from functions.util import is_old_sub, get_playlistId_by_link, get_urls_by_playlistId
@@ -35,8 +36,8 @@ def main(url):
             ):
 
                 vtt2srt(currentPath)
-                srt_progress(currentPath)
-                srt2zh(currentPath)
+                # srt_progress(currentPath)
+                # srt2zh(currentPath)
                 ...
         except:
             continue
@@ -45,13 +46,13 @@ def main(url):
 def srt_progress(currentPath):
     if srt_subs := glob.glob(f"{currentPath}*.srt"):
         srt = srt_subs[0]
-        ssFile_old = pysubs2.load(srt)
-        s, t = progress(ssFile_old)
-        ssFile_new = pysubs2.SSAFile()
-        for i in range(len(s)):
-            if s[i] != "":
-                ssFile_new.append(pysubs2.SSAEvent(start=t[0][i] * 1000, end=t[1][i] * 1000, text=s[i]))
-        ssFile_new.save(srt)
+        # ssFile_old = pysubs2.load(srt)
+        # s, t = progress(ssFile_old)
+        # ssFile_new = pysubs2.SSAFile()
+        # for i in range(len(s)):
+        #     if s[i] != "":
+        #         ssFile_new.append(pysubs2.SSAEvent(start=t[0][i] * 1000, end=t[1][i] * 1000, text=s[i]))
+        # ssFile_new.save(srt)
 
 
 def vtt2srt(currentPath):
@@ -116,14 +117,14 @@ if __name__ == "__main__":
 
     os.chdir(os.path.dirname(__file__))
     # url = "https://www.youtube.com/playlist?list=PLujDTZWVDSsFGonP9kzAnvryowW098-p3"
-    # url = "https://www.youtube.com/watch?v=2vjoMYD4oZM&ab_channel=KADOKAWAanime"
-    # main(url)
+    url = "https://www.youtube.com/watch?v=IHf3JWkxUXA&t=1s&ab_channel=TheTechDad"
+    main(url)
 
-    currentPath = r"E:\Project\Program-Learning\Python\Projects\youtube_downloader\output\1_Rive 101 - 2.0 Getting Started with Rive UNPgrK-qtsA"
+    # currentPath = r"E:\Project\Program-Learning\Python\Projects\youtube_downloader\output\1_Rive 101 - 2.0 Getting Started with Rive UNPgrK-qtsA"
 
     # srtClean(r'E:\Project\Program-Learning\Python\Projects\1\\')
     # sub_clean(currentPath=currentPath)
     # vtt2srt(currentPath=currentPath)
     # srt_progress(currentPath=currentPath)
     # srt2zh(currentPath=currentPath)
-    srt2ass(currentPath=currentPath)
+    # srt2ass(currentPath=currentPath)
