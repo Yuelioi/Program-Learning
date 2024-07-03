@@ -119,7 +119,7 @@ pypng==0.20220715.0
 pyreadline3==3.4.1
 PySocks==1.7.1
 pysrt==1.1.2
-pysubs2==1.6.1
+pysubs2
 pytest==7.4.0
 pytest-base-url==2.0.0
 pytest-playwright==0.3.3
