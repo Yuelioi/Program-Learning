@@ -1,5 +1,9 @@
 https://www.bilibili.com/video/av46317897
 
+https://www.bilibili.com/video/av371680524/
+
+https://juejin.cn/post/6975653973550170126?share_token=e10ab50a-882d-41ce-b5b1-57d5cf6cc6f7
+
 块级格式化内容
 
 容器内元素不会影响容器外元素
@@ -7,14 +11,11 @@ https://www.bilibili.com/video/av46317897
 触发规则
 
 
-![[../../../ASSETS/Pasted image 20220526022007 1.png]]
-
-
 常用 2 种
 
 .lbf-content { overflow: hidden; }  缺点: 子元素要定位到父元素的外面可能会被隐藏
 
-.lbf-content { 
+.lbf-content {
 　 display: table-cell; width: 9999px;
 　 /* 如果不需要兼容IE7，下面样式可以省略 */
 　 *display: inline-block; *width: auto;
@@ -24,7 +25,7 @@ https://www.bilibili.com/video/av46317897
 
 1 ) 浮动元素, 父级元素坍塌
 ![[../../../ASSETS/Pasted image 20220523191107 1.png]]
-给父元素添加 
+给父元素添加
 -overflow:hidden
 -display:table-cell
 -display:block
